@@ -26,6 +26,9 @@
  * Une trace d'execution.
  */
 
+#ifndef TYPES_H
+#define TYPES_H
+
 typedef struct terme_s Terme;
 
 typedef struct subst_s {
@@ -52,4 +55,6 @@ struct terme_s {
 		Argument* arguments;
 	} contenu_terme;
 };
+
+#endif
 
