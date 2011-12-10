@@ -8,23 +8,75 @@
 
 #include "affichage.h"
 #include "donnees.h"
+#include <stdio.h>
+#include <assert.h>
+#include <stdlib.h>
 
-void afficher_solution(void)
+void afficher_solutions(void)
 {
-	/*
-	soit S l’ensemble des solutions
-	soit p <- S soit i un entier = 1
+	// Solutions s;
+	Solutions p = s;
+	int i = 1;
 	
-	if (S non nul)
+	if (s != NULL)
 	{
-		while (p non nul)
+		while (p != NULL)
 		{
-			afficher “Xi =” + en_texte(p->terme_droit.) i = i+1 p = p->suivant
+			printf("X%d = ", i);
+			afficher_terme(p->terme_droit);
+			printf("\n");
+			
+			i++;
+			p = p->suivant;
 		}
 	}
 	else
 	{
-		afficher “Système insoluble”
+		puts("Système insoluble");
 	}
-	 */
+	
+}
+
+void afficher_terme(Terme terme)
+{
+	assert(terme != NULL);
+	
+	switch(terme->type_terme)
+	{
+		case 1: // variable
+			printf("X%d", terme->contenu_terme.val);
+			break;
+			
+		case 2: // constante
+			printf("%d", terme->contenu_terme.val);
+			break;
+			
+		case 30:
+		case 31:
+		case 32:
+		case 33:
+			printf("F(");
+			afficher_argument(terme->contenu_terme.arguments);
+			printf(")");
+			break;
+			
+		default:
+			fprintf(stderr, "type de terme invalide");
+			abort();
+			break;
+	}
+}
+
+void afficher_argument(Argument arg)
+{
+	assert(arg != NULL);
+	
+	if (arg->terme_argument)
+	{
+		afficher_terme(arg->terme_argument);
+		printf(" ");
+	}
+	
+	if (arg->suivant)
+		afficher_argument(arg->suivant);
 }

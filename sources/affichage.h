@@ -29,6 +29,10 @@
 #ifndef AFFICHAGE_H
 #define AFFICHAGE_H
 
-void afficher_solution(void);
+#include "Types.h"
+
+void afficher_solutions(void);
+void afficher_terme(Terme terme);
+void afficher_argument(Argument arg);
 
 #endif
