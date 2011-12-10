@@ -1,10 +1,11 @@
-//
-//  affichage.c
-//  Algo1A
-//
-//  Created by Ceylo on 10/12/11.
-//  Copyright 2011 Yalir. All rights reserved.
-//
+/**
+ * ESIL (Ecole Superieure d'Ingenieurs de Luminy, Marseille)
+ * Case 925 - 163, avenue de Luminy
+ * 13288 Marseille CEDEX 9
+ *
+ * Ce fichier est l'oeuvre d'eleves de l'ESIL. Il ne peut etre
+ * reproduit, utilise ou modifie sans l'avis express de ses auteurs.
+ */ 
 
 #include "affichage.h"
 #include "donnees.h"
@@ -32,7 +33,7 @@ void afficher_solutions(void)
 	}
 	else
 	{
-		puts("Système insoluble");
+		puts("Système insoluble ou pas encore résolu");
 	}
 	
 }
@@ -54,7 +55,7 @@ void afficher_terme(Terme terme)
 		case 30:
 		case 31:
 		case 32:
-		case 33:
+		case 33: // fonction
 			printf("F(");
 			afficher_argument(terme->contenu_terme.arguments);
 			printf(")");
