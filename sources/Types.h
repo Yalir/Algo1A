@@ -29,30 +29,30 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-typedef struct terme_s Terme;
+typedef struct terme_s *Terme;
 
 typedef struct subst_s {
-	Terme* terme_droit;
+	Terme terme_droit;
 	struct subst_s* suivant;
 } *Solutions;
 
 typedef struct equation_s {
-	Terme* terme_gauche;
-	Terme* terme_droit;
+	Terme terme_gauche;
+	Terme terme_droit;
 	struct equation_s* suivant;
 } Equation, *Systeme;
 
 
 typedef struct argument_s {
-	Terme* terme_argument;
+	Terme terme_argument;
 	struct argument_s* suivant ;
-} Argument;
+} *Argument;
 
 struct terme_s {
 	int type_terme;
 	union {
 		int val;
-		Argument* arguments;
+		Argument arguments;
 	} contenu_terme;
 };
 
