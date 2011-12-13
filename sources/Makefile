@@ -1,25 +1,35 @@
 
-CC = gcc
-INCLUDES = 
-LIBRARIES = 
+CC = gcc -c
+LD = gcc
+INCLUDES =
+LIBRARIES =
 LIBRARIES_DIR =
 COMPILER_OPTIONS = -g -Wall
-LINKER_OPTIONS = 
+LINKER_OPTIONS =
 
-CFLAGS = $(INCLUDES) $(COMPILER_OPTIONS)
-LDFLAGS = $(LIBRARIES_DIR) $(LIBRARIES) $(LINKER_OPTIONS)
-all: algo
+CFLAGS =$(INCLUDES) $(COMPILER_OPTIONS)
+LDFLAGS =$(LIBRARIES_DIR) $(LIBRARIES) $(LINKER_OPTIONS)
 
-main.o : main.c affichage.h
-	$(CC) $(CFLAGS) -c main.c
+all: algo
+
+main.o : main.c affichage.h construction.h resolution.h
+	$(CC) main.c $(CFLAGS)
 
 donnees.o : donnees.h Types.h
-	$(CC) $(CFLAGS) -c donnees.c
+	$(CC) donnees.c $(CFLAGS)
 
 affichage.o : affichage.c affichage.h donnees.h Types.h
-	$(CC) $(CFLAGS) -c affichage.c
+	$(CC) affichage.c $(CFLAGS)
 
-algo: main.o donnees.o affichage.o
-	$(CC) -o algo $(LDFLAGS) main.o donnees.o affichage.o
+construction.o : construction.h
+	$(CC) construction.c $(CFLAGS)
+	
+resolution.o : resolution.h
+	$(CC) resolution.c $(CFLAGS)
 
-clean : rm -f *.o
+algo: main.o donnees.o affichage.o construction.o resolution.o
+	$(LD) -o algo main.o donnees.o affichage.o construction.o resolution.o $(LDFLAGS)
+
+clean:
+	rm -fv *.o
+
