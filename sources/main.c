@@ -2,6 +2,8 @@
 
 #include <stdio.h>
 #include "affichage.h"
+#include "construction.h"
+#include "resolution.h"
 
 /** @brief Breve description de la fonction.
  *
