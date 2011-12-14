@@ -15,16 +15,16 @@ all: algo
 main.o : main.c affichage.h construction.h resolution.h
 	$(CC) main.c $(CFLAGS)
 
-donnees.o : donnees.h Types.h
+donnees.o : donnees.h Types.h donnees.c
 	$(CC) donnees.c $(CFLAGS)
 
 affichage.o : affichage.c affichage.h donnees.h Types.h
 	$(CC) affichage.c $(CFLAGS)
 
-construction.o : construction.h
+construction.o : construction.h construction.c
 	$(CC) construction.c $(CFLAGS)
 	
-resolution.o : resolution.h
+resolution.o : resolution.h resolution.c
 	$(CC) resolution.c $(CFLAGS)
 
 algo: main.o donnees.o affichage.o construction.o resolution.o
