@@ -48,6 +48,12 @@ typedef struct argument_s {
 	struct argument_s* suivant ;
 } *Argument;
 
+typedef enum {
+	Variable = 1,
+	Constante = 2,
+	Fonction = 30
+} TypeTerme;
+
 struct terme_s {
 	int type_terme;
 	union {
