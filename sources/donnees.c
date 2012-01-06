@@ -15,56 +15,80 @@
 Solutions s = NULL;
 Systeme t = NULL;
 
-void init_solutions(void)
+
+Systeme creer_systeme(void)
 {
-	assert(s == NULL);
+    Systeme sys;
+    sys = (Systeme)malloc(sizeof(*sys));
 	
-	s = (Solutions)malloc(sizeof(*s));
-	
-	if (s == NULL)
+	if (sys == NULL)
 	{
 		fprintf(stderr, "malloc error\n");
 		abort();
 	}
 	else
 	{
-		s->terme_droit = NULL;
-		s->suivant = NULL;
-	}
+		sys->terme_gauche = NULL;
+		sys->terme_droit = NULL;
+		sys->suivant = NULL;
+		return sys;
+	}       
 }
 
-void init_systeme(void)
+Terme creer_terme(void)
 {
-	assert(t == NULL);
-	
-	t = (Systeme)malloc(sizeof(*t));
-	
-	if (t == NULL)
+	Terme te;
+	te = (Terme)malloc(sizeof(*te));
+
+	if(te == NULL)
 	{
 		fprintf(stderr, "malloc error\n");
 		abort();
 	}
 	else
 	{
-		t->terme_gauche = NULL;
-		t->terme_droit = NULL;
-		t->suivant = NULL;
+		te->type_terme = 0;
+		te->contenu_terme.arguments = (Argument)NULL;
+		te->contenu_terme.val = 0;
 	}
+	return te;
 }
 
-
-void destroy_solutions(Solutions sol)
+Argument creer_argument(void)
 {
-	assert(sol != NULL);
+	Argument a;
+	a = (Argument)malloc(sizeof(*a));
+
+	if(a == NULL)
+	{
+		fprintf(stderr, "malloc error\n");
+		abort();
+	}
+	else
+	{
+		a->suivant=NULL;
+		a->terme_argument=NULL;
+	}
+	return a;
+}
+
+Solutions creer_solutions(void)
+{
+	Solutions sol;
+	sol = (Solutions)malloc(sizeof(*sol));
 	
-	if (sol->terme_droit)
-		destroy_terme(sol->terme_droit);
+	if (sol == NULL)
+	{
+		fprintf(stderr, "malloc error\n");
+		abort();
+	}
+	else
+	{
+		sol->terme_droit = NULL;
+		sol->suivant = NULL;
+	}
 	
-	if (sol->suivant)
-		destroy_solutions(sol->suivant);
-	
-	
-	free(sol);
+	return sol;
 }
 
 void destroy_systeme(Systeme sys)
@@ -105,5 +129,19 @@ void destroy_argument(Argument arg)
 		destroy_argument(arg->suivant);
 	
 	free (arg);
+}
+
+void destroy_solutions(Solutions sol)
+{
+	assert(sol != NULL);
+	
+	if (sol->terme_droit)
+		destroy_terme(sol->terme_droit);
+	
+	if (sol->suivant)
+		destroy_solutions(sol->suivant);
+	
+	
+	free(sol);
 }
 

@@ -33,12 +33,14 @@
 extern Solutions s;
 extern Systeme t;
 
-void init_solutions(void);
-void init_systeme(void);
+Systeme creer_systeme(void);
+Terme creer_terme(void);
+Argument creer_argument(void);
+Solutions creer_solutions(void);
 
-void destroy_solutions(Solutions sol);
 void destroy_systeme(Systeme sys);
 void destroy_terme(Terme terme);
 void destroy_argument(Argument arg);
+void destroy_solutions(Solutions sol);
 
 #endif
