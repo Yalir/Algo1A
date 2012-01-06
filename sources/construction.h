@@ -29,7 +29,7 @@
 #ifndef CONSTRUCTION_H
 #define CONSTRUCTION_H
 
-void construire_systeme(void);
+Systeme construire_systeme(void);
 
 #endif
 

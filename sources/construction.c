@@ -14,9 +14,9 @@
 #include "construction.h"
 #include "donnees.h"
 
-void construire_systeme(void)
+Systeme construire_systeme(void)
 {
-	t = creer_systeme();
+	Systeme t = creer_systeme();
 	
 	// construire le premier systeme
 	// X3 = 2 
@@ -78,4 +78,6 @@ void construire_systeme(void)
 	
 	//F1(F2(1,X2),X3)
 	t->suivant->terme_droit->contenu_terme.arguments->suivant->terme_argument->contenu_terme.val=3; 
+	
+	return t;
 }
