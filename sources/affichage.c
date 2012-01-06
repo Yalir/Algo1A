@@ -44,18 +44,18 @@ void afficher_terme(Terme terme)
 	
 	switch(terme->type_terme)
 	{
-		case 1: // variable
+		case Variable:
 			printf("X%d", terme->contenu_terme.val);
 			break;
 			
-		case 2: // constante
+		case Constante:
 			printf("%d", terme->contenu_terme.val);
 			break;
 			
-		case 30:
-		case 31:
-		case 32:
-		case 33: // fonction
+		case Fonction:
+		case Fonction+1:
+		case Fonction+2:
+		case Fonction+3:
 			printf("F(");
 			afficher_argument(terme->contenu_terme.arguments);
 			printf(")");
