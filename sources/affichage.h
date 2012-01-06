@@ -31,8 +31,10 @@
 
 #include "Types.h"
 
-void afficher_solutions(void);
+void afficher_solutions(Solutions s);
+void afficher_systeme(Systeme sys);
 void afficher_terme(Terme terme);
 void afficher_argument(Argument arg);
+
 
 #endif

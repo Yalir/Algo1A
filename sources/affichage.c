@@ -9,33 +9,27 @@
 
 #include "affichage.h"
 #include "donnees.h"
+#include "Types.h"
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
 
-void afficher_solutions(void)
+void afficher_systeme(Systeme te)
 {
-	// Solutions s;
-	Solutions p = s;
-	int i = 1;
-	
-	if (s != NULL)
+	printf("{");
+	while (te != NULL)
 	{
-		while (p != NULL)
+		afficher_terme(te->terme_gauche);
+		printf(" = ");
+		afficher_terme(te->terme_droit);
+		te = te->suivant;
+		
+		if(te!=NULL)
 		{
-			printf("X%d = ", i);
-			afficher_terme(p->terme_droit);
-			printf("\n");
-			
-			i++;
-			p = p->suivant;
+			printf(", ");
 		}
 	}
-	else
-	{
-		puts("Système insoluble ou pas encore résolu");
-	}
-	
+	printf("}\n");
 }
 
 void afficher_terme(Terme terme)
@@ -56,7 +50,7 @@ void afficher_terme(Terme terme)
 		case Fonction+1:
 		case Fonction+2:
 		case Fonction+3:
-			printf("F(");
+			printf("F%d(", terme->type_terme - Fonction);
 			afficher_argument(terme->contenu_terme.arguments);
 			printf(")");
 			break;
@@ -75,9 +69,35 @@ void afficher_argument(Argument arg)
 	if (arg->terme_argument)
 	{
 		afficher_terme(arg->terme_argument);
-		printf(" ");
 	}
 	
 	if (arg->suivant)
+	{
+		printf(", ");
 		afficher_argument(arg->suivant);
+	}
+}
+
+void afficher_solutions(Solutions s)
+{
+	Solutions p = s;
+	int i = 1;
+	
+	if (s != NULL)
+	{
+		while (p != NULL)
+		{
+			printf("X%d = ", i);
+			afficher_terme(p->terme_droit);
+			printf("\n");
+			
+			i++;
+			p = p->suivant;
+		}
+	}
+	else
+	{
+		puts("Système insoluble ou pas encore résolu");
+	}
+	
 }
