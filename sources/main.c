@@ -4,6 +4,7 @@
 #include "affichage.h"
 #include "construction.h"
 #include "resolution.h"
+#include "donnees.h"
 #include "config.h"
 
 /** @brief Breve description de la fonction.
@@ -17,9 +18,11 @@
 
 int main (int argc, const char * argv[])
 {
-	construire_systeme();
-	traiter_systeme();
-	afficher_solutions();
+	Solutions s;
+	Systeme t = construire_systeme();
+	afficher_systeme(t);
+	s = traiter_systeme(t);
+	//afficher_solutions();
 	
 #if WINDOWS
 	system("PAUSE");
