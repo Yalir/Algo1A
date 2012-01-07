@@ -30,9 +30,6 @@
 
 #include "Types.h"
 
-extern Solutions s;
-extern Systeme t;
-
 /** @brief Créé un nouveau système vide initialisé
  * En cas d'erreur lors de la création, le programme est stoppé
  *

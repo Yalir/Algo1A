@@ -12,9 +12,6 @@
 #include <assert.h>
 #include <stdio.h>
 
-Solutions s = NULL;
-Systeme t = NULL;
-
 
 Systeme creer_systeme(void)
 {
