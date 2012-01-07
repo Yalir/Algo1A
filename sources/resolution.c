@@ -13,16 +13,16 @@
  #include <stdlib.h>
  #include <assert.h>
  
- void traiter_systeme(void)
- {
+Solutions traiter_systeme(Systeme sys)
+{
+	return NULL;
+}
  
- }
- 
- // après l’exécution de la fonction, dansSys contient l’équation qui 
+// après l’exécution de la fonction, dansSys contient l’équation qui 
 // doit être rajoutée au système, et dansSolu l’équation qui doit
 // être rajoutée aux solutions. Si l’un ou les deux paramètres
 // contiennent ‘rien’, il n’y a pas à les considérer
-void traiter_equation(Equation *e, Equation **dansSys, Equation **dansSolu)
+void traiter_equation(Solutions s, Equation *e, Equation **dansSys, Equation **dansSolu)
 {
 	assert(e != NULL);
 	assert(dansSys != NULL);

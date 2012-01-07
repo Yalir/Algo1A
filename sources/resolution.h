@@ -28,7 +28,9 @@
 #ifndef RESOLUTION_H
 #define RESOLUTION_H
 
-void traiter_systeme(void);
+#include "Types.h"
+
+Solutions traiter_systeme(Systeme sys);
 
 #endif
 
