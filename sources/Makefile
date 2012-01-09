@@ -6,11 +6,12 @@ LIBRARIES =
 LIBRARIES_DIR =
 COMPILER_OPTIONS = -g -Wall
 LINKER_OPTIONS =
+EXEC=algo
 
 CFLAGS =$(INCLUDES) $(COMPILER_OPTIONS)
 LDFLAGS =$(LIBRARIES_DIR) $(LIBRARIES) $(LINKER_OPTIONS)
 
-all: algo
+all: $(EXEC)
 
 main.o : main.c affichage.h construction.h resolution.h
 	$(CC) main.c $(CFLAGS)
@@ -27,9 +28,12 @@ construction.o : construction.h construction.c
 resolution.o : resolution.h resolution.c
 	$(CC) resolution.c $(CFLAGS)
 
-algo: main.o donnees.o affichage.o construction.o resolution.o
-	$(LD) -o algo main.o donnees.o affichage.o construction.o resolution.o $(LDFLAGS)
+$(EXEC): main.o donnees.o affichage.o construction.o resolution.o
+	$(LD) -o $(EXEC) main.o donnees.o affichage.o construction.o resolution.o $(LDFLAGS)
 
 clean:
 	rm -fv *.o
+
+run: $(EXEC)
+	./$(EXEC)
 
