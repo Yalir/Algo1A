@@ -72,7 +72,7 @@ void traiter_equation(Solutions s, Equation *e, Equation **dansSys, Equation **d
 	}
 }
  
-void obtenir_representant(Terme u,Systeme e, Systeme *dansSolu)
+void obtenir_representant(Terme u ,Systeme e, Systeme *dansSolu)
 {
 	int trouver=0;
 	assert(e != NULL);
@@ -85,13 +85,14 @@ void obtenir_representant(Terme u,Systeme e, Systeme *dansSolu)
 		while (*dansSolu!=NULL && !trouver) 
 		{
 			assert((*dansSolu)->terme_gauche);
-			// on affecte v à u 
-			if((*dansSolu)->terme_gauche == u )
+			
+			if((((*dansSolu)->terme_gauche->contenu_terme.val) == (u->contenu_terme.val)) && (((*dansSolu)->terme_gauche->contenu_terme.val) == (u->contenu_terme.val)) && (((*dansSolu)->terme_gauche->type_terme) == (u->type_terme)))
 			{
+				// on affecte v à u 
 				u= (*dansSolu)->terme_droit;
 				trouver = 1;
 				obtenir_representant((*dansSolu)->terme_droit,e,dansSolu);
-			}	
+			}
 		}
 	}
 	else
