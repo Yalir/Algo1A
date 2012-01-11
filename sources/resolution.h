@@ -32,6 +32,7 @@
 
 Solutions traiter_systeme(Systeme sys);
 void obtenir_representant(Terme u, Systeme e, Systeme *dansSolu);
+void obtenir_tout_les_representants(Terme u, Systeme s, Systeme *dansSolu);
 
 #endif
 

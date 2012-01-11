@@ -112,3 +112,13 @@ void obtenir_representant(Terme u ,Systeme e, Systeme *dansSolu)
 		}
 	}
 }
+
+void obtenir_tout_les_representants(Terme u, Systeme s, Systeme *dansSolu))
+{
+	assert(s!=NULL);
+	while (s!=NULL)
+	{
+		obtenir_representant(s->terme_gauche, Systeme s, Systeme *dansSolu);
+		obtenir_representant(s->terme_droit, Systeme s, Systeme *dansSolu);
+	}
+}
