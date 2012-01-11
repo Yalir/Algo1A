@@ -72,3 +72,42 @@ void traiter_equation(Solutions s, Equation *e, Equation **dansSys, Equation **d
 	}
 }
  
+void obtenir_representant(Terme u,Systeme e, Systeme *dansSolu)
+{
+	int trouver=0;
+	assert(e != NULL);
+	u = e->terme_gauche;
+	assert(u !=NULL);
+
+	if(u->type_terme == Variable)
+	{
+		// si (S contient une équation e2 de la forme u = v alors) 
+		while (*dansSolu!=NULL && !trouver) 
+		{
+			assert((*dansSolu)->terme_gauche);
+			// on affecte v à u 
+			if((*dansSolu)->terme_gauche == u )
+			{
+				u= (*dansSolu)->terme_droit;
+				trouver = 1;
+				obtenir_representant((*dansSolu)->terme_droit,e,dansSolu);
+			}	
+		}
+	}
+	else
+	{
+		// le représentant de u dans S est lui-même pour si u est une constante
+		
+		if(u->type_terme == Fonction)
+		{
+			// u est fm(q1,q2,...,qn)
+			// le representant de u dans S est fm(obtenir_representant (q1), obtenir_representant(q2), ..., obtenir_representant(qn))
+			
+			while (u->contenu_terme.arguments != NULL)
+			{
+				obtenir_representant(u->contenu_terme.arguments->terme_argument,e,dansSolu);
+				u->contenu_terme.arguments->terme_argument = u->contenu_terme.arguments->suivant;
+			}
+		}
+	}
+}

@@ -31,6 +31,7 @@
 #include "Types.h"
 
 Solutions traiter_systeme(Systeme sys);
+void obtenir_representant(Terme u,Systeme e, Systeme *dansSolu);
 
 #endif
 
