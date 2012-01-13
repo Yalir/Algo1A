@@ -14,15 +14,17 @@
 #include <assert.h>
 #include <stdlib.h>
 
-void afficher_systeme(Systeme sys)
+void afficher_systeme(const Systeme sys)
 {
+	Equation *current = sys;
+	
 	printf("{");
 	while (sys != NULL)
 	{
 		afficher_terme(sys->terme_gauche);
 		printf(" = ");
 		afficher_terme(sys->terme_droit);
-		sys = sys->suivant;
+		current = current->suivant;
 		
 		if(sys!=NULL)
 		{
@@ -32,7 +34,7 @@ void afficher_systeme(Systeme sys)
 	printf("}\n");
 }
 
-void afficher_terme(Terme terme)
+void afficher_terme(const Terme terme)
 {
 	assert(terme != NULL);
 	
@@ -62,7 +64,7 @@ void afficher_terme(Terme terme)
 	}
 }
 
-void afficher_argument(Argument arg)
+void afficher_argument(const Argument arg)
 {
 	assert(arg != NULL);
 	
@@ -78,7 +80,7 @@ void afficher_argument(Argument arg)
 	}
 }
 
-void afficher_solutions(Solutions s)
+void afficher_solutions(const Solutions s)
 {
 	Solutions p = s;
 	int i = 1;

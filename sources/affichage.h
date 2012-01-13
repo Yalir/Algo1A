@@ -37,7 +37,7 @@
  *
  * @param sys le système d'équation à afficher
  */
-void afficher_systeme(Systeme sys);
+void afficher_systeme(const Systeme sys);
 
 
 /** @brief Affiche un terme
@@ -45,7 +45,7 @@ void afficher_systeme(Systeme sys);
  *
  * @param terme Le terme à afficher
  */
-void afficher_terme(Terme terme);
+void afficher_terme(const Terme terme);
 
 
 /** @brief Affiche un argument
@@ -53,14 +53,14 @@ void afficher_terme(Terme terme);
  *
  * @param arg L'argument à afficher
  */
-void afficher_argument(Argument arg);
+void afficher_argument(const Argument arg);
 
 
 /** @brief Affiche l'ensemble des solutions trouvées
  *
  * @param s Le système de solutions à afficher
  */
-void afficher_solutions(Solutions s);
+void afficher_solutions(const Solutions s);
 
 
 #endif

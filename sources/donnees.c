@@ -93,7 +93,7 @@ Solutions creer_solutions(void)
 	return sol;
 }
 
-Equation *copie_equation(Equation *e)
+Equation *copie_equation(const Equation *e)
 {
 	assert(e != NULL);
 	
@@ -111,7 +111,7 @@ Equation *copie_equation(Equation *e)
 	return nouv;
 }
 
-Terme copie_terme(Terme t)
+Terme copie_terme(const Terme t)
 {
 	assert(t != NULL);
 	
@@ -131,7 +131,7 @@ Terme copie_terme(Terme t)
 	return nouv;
 }
 
-Argument copie_argument(Argument arg)
+Argument copie_argument(const Argument arg)
 {
 	assert(arg != NULL);
 	
