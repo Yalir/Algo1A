@@ -31,16 +31,21 @@
 #include "Types.h"
 
 
-Terme obtenir_representant_terme(Terme u, Systeme s);
-
-
-/** @brief Créé un nouvel argument vide initialisé
- * En cas d'erreur lors de la création, le programme est stoppé
+/** @brief fonction qui retourne le reprensentant d'un terme
  *
- * @return Le nouvel argument
+ * @param Un terme valide et le systeme de solution
+ * @return Le reprensentant d'un terme
+ */
+Terme obtenir_representant_terme(const Terme u,const Systeme s);
+
+
+/** @brief fonction qui retourne la nouvelle equation en remplaçant les termes (gauche et droit) par leurs representants
+ *
+ * @param Une equation et le systeme de solution
+ * @return La nouvelle equation d'un terme
  */
  
-Equation* obtenir_representant_equation(Equation *e, Systeme s);
+Equation* obtenir_representant_equation(const Equation *e,const Systeme s);
 
 #endif
 
