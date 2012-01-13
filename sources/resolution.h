@@ -30,7 +30,13 @@
 
 #include "Types.h"
 
+/** @brief Créé un système de solution à partir du système d'équations donné
+ *
+ * @param sys Le système d'équations à traiter
+ * @return Le système de solutions trouvé ou NULL si le @a sys est insoluble
+ */
 Solutions traiter_systeme(Systeme sys);
+
 void obtenir_representant(Terme u, Systeme e, Systeme *dansSolu);
 void obtenir_tout_les_representants(Terme u, Systeme s, Systeme *dansSolu);
 
