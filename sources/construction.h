@@ -30,11 +30,10 @@
 #define CONSTRUCTION_H
 
 
-/** @brief cette fonction constuit le système manuellement 
+/** @brief cette fonction construit manuellement un système d'équations à résoudre 
  *
- * @return Un pointeur sur la première equation du systeme
+ * @return Le nouveau système d'équations
  */
-
 Systeme construire_systeme(void);
 
 #endif

@@ -31,29 +31,36 @@
 
 #include "Types.h"
 
-void afficher_solutions(Solutions s);
 
-
-/** @brief cette fonction affiche le système à l'utilisateur qui fait des appels 
- * 		   recursivement la fonction afficher_terme() tant qu'il y'a des equation à afficher 
+/** @brief Affiche l'ensemble du système d'équations
+ * Le système donné doit être valide sous peine d'arrêt du programme.
  *
- * @param un pointeur sur la première equation
+ * @param sys le système d'équation à afficher
  */
 void afficher_systeme(Systeme sys);
 
 
-/** @brief cette fonction affiche tout simplement un terme de l'equation (la constante ou la variable ou la fonction)
+/** @brief Affiche un terme
+ * Le terme donné doit être valide sous peine d'arrêt du programme.
  *
- * @param le pointeur qui pointe sur le terme à afficher
+ * @param terme Le terme à afficher
  */
 void afficher_terme(Terme terme);
 
 
-/** @brief cette fonction affiche tout simplement un argument d'une fonction
+/** @brief Affiche un argument
+ * L'argument donné doit être valide sous peine d'arrêt du programme
  *
- * @param le pointeur qui pointe sur l'argument à afficher
+ * @param arg L'argument à afficher
  */
 void afficher_argument(Argument arg);
+
+
+/** @brief Affiche l'ensemble des solutions trouvées
+ *
+ * @param s Le système de solutions à afficher
+ */
+void afficher_solutions(Solutions s);
 
 
 #endif
