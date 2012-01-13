@@ -99,7 +99,7 @@ void traiter_equation(Solutions s, Equation *e, Equation **dansSys, Equation **d
 	}
 }
  
-void obtenir_representant(Terme u ,Systeme e, Systeme *dansSolu)
+void obtenir_representant(Terme u, Equation *e, Equation **dansSolu)
 {
 	int trouver=0;
 	assert(e != NULL);
