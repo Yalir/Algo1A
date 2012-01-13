@@ -29,6 +29,12 @@
 #ifndef CONSTRUCTION_H
 #define CONSTRUCTION_H
 
+
+/** @brief cette fonction constuit le système manuellement 
+ *
+ * @return Un pointeur sur la première equation du systeme
+ */
+
 Systeme construire_systeme(void);
 
 #endif
