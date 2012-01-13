@@ -14,17 +14,17 @@
 #include <assert.h>
 #include <stdlib.h>
 
-void afficher_systeme(Systeme te)
+void afficher_systeme(Systeme sys)
 {
 	printf("{");
-	while (te != NULL)
+	while (sys != NULL)
 	{
-		afficher_terme(te->terme_gauche);
+		afficher_terme(sys->terme_gauche);
 		printf(" = ");
-		afficher_terme(te->terme_droit);
-		te = te->suivant;
+		afficher_terme(sys->terme_droit);
+		sys = sys->suivant;
 		
-		if(te!=NULL)
+		if(sys!=NULL)
 		{
 			printf(", ");
 		}
