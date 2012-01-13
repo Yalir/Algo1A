@@ -38,6 +38,14 @@
 Systeme creer_systeme(void);
 
 
+/** @brief Créé une nouvelle équation vide initialisée
+ * En cas d'erreur lors de la création, le programme est stoppé
+ *
+ * @return La nouvelle équation
+ */
+Equation *creer_equation(void);
+
+
 /** @brief Créé un nouveau terme vide initialisé
  * En cas d'erreur lors de la création, le programme est stoppé
  *
@@ -68,6 +76,14 @@ Solutions creer_solutions(void);
  * @param sys le système à détruire
  */
 void destroy_systeme(Systeme sys);
+
+
+/** @brief Détruit récursivement une équation en libérant la mémoire allourée
+ * @a e doit être une équation valide (non nul)
+ *
+ * @param e l'équation à détruire
+ */
+void destroy_equation(Equation *e);
 
 
 /** @brief Détruit récursivement un terme en libérant la mémoire allourée

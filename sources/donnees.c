@@ -32,6 +32,11 @@ Systeme creer_systeme(void)
 	}       
 }
 
+Equation *creer_equation(void)
+{
+	return creer_systeme();
+}
+
 Terme creer_terme(void)
 {
 	Terme te;
@@ -101,6 +106,11 @@ void destroy_systeme(Systeme sys)
 		destroy_systeme(sys->suivant);
 	
 	free(sys);
+}
+
+void destroy_equation(Equation *e)
+{
+	destroy_systeme(e);
 }
 
 void destroy_terme(Terme terme)
