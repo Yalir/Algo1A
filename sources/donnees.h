@@ -69,6 +69,32 @@ Argument creer_argument(void);
  */
 Solutions creer_solutions(void);
 
+/** @brief Créé une copie de l'équation donnée
+ * L'équation donnée doit être valide (non nulle) sous peine d'arrêt
+ * du programme
+ *
+ * @param e Une équation valide à recopier
+ * @return Une copie de l'équation d'origine
+ */
+Equation *copie_equation(Equation *e);
+
+/** @brief Créé une copie du terme donné
+ * Le terme donne doit être valide (non nul) sous peine d'arrêt
+ * du programme
+ *
+ * @param e Un terme valide à recopier
+ * @return Une copie du terme d'origine
+ */
+Terme copie_terme(Terme t);
+
+/** @brief Créé une copie de l'argument donné
+ * L'argument donné doit être valide (non nul) sous peine d'arrêt
+ * du programme
+ *
+ * @param e Un argument valide à recopier
+ * @return Une copie de l'argument d'origine
+ */
+Argument copie_argument(Argument arg);
 
 /** @brief Détruit récursivement un système en libérant la mémoire allourée
  * @a sys doit être un système valide (non nul)

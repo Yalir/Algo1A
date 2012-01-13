@@ -93,6 +93,59 @@ Solutions creer_solutions(void)
 	return sol;
 }
 
+Equation *copie_equation(Equation *e)
+{
+	assert(e != NULL);
+	
+	Equation *nouv = creer_equation();
+	
+	if (e->terme_gauche)
+		nouv->terme_gauche = copie_terme(e->terme_gauche);
+	
+	if (e->terme_droit)
+		nouv->terme_droit = copie_terme(e->terme_droit);
+	
+	if (e->suivant)
+		nouv->suivant = copie_equation(e->suivant);
+	
+	return nouv;
+}
+
+Terme copie_terme(Terme t)
+{
+	assert(t != NULL);
+	
+	Terme nouv = creer_terme();
+	nouv->type_terme = t->type_terme;
+	
+	if (nouv->type_terme >= Fonction)
+	{
+		if (nouv->contenu_terme.arguments)
+			nouv->contenu_terme.arguments = copie_argument(t->contenu_terme.arguments);
+	}
+	else
+	{
+		nouv->contenu_terme.val = t->contenu_terme.val;
+	}
+	
+	return nouv;
+}
+
+Argument copie_argument(Argument arg)
+{
+	assert(arg != NULL);
+	
+	Argument nouv = creer_argument();
+	
+	if (arg->terme_argument)
+		nouv->terme_argument = copie_terme(arg->terme_argument);
+	
+	if (arg->suivant)
+		nouv->suivant = copie_argument(arg->suivant);
+	
+	return nouv;
+}
+
 void destroy_systeme(Systeme sys)
 {
 	assert(sys != NULL);
