@@ -7,18 +7,18 @@
  * reproduit, utilise ou modifie sans l'avis express de ses auteurs.
  */ 
  
- #include "representant.h"
- #include "donnees.h"
- #include "Types.h"
- #include <stdlib.h>
- #include <assert.h>
+#include "representant.h"
+#include "donnees.h"
+#include "Types.h"
+#include <stdlib.h>
+#include <assert.h>
  
 Terme obtenir_representant_terme(const Terme u, const Systeme s)
 {
 	int trouver=0;
-	Terme nouveau_terme ;
+	Terme nouveau_terme;
+	Argument arg;
 	Equation* parcours_solution;
-	Terme arg ;
 	
 	assert(u !=NULL);
 	
@@ -27,9 +27,10 @@ Terme obtenir_representant_terme(const Terme u, const Systeme s)
 	if(u->type_terme == Variable)
 	{		
 		parcours_solution = creer_equation();
-
+		parcours_solution = (Equation*)s; // associer s à parcours_solution
+	
 		// si (S contient une équation e2 de la forme u = v alors) 
-		parcours_solution = s;
+
 		while (s!=NULL && !trouver) 
 		{			
 			if(((parcours_solution->terme_gauche->contenu_terme.val) == (u->contenu_terme.val)) && ((parcours_solution->terme_gauche->contenu_terme.val) == (u->contenu_terme.val)) && ((parcours_solution->terme_gauche->type_terme) == (u->type_terme)))
@@ -52,16 +53,16 @@ Terme obtenir_representant_terme(const Terme u, const Systeme s)
 		{
 			// u est de la forme :  fm(q1,q2,...,qn)
 			// Le representant de u dans S est fm(obtenir_representant (q1), obtenir_representant(q2), ..., obtenir_representant(qn))
-			arg = creer_terme();
+			arg = creer_argument();	
+			arg = u->contenu_terme.arguments;
 			
-			arg = u->contenu_terme.arguments->terme_argument;
-			
+			// boucle qui parcour tout les arguments de la fonction fm 
 			while (arg != NULL)
 			{
-				arg = obtenir_representant_terme(arg->contenu_terme.arguments->terme_argument,s);
-				arg->contenu_terme.arguments->terme_argument = arg->contenu_terme.arguments->suivant->terme_argument;
 				
-				arg->contenu_terme.arguments = arg->contenu_terme.arguments->suivant; // Passer à l'argument suivant
+				arg->terme_argument = obtenir_representant_terme(arg->terme_argument,s); // pour obtenir le representant de l'argument
+		
+				arg = arg->suivant ; // Passer à l'argument suivant
 			}
 		}
 		// si jamais u->type_terme n'est pas une fonction, le représentant de u dans S est lui-même (u est une constante)
