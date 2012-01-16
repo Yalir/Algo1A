@@ -19,10 +19,12 @@
 int main (int argc, const char * argv[])
 {
 	Solutions s;
-	Systeme t = construire_systeme();
+	Systeme t;
+	
+	t = construire_systeme();
 	afficher_systeme(t);
 	s = traiter_systeme(t);
-	//afficher_solutions();
+	afficher_solutions(s);
 	
 #if WINDOWS
 	system("PAUSE");
