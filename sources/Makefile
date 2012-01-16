@@ -37,3 +37,6 @@ clean:
 run: $(EXEC)
 	./$(EXEC)
 
+debug: $(EXEC)
+	gdb ./$(EXEC)
+
