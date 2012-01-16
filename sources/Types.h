@@ -31,9 +31,9 @@
 
 typedef struct terme_s *Terme;
 
-typedef struct subst_s {
+typedef struct solutions_s {
 	Terme terme_droit;
-	struct subst_s* suivant;
+	struct solutions_s* suivant;
 } *Solutions;
 
 typedef struct equation_s {
