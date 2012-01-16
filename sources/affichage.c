@@ -19,18 +19,18 @@ void afficher_systeme(const Systeme sys)
 	Equation *current = sys;
 	
 	printf("{");
-	while (sys != NULL)
+	while (current != NULL)
 	{
-		afficher_terme(sys->terme_gauche);
+		afficher_terme(current->terme_gauche);
 		printf(" = ");
-		afficher_terme(sys->terme_droit);
+		afficher_terme(current->terme_droit);
+		
 		current = current->suivant;
 		
-		if(sys!=NULL)
-		{
+		if(current != NULL)
 			printf(", ");
-		}
 	}
+	
 	printf("}\n");
 }
 
