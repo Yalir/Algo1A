@@ -28,8 +28,11 @@ construction.o : construction.h construction.c
 resolution.o : resolution.h resolution.c
 	$(CC) resolution.c $(CFLAGS)
 
-$(EXEC): main.o donnees.o affichage.o construction.o resolution.o
-	$(LD) -o $(EXEC) main.o donnees.o affichage.o construction.o resolution.o $(LDFLAGS)
+representant.o : representant.h representant.c Types.h donnees.h
+	$(CC) representant.c $(CFLAGS)
+	
+$(EXEC): main.o donnees.o affichage.o construction.o resolution.o representant.o
+	$(LD) -o $(EXEC) main.o donnees.o affichage.o construction.o resolution.o representant.o $(LDFLAGS)
 
 clean:
 	rm -fv *.o
