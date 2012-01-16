@@ -69,6 +69,16 @@ Argument creer_argument(void);
  */
 Solutions creer_solutions(void);
 
+
+/** @brief Alloue @a n-1 maillons pour pouvoir stocker les solutions
+ * @a s doit être un système valide (non nul) sous peine d'arrêt du programme
+ *
+ * @param s Le système de solutions à initialiser
+ * @param n Le nombre de solutions que doit pouvoir contenir @a s
+ */
+void initialiser_solutions(Solutions s, unsigned n);
+
+
 /** @brief Créé une copie de l'équation donnée
  * L'équation donnée doit être valide (non nulle) sous peine d'arrêt
  * du programme
@@ -77,6 +87,7 @@ Solutions creer_solutions(void);
  * @return Une copie de l'équation d'origine
  */
 Equation *copie_equation(const Equation *e);
+
 
 /** @brief Créé une copie du terme donné
  * Le terme donne doit être valide (non nul) sous peine d'arrêt
@@ -87,6 +98,7 @@ Equation *copie_equation(const Equation *e);
  */
 Terme copie_terme(const Terme t);
 
+
 /** @brief Créé une copie de l'argument donné
  * L'argument donné doit être valide (non nul) sous peine d'arrêt
  * du programme
@@ -95,6 +107,7 @@ Terme copie_terme(const Terme t);
  * @return Une copie de l'argument d'origine
  */
 Argument copie_argument(const Argument arg);
+
 
 /** @brief Détruit récursivement un système en libérant la mémoire allourée
  * @a sys doit être un système valide (non nul)

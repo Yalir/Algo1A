@@ -93,6 +93,20 @@ Solutions creer_solutions(void)
 	return sol;
 }
 
+
+void initialiser_solutions(Solutions s, unsigned n)
+{
+	assert(s != NULL);
+	
+	unsigned i;
+	for (i = 0; i < n-1;i++)
+	{
+		s->suivant = creer_solutions();
+		s = s->suivant;
+	}
+}
+
+
 Equation *copie_equation(const Equation *e)
 {
 	assert(e != NULL);
