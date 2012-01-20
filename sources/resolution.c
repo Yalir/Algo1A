@@ -11,6 +11,7 @@
 #include "donnees.h"
 #include "representant.h"
 #include "Types.h"
+#include "affichage.h"
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
@@ -25,13 +26,21 @@ Solutions traiter_systeme(Systeme sys)
 	Equation *e = sys;
 	int insoluble = 0;
 	
-	while (s != NULL && insoluble == 0)
+	while (s != NULL && insoluble == 0 && e)
 	{
-		Equation *representee = obtenir_representant_equation(e, sys);
+		puts("check point 1");
+		afficher_systeme((const Systeme)e);
+		Equation *representee = obtenir_representant_equation(e, s);
+		afficher_systeme((const Systeme)representee);
+		puts("check point 2");
+		
 		Equation *dansSys = NULL;
 		Equation *dansSolu = NULL;
 		
 		insoluble = traiter_equation(s, representee, &dansSys, &dansSolu);
+		
+		printf("insoluble = %d , dansSys = %p , dansSolu = %p\n",
+			   insoluble, dansSys, dansSolu);
 		
 		// s'il y a des équations à ajouter au système d'équations
 		if (dansSys)
@@ -285,23 +294,16 @@ void ranger_solutions(Solutions s, const Equation *e)
 		// on vérifie qu'on a bien une variable à gauche
 		if (e->terme_gauche->type_terme == Variable)
 		{
-			int j;
-			Solutions current = s;
 			int i = e->terme_gauche->contenu_terme.val;
 			
-			// aller au bon endroit
-			for (j = 0; j < i;j++)
-				current = current->suivant;
-			
-			// on a déjà un terme_droit ?
-			if (current->terme_droit != NULL)
+			if (s->array[i])
 			{
 				fprintf(stderr, "*** warning: erasing previously set solution\n");
-				destroy_terme(current->terme_droit);
+				destroy_terme(s->array[i]);
 			}
 			
 			printf("storing solution at index %d\n", i);
-			current->terme_droit = copie_terme(e->terme_droit);
+			s->array[i] = copie_terme(e->terme_droit);
 		}
 		// sinon on ne peut pas enregistrer cette solution
 		else

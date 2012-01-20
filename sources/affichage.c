@@ -82,19 +82,18 @@ void afficher_argument(const Argument arg)
 
 void afficher_solutions(const Solutions s)
 {
-	Solutions p = s;
-	int i = 1;
+	int i;
 	
-	if (s != NULL)
+	if (s)
 	{
-		while (p != NULL)
+		for (i = 0; i < s->size;i++)
 		{
-			printf("X%d = ", i);
-			afficher_terme(p->terme_droit);
-			printf("\n");
-			
-			i++;
-			p = p->suivant;
+			if (s->array[i])
+			{
+				printf("X%d = ", i+1);
+				afficher_terme(s->array[i]);
+				printf("\n");
+			}
 		}
 	}
 	else

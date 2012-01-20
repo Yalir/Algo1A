@@ -86,8 +86,8 @@ Solutions creer_solutions(void)
 	}
 	else
 	{
-		sol->terme_droit = NULL;
-		sol->suivant = NULL;
+		sol->array = NULL;
+		sol->size = 0;
 	}
 	
 	return sol;
@@ -98,12 +98,14 @@ void initialiser_solutions(Solutions s, unsigned n)
 {
 	assert(s != NULL);
 	
+	if (s->array)
+		free(s->array);
+	s->size = n;
+	s->array = (Terme *)malloc(n * sizeof(Terme));
+	
 	unsigned i;
-	for (i = 0; i < n-1;i++)
-	{
-		s->suivant = creer_solutions();
-		s = s->suivant;
-	}
+	for (i = 0; i < n;i++)
+		s->array[i] = NULL;
 }
 
 
@@ -209,11 +211,14 @@ void destroy_solutions(Solutions sol)
 {
 	assert(sol != NULL);
 	
-	if (sol->terme_droit)
-		destroy_terme(sol->terme_droit);
+	unsigned size = sol->size;
+	unsigned i;
 	
-	if (sol->suivant)
-		destroy_solutions(sol->suivant);
+	for (i = 0;i < size; i++)
+	{
+		if (sol->array[i])
+			destroy_terme(sol->array[i]);
+	}
 	
 	
 	free(sol);
