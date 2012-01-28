@@ -36,7 +36,7 @@
  * @param Un terme valide et le systeme de solution
  * @return Le reprensentant d'un terme
  */
-Terme obtenir_representant_terme(const Terme u,const Systeme s);
+Terme obtenir_representant_terme(const Terme u,const Solutions s);
 
 
 /** @brief fonction qui retourne la nouvelle equation en remplaçant les termes (gauche et droit) par leurs representants
@@ -45,7 +45,7 @@ Terme obtenir_representant_terme(const Terme u,const Systeme s);
  * @return La nouvelle equation d'un terme
  */
  
-Equation* obtenir_representant_equation(const Equation *e,const Systeme s);
+Equation* obtenir_representant_equation(const Equation *e,const Solutions s);
 
 #endif
 

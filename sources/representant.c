@@ -12,33 +12,27 @@
 #include "Types.h"
 #include <stdlib.h>
 #include <assert.h>
- 
-Terme obtenir_representant_terme(const Terme u, const Systeme s)
+
+Terme obtenir_representant_terme(const Terme u, const Solutions s)
 {
-	int trouver=0;
 	Terme nouveau_terme=NULL;
 	Argument arg;
-	Equation* parcours_solution;
-	
+
 	assert(u !=NULL);
 
 	if(u->type_terme == Variable)
-	{
-		parcours_solution = copie_equation((Equation*)s); // associer s à parcours_solution
-	
-		// si (S contient une équation e2 de la forme u = v alors) 
+	{	
+		// pour être sûre..
+		if(u->contenu_terme.val <= s->size)
+		{
+		    if(s->array[u->contenu_terme.val]!=NULL)
+		    {
+			// on affecte v à u
+			nouveau_terme = copie_terme(s->array[u->contenu_terme.val]);
 
-		while (parcours_solution != NULL && !trouver) 
-		{			
-			if(((parcours_solution->terme_gauche->contenu_terme.val) == (u->contenu_terme.val)) && ((parcours_solution->terme_gauche->contenu_terme.val) == (u->contenu_terme.val)) && ((parcours_solution->terme_gauche->type_terme) == (u->type_terme)))
-			{
-				trouver = 1;
-				// on affecte v à u			
-				nouveau_terme = copie_terme(parcours_solution->terme_droit);
-				// on affecte le representant de v au nouveau_terme
-				nouveau_terme = obtenir_representant_terme(nouveau_terme,s);
-			}
-			parcours_solution = parcours_solution->suivant ; // passer à la solution suivante
+			// on affecte le representant de v au nouveau_terme
+			nouveau_terme = obtenir_representant_terme(nouveau_terme,s);
+		    }
 		}
 	}
 	else
@@ -67,7 +61,7 @@ Terme obtenir_representant_terme(const Terme u, const Systeme s)
 	return nouveau_terme ;
 }
 
-Equation* obtenir_representant_equation(const Equation *e, const Systeme s)
+Equation* obtenir_representant_equation(const Equation *e, const Solutions s)
 {
 	assert(s!=NULL);
 	Equation *sys = creer_systeme();
