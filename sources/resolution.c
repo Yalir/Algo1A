@@ -117,7 +117,7 @@ int traiter_equation(const Solutions s, const Equation *e, Equation **dansSys, E
 	else if (t_gauche->type_terme == Variable && t_droit->type_terme == Constante)
 	{
 		// on rangera l’éq. dans S
-		*dansSolu = creer_equation();
+		*dansSolu = copie_equation(e);
 		//**dansSolu = *e;
 	}
 	else if (t_gauche->type_terme == Variable && t_droit->type_terme >= Fonction)
@@ -137,8 +137,8 @@ int traiter_equation(const Solutions s, const Equation *e, Equation **dansSys, E
 	{
 		// intervertir s et t
 		*dansSys = creer_equation();
-		(*dansSys)->terme_gauche = t_droit;
-		(*dansSys)->terme_droit = t_gauche;
+		(*dansSys)->terme_gauche = copie_terme(t_droit);
+		(*dansSys)->terme_droit = copie_terme(t_gauche);
 	}
 	else if (t_gauche->type_terme != Variable && t_droit->type_terme != Variable)
 	{
@@ -291,6 +291,9 @@ void ranger_solutions(Solutions s, const Equation *e)
 	// parcourir la liste indiquée par e
 	while (e)
 	{
+		assert(e->terme_gauche != NULL);
+		assert(e->terme_droit != NULL);
+		
 		// on vérifie qu'on a bien une variable à gauche
 		if (e->terme_gauche->type_terme == Variable)
 		{
@@ -302,8 +305,8 @@ void ranger_solutions(Solutions s, const Equation *e)
 				destroy_terme(s->array[i]);
 			}
 			
-			printf("storing solution at index %d\n", i);
-			s->array[i] = copie_terme(e->terme_droit);
+			printf("storing solution at index %d\n", i-1);
+			s->array[i-1] = copie_terme(e->terme_droit);
 		}
 		// sinon on ne peut pas enregistrer cette solution
 		else
