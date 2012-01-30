@@ -37,11 +37,11 @@ const char *text_obtenir_texte(const Text t);
  */
 unsigned text_obtenir_taille(const Text t);
 
-/** @brief Retire les espaces en début et fin du Text @a t
+/** @brief Retire tous les espaces du Text @a t
  *
  * @param t Le Text qui doit être élagué
  */
-void text_trim_espaces(Text t);
+void text_retirer_espaces(Text t);
 
 /** @brief Génère une liste de Text à partir du Text t, d'après le séparateur ","
  * Seuls les éléments de premier niveau sont découpées. Un niveau est défini par
