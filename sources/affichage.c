@@ -86,6 +86,7 @@ void afficher_solutions(const Solutions s)
 	
 	if (s)
 	{
+		printf("Solutions:\n");
 		for (i = 0; i < s->size;i++)
 		{
 			if (s->array[i])
