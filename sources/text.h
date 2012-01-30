@@ -62,7 +62,7 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
  * @param t Le Text dans lequel le caractère @a chr doit être recherché
  * @param chr Le caractère à rechercher dans le Text @a t
  * @return 1 si le caractère existe dans @a t, 0 s'il n'existe pas, -1
- * si @a est invalide (nul)
+ * si @a t est invalide (nul)
  */
 int text_contient_char(const Text t, char chr);
 
