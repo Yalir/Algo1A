@@ -39,7 +39,7 @@ unsigned text_obtenir_taille(const Text t);
 
 /** @brief Retire tous les espaces du Text @a t
  *
- * @param t Le Text qui doit être élagué
+ * @param t Le Text à nettoyer
  */
 void text_retirer_espaces(Text t);
 
@@ -64,6 +64,14 @@ void text_decoupe_premier_niveau(const Text t, Text **output, unsigned *count);
  * si @a est invalide (nul)
  */
 int text_contient_char(const Text t, char chr);
+
+/** @brief Retire le caractère @a chr au début et à la fin du Text @a t
+ *
+ * @param t Le Text à élaguer
+ * @param chr Le caractère à supprimer du Text @a t
+ * @return 1 s'il n'y a pas eu d'erreur, -1 sinon
+ */
+int text_trim_char(Text t, char chr);
 
 
 #endif
