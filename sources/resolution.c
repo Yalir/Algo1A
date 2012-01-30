@@ -28,11 +28,11 @@ Solutions traiter_systeme(Systeme sys)
 	
 	while (s != NULL && insoluble == 0 && e)
 	{
-		puts("check point 1");
-		afficher_systeme((const Systeme)e);
+		//puts("check point 1");
+		//afficher_systeme((const Systeme)e);
 		Equation *representee = obtenir_representant_equation(e, s);
-		afficher_systeme((const Systeme)representee);
-		puts("check point 2");
+		//afficher_systeme((const Systeme)representee);
+		//puts("check point 2");
 		
 		Equation *dansSys = NULL;
 		Equation *dansSolu = NULL;
@@ -299,10 +299,10 @@ void ranger_solutions(Solutions s, const Equation *e)
 		{
 			int i = e->terme_gauche->contenu_terme.val;
 			
-			if (s->array[i])
+			if (s->array[i-1])
 			{
 				fprintf(stderr, "*** warning: erasing previously set solution\n");
-				destroy_terme(s->array[i]);
+				destroy_terme(s->array[i-1]);
 			}
 			
 			printf("storing solution at index %d\n", i-1);
@@ -317,6 +317,8 @@ void ranger_solutions(Solutions s, const Equation *e)
 		
 		e = e->suivant;
 	}
+	
+	//afficher_solutions(s);
 }
 
 
