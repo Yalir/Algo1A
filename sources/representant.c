@@ -25,10 +25,10 @@ Terme obtenir_representant_terme(const Terme u, const Solutions s)
 		// pour être sûre..
 		if(u->contenu_terme.val <= s->size)
 		{
-		    if(s->array[u->contenu_terme.val]!=NULL)
+		    if(s->array[u->contenu_terme.val-1]!=NULL)
 		    {
 			// on affecte v à u
-			nouveau_terme = copie_terme(s->array[u->contenu_terme.val]);
+			nouveau_terme = copie_terme(s->array[u->contenu_terme.val-1]);
 
 			// on affecte le representant de v au nouveau_terme
 			nouveau_terme = obtenir_representant_terme(nouveau_terme,s);
