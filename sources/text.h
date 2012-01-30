@@ -43,18 +43,19 @@ unsigned text_obtenir_taille(const Text t);
  */
 void text_retirer_espaces(Text t);
 
-/** @brief Génère une liste de Text à partir du Text t, d'après le séparateur ","
+/** @brief Génère une liste de Text à partir du Text t, d'après le séparateur @a separator
  * Seuls les éléments de premier niveau sont découpées. Un niveau est défini par
  * des parenthèses.
- * Le Text "F(a,b),c,d" donne donc la liste {"F(a,b)", "c", "d"}.
+ * Ex: le Text "F(a,b),c,d" avec "," comme séparateur donne la liste {"F(a,b)", "c", "d"}.
  *
  * @param t Le Text d'où doivent être extraits les sous-textes
+ * @param separator Le séparateur permettant de découper le Text
  * @param output Une référence sur un tableau dynamique de Text qui contiendra
  * la liste des Text extraits de @a t
  * @param count Une référence sur un entier qui contiendra le nombre d'éléments
  * extraits du Text @a t
  */
-void text_decoupe_premier_niveau(const Text t, Text **output, unsigned *count);
+void text_decoupe_premier_niveau(const Text t, char separator, Text **output, unsigned *count);
 
 /** @brief Indique si le Text @a t contient le caractère @a chr
  *
