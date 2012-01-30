@@ -74,5 +74,13 @@ int text_contient_char(const Text t, char chr);
  */
 int text_trim_char(Text t, char chr);
 
+/** @brief Retire le préfix @a chr du Text @a t
+ *
+ * @param t Le Text dans lequel on veut retirer le préfix
+ * @param chr Le préfix à supprimer
+ * @return 1 si le préfix a bien été retiré, -1 sinon
+ */
+int text_retirer_prefix(Text t, char chr);
+
 
 #endif
