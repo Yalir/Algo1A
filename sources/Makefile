@@ -31,11 +31,14 @@ resolution.o : resolution.h resolution.c
 text.o : text.h text.c
 	$(CC) text.c $(CFLAGS)
 
+parser.o : parser.h parser.c text.h donnees.h Types.h
+	$(CC) parser.c $(CFLAGS)
+
 representant.o : representant.h representant.c Types.h donnees.h
 	$(CC) representant.c $(CFLAGS)
 	
-$(EXEC): main.o donnees.o affichage.o construction.o resolution.o representant.o text.o
-	$(LD) -o $(EXEC) main.o donnees.o affichage.o construction.o resolution.o representant.o text.o $(LDFLAGS)
+$(EXEC): main.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o
+	$(LD) -o $(EXEC) main.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o $(LDFLAGS)
 
 clean:
 	rm -fv *.o
