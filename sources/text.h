@@ -29,13 +29,13 @@ void text_destroy(Text t);
  * @param t Le Text depuis lequel est récupérée la chaîne de caractères
  * @return La chaîne de caractère C du Text
  */
-const char *text_obtenir_texte(Text t);
+const char *text_obtenir_texte(const Text t);
 
 /** @brief Donne la taille du Text @a t en nombre de caractères
  *
  * @return Le nombre de caractères de @a t
  */
-unsigned text_obtenir_taille(Text t);
+unsigned text_obtenir_taille(const Text t);
 
 /** @brief Retire les espaces en début et fin du Text @a t
  *
@@ -54,6 +54,6 @@ void text_trim_espaces(Text t);
  * @param count Une référence sur un entier qui contiendra le nombre d'éléments
  * extraits du Text @a t
  */
-void text_decoupe_premier_niveau(Text t, Text **output, unsigned *count);
+void text_decoupe_premier_niveau(const Text t, Text **output, unsigned *count);
 
 #endif
