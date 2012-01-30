@@ -21,18 +21,19 @@ Terme obtenir_representant_terme(const Terme u, const Solutions s)
 	assert(u !=NULL);
 
 	if(u->type_terme == Variable)
-	{	
-		// pour être sûre..
-		if(u->contenu_terme.val <= s->size)
+	{
+		//si on avait trouvé une solution du terme
+		if(s->array[u->contenu_terme.val-1] != NULL)
 		{
-		    if(s->array[u->contenu_terme.val-1]!=NULL)
-		    {
-			// on affecte v à u
-			nouveau_terme = copie_terme(s->array[u->contenu_terme.val-1]);
+		// on affecte v à u
+		nouveau_terme = copie_terme(s->array[u->contenu_terme.val-1]);
 
-			// on affecte le representant de v au nouveau_terme
-			nouveau_terme = obtenir_representant_terme(nouveau_terme,s);
-		    }
+		// on affecte le representant de v au nouveau_terme
+		nouveau_terme = obtenir_representant_terme(nouveau_terme,s);
+		}
+		else
+		{
+			nouveau_terme = copie_terme(u);
 		}
 	}
 	else
@@ -66,10 +67,12 @@ Equation* obtenir_representant_equation(const Equation *e, const Solutions s)
 	assert(s!=NULL);
 	Equation *sys = creer_systeme();
 
-	sys->terme_gauche= creer_terme();
+	sys->terme_gauche = creer_terme();
 	sys->terme_droit = creer_terme();
+
 	
 	sys->terme_gauche = obtenir_representant_terme(e->terme_gauche, s);
+	
 	sys->terme_droit = obtenir_representant_terme(e->terme_droit, s);
 	
 	return sys;
