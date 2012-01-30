@@ -12,6 +12,8 @@
 #include "Types.h"
 #include <stdlib.h>
 #include <assert.h>
+#include <stdio.h>
+
 
 Terme obtenir_representant_terme(const Terme u, const Solutions s)
 {
@@ -50,7 +52,6 @@ Terme obtenir_representant_terme(const Terme u, const Solutions s)
 			// boucle qui parcour tout les arguments de la fonction fm 
 			while (arg != NULL)
 			{
-				
 				arg->terme_argument = obtenir_representant_terme(arg->terme_argument,s); // pour obtenir le representant de l'argument
 		
 				arg = arg->suivant ; // Passer à l'argument suivant
