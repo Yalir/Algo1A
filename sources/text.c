@@ -43,6 +43,9 @@ Text text_creer_depuis_texte(const char *string)
 	} 
 }
 
+
+Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned length);
+
 void text_destroy(Text t)
 {
 	assert(t!=NULL);
@@ -80,49 +83,61 @@ void text_retirer_espaces(Text t)
 
 void text_decoupe_premier_niveau(const Text t, char separator, Text **output, unsigned *count)
 {
-	assert(t!=NULL);
-	assert(t->data!=NULL);
+	assert(t != NULL);
+	assert(t->data != NULL);
+	assert(output != NULL);
+	assert(count != NULL);
 	
-	/*unsigned i;
-	for (i = 0; i < 9; i++)
-		output[i]= NULL;
-	*/
+	Text *textArray = NULL;
+	unsigned textCount = 0;
+	const char *cursor = t->data;
 	
-	int i,n,compteur_parenthese=0,compteur_caractere=0;
-	n=strlen(t->data);
-	*count =0;
+	int i, n;
+	int compteur_parenthese = 0;
+	int compteur_caractere = 0;
 	
-	for(i=0;i<n; i++)
+	n = text_obtenir_taille(t);
+	
+	for (i = 0;i < n;i++)
 	{
 		compteur_caractere++;
 		
-		if(t->data[i]=='(')
+		if (cursor[i] == '(')
 		{
 			compteur_parenthese++;
 		}
-		else
+		else if(cursor[i] == ')')
 		{
-			if(t->data[i]==')')
+			compteur_parenthese--;
+		}
+		else if(cursor[i] == separator)
+		{
+			if(compteur_parenthese == 0)
 			{
-				compteur_parenthese--;
-			}
-			else
-			{
-				if(t->data[i]==separator)
+				// Inserer le texte dans le tableau des textes..
+				textCount++;
+				void *tmp = realloc(textArray, textCount * sizeof(*textArray));
+				
+				if (tmp)
 				{
-					if(compteur_parenthese ==0)
-					{
-						// Inserer le texte dans le tableau des textes..
-						output[i]->data = &(t->data[i]);
-						output[i]->length = compteur_caractere;
-						t->data = &t->data[i];
-						
-						count++;
-						compteur_caractere=0;
-					}
-					//Sinon on fait rien
+					textArray = tmp;
+					textArray[i] = text_creer_depuis_sous_texte(text_obtenir_texte(t),
+																i - compteur_caractere,
+																compteur_caractere);
 				}
+				else
+				{
+					fprintf(stderr, "*** error: texte_decoupe_premier_niveau() - no more memory available.\n");
+					abort();
+				}
+				
+				textCount++;
+				compteur_caractere=0;
 			}
+			//Sinon on fait rien
 		}
 	}
+	
+	*output = textArray;
+	*count = textCount;
 }

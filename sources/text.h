@@ -12,12 +12,21 @@
 
 typedef struct Text* Text;
 
-/** @brief Créé un nouveau Text
+/** @brief Créé un nouveau Text à partir d'une chaîne de caractères
  *
  * @param string Une chaîne C à importer
  * @return Un nouveau Text
  */
 Text text_creer_depuis_texte(const char *string);
+
+/** @brief Créé un nouveau Text à partir d'une partie d'une chaîne de caractères
+ *
+ * @param string La chaîne de caractères à importer
+ * @param pos L'indice du premier caractère à importer
+ * @param length Le nombre de caractères à importer
+ * @return Le nouveau Text
+ */
+Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned length);
 
 /** @brief Libère la mémoire du Text @a t
  * @param t Le Text à détruire
