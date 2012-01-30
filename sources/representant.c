@@ -45,7 +45,7 @@ Terme obtenir_representant_terme(const Terme u, const Solutions s)
 		{
 			// u est de la forme :  fm(q1,q2,...,qn)
 			// Le representant de u dans S est fm(obtenir_representant (q1), obtenir_representant(q2), ..., obtenir_representant(qn))
-			arg = nouveau_terme->contenu_terme.arguments;
+			arg = copie_argument(nouveau_terme->contenu_terme.arguments);
 			
 			// boucle qui parcour tout les arguments de la fonction fm 
 			while (arg != NULL)
