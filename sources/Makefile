@@ -17,11 +17,12 @@ LIBRARIES_DIR =
 COMPILER_OPTIONS = -g -Wall
 LINKER_OPTIONS =
 EXEC=algo
+TEST_EXEC=test_algo
 
 CFLAGS =$(INCLUDES) $(COMPILER_OPTIONS)
 LDFLAGS =$(LIBRARIES_DIR) $(LIBRARIES) $(LINKER_OPTIONS)
 
-all: $(EXEC)
+all: $(EXEC) $(TEST_EXEC)
 
 # ============================================================================ #
 # Règles par fichier
@@ -50,11 +51,17 @@ parser.o : parser.h parser.c text.h donnees.h Types.h
 representant.o : representant.h representant.c Types.h donnees.h
 	$(CC) representant.c $(CFLAGS)
 
+test.o: test.c
+	$(CC) test.c $(CFLAGS)
+
 # ============================================================================ #
 # Liaison de l'exécutable
 # ============================================================================ #
 $(EXEC): main.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o
 	$(LD) -o $(EXEC) main.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o $(LDFLAGS)
+
+$(TEST_EXEC): test.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o
+	$(LD) -o $(TEST_EXEC) test.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o $(LDFLAGS)
 
 # ============================================================================ #
 # Nettoyage
@@ -69,8 +76,17 @@ run: $(EXEC)
 	./$(EXEC)
 
 # ============================================================================ #
+# Test
+# ============================================================================ #
+test: $(TEST_EXEC)
+	./$(TEST_EXEC)
+
+# ============================================================================ #
 # Debuggage
 # ============================================================================ #
 debug: $(EXEC)
 	gdb ./$(EXEC)
+
+debug_test: $(TEST_EXEC)
+	gdb ./$(TEST_EXEC)
 
