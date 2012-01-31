@@ -72,6 +72,7 @@ Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned len
 		}
 		else
 		{
+			texte->data = (char*)malloc(sizeof(char)*length);
 			for(i=0;i<length;i++)
 			{
 				texte->data[i]=string[i+pos];
@@ -162,7 +163,7 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 				{
 					textArray = tmp;
 					textArray[i] = text_creer_depuis_sous_texte(text_obtenir_texte(t),
-																i - compteur_caractere,
+																i - compteur_caractere+1,
 																compteur_caractere);
 				}
 				else
