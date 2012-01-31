@@ -162,9 +162,9 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 				if (tmp)
 				{
 					textArray = tmp;
-					textArray[i] = text_creer_depuis_sous_texte(text_obtenir_texte(t),
+					textArray[textCount-1] = text_creer_depuis_sous_texte(text_obtenir_texte(t),
 																i - compteur_caractere+1,
-																compteur_caractere);
+																compteur_caractere-1);
 				}
 				else
 				{
@@ -172,7 +172,6 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 					abort();
 				}
 				
-				textCount++;
 				compteur_caractere=0;
 			}
 			//Sinon on fait rien
