@@ -47,7 +47,31 @@ Text text_creer_depuis_texte(const char *string)
 
 Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned length)
 {
-	return NULL;
+	assert(string!=NULL);
+	Text texte = (Text)malloc(sizeof(*texte));
+	int n,i;
+	if (texte == NULL)
+	{
+		fprintf(stderr, "malloc error\n");
+		abort();
+	}
+	else
+	{
+		n = strlen(string);
+		if(pos >=n || pos+length >=n)
+		{
+			abort();
+		}
+		else
+		{
+			for(i=0;i<length;i++)
+			{
+				texte->data[i]=string[i+pos];
+			}
+			texte->length = length;
+			return texte;
+		}
+	}
 }
 
 
