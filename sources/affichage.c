@@ -1,4 +1,4 @@
-/**
+/*
  * ESIL (Ecole Superieure d'Ingenieurs de Luminy, Marseille)
  * Case 925 - 163, avenue de Luminy
  * 13288 Marseille CEDEX 9
@@ -9,10 +9,11 @@
 
 #include "affichage.h"
 #include "donnees.h"
-#include "Types.h"
+#include "types.h"
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
+
 
 void afficher_systeme(const Systeme sys)
 {
@@ -33,6 +34,7 @@ void afficher_systeme(const Systeme sys)
 	
 	printf("}\n");
 }
+
 
 void afficher_terme(const Terme terme)
 {
@@ -64,6 +66,7 @@ void afficher_terme(const Terme terme)
 	}
 }
 
+
 void afficher_argument(const Argument arg)
 {
 	assert(arg != NULL);
@@ -80,6 +83,7 @@ void afficher_argument(const Argument arg)
 	}
 }
 
+
 void afficher_solutions(const Solutions s)
 {
 	int i;
@@ -87,6 +91,7 @@ void afficher_solutions(const Solutions s)
 	if (s)
 	{
 		printf("Solutions:\n");
+		
 		for (i = 0; i < s->size;i++)
 		{
 			if (s->array[i])

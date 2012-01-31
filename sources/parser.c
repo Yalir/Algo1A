@@ -1,4 +1,4 @@
-/**
+/*
  * ESIL (Ecole Superieure d'Ingenieurs de Luminy, Marseille)
  * Case 925 - 163, avenue de Luminy
  * 13288 Marseille CEDEX 9
@@ -15,7 +15,7 @@
 #include "parser.h"
 #include "text.h"
 #include "donnees.h"
-#include "Types.h"
+#include "types.h"
 
 
 Systeme creer_systeme_depuis_texte(const char *input)

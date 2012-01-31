@@ -1,4 +1,4 @@
-/**
+/*
  * ESIL (Ecole Superieure d'Ingenieurs de Luminy, Marseille)
  * Case 925 - 163, avenue de Luminy
  * 13288 Marseille CEDEX 9
@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h> 
-#include "Types.h"
+#include "types.h"
 #include "construction.h"
 #include "donnees.h"
 

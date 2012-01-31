@@ -1,4 +1,4 @@
-/**
+/*
  * ESIL (Ecole Superieure d'Ingenieurs de Luminy, Marseille)
  * Case 925 - 163, avenue de Luminy
  * 13288 Marseille CEDEX 9
@@ -36,6 +36,7 @@ typedef struct {
 	unsigned size;
 } *Solutions;
 
+
 typedef struct equation_s {
 	Terme terme_gauche;
 	Terme terme_droit;
@@ -48,11 +49,14 @@ typedef struct argument_s {
 	struct argument_s* suivant ;
 } *Argument;
 
+
 typedef enum {
 	Variable = 1,
 	Constante = 2,
 	Fonction = 30
 } TypeTerme;
+
+int est_fonction(TypeTerme t);
 
 struct terme_s {
 	int type_terme;

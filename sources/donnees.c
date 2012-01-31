@@ -1,4 +1,4 @@
-/**
+/*
  * ESIL (Ecole Superieure d'Ingenieurs de Luminy, Marseille)
  * Case 925 - 163, avenue de Luminy
  * 13288 Marseille CEDEX 9
@@ -32,10 +32,12 @@ Systeme creer_systeme(void)
 	}       
 }
 
+
 Equation *creer_equation(void)
 {
 	return creer_systeme();
 }
+
 
 Terme creer_terme(void)
 {
@@ -56,6 +58,7 @@ Terme creer_terme(void)
 	return te;
 }
 
+
 Argument creer_argument(void)
 {
 	Argument a;
@@ -73,6 +76,7 @@ Argument creer_argument(void)
 	}
 	return a;
 }
+
 
 Solutions creer_solutions(void)
 {
@@ -127,6 +131,7 @@ Equation *copie_equation(const Equation *e)
 	return nouv;
 }
 
+
 Terme copie_terme(const Terme t)
 {
 	assert(t != NULL);
@@ -147,6 +152,7 @@ Terme copie_terme(const Terme t)
 	return nouv;
 }
 
+
 Argument copie_argument(const Argument arg)
 {
 	assert(arg != NULL);
@@ -161,6 +167,7 @@ Argument copie_argument(const Argument arg)
 	
 	return nouv;
 }
+
 
 void destroy_systeme(Systeme sys)
 {
@@ -177,10 +184,12 @@ void destroy_systeme(Systeme sys)
 	free(sys);
 }
 
+
 void destroy_equation(Equation *e)
 {
 	destroy_systeme(e);
 }
+
 
 void destroy_terme(Terme terme)
 {
@@ -194,6 +203,7 @@ void destroy_terme(Terme terme)
 	free(terme);
 }
 
+
 void destroy_argument(Argument arg)
 {
 	assert(arg != NULL);
@@ -206,6 +216,7 @@ void destroy_argument(Argument arg)
 	
 	free (arg);
 }
+
 
 void destroy_solutions(Solutions sol)
 {

@@ -1,4 +1,4 @@
-/**
+/*
  * ESIL (Ecole Superieure d'Ingenieurs de Luminy, Marseille)
  * Case 925 - 163, avenue de Luminy
  * 13288 Marseille CEDEX 9
@@ -26,6 +26,7 @@ unsigned text_obtenir_taille(const Text t)
 	return t->length;
 }
 
+
 Text text_creer_depuis_texte(const char *string)
 {
 	assert(string != NULL);
@@ -44,7 +45,11 @@ Text text_creer_depuis_texte(const char *string)
 }
 
 
-Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned length);
+Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned length)
+{
+	return NULL;
+}
+
 
 void text_destroy(Text t)
 {
@@ -53,12 +58,14 @@ void text_destroy(Text t)
 	free (t);
 }
 
+
 const char *text_obtenir_texte(const Text t)
 {
 	assert(t!=NULL);
 	assert(t->data!=NULL);
 	return t->data;
 }
+
 
 void text_retirer_espaces(Text t)
 {	
@@ -80,6 +87,7 @@ void text_retirer_espaces(Text t)
 		}
 	}
 }
+
 
 void text_decoupe_premier_niveau(const Text t, char separator, Text **output, unsigned *count)
 {
@@ -142,6 +150,7 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 	*count = textCount;
 }
 
+
 int text_contient_char(const Text t, char chr)
 {
 	assert(t!=NULL);
@@ -161,7 +170,8 @@ int text_contient_char(const Text t, char chr)
 	return 1;
 }
 
-int text_trim_char(Text t, char chr)
+
+void text_trim_char(Text t, char chr)
 {
 	assert(t!=NULL);
 	assert(t->data!=NULL);
@@ -187,11 +197,10 @@ int text_trim_char(Text t, char chr)
 		}
 		k--;
 	}
-	return 1;
-	// je pense que ça sera mieux de changer le type de valeur de retour de la fonction et mettre void
 }
 
-int text_retirer_prefix(Text t, char chr)
+
+void text_retirer_prefix(Text t, char chr)
 {
 	assert(t!=NULL);
 	assert(t->data!=NULL);
@@ -211,7 +220,4 @@ int text_retirer_prefix(Text t, char chr)
 			}
 		}
 	}
-	return 1;
-	
-	// je pense que ça sera mieux de changer le type de valeur de retour de la fonction et mettre void
 }

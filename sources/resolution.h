@@ -1,4 +1,4 @@
-/**
+/*
  * ESIL (Ecole Superieure d'Ingenieurs de Luminy, Marseille)
  * Case 925 - 163, avenue de Luminy
  * 13288 Marseille CEDEX 9
@@ -28,7 +28,7 @@
 #ifndef RESOLUTION_H
 #define RESOLUTION_H
 
-#include "Types.h"
+#include "types.h"
 
 /** @brief Créé un système de solution à partir du système d'équations donné
  * @a sys doit être un système valide (non nul)

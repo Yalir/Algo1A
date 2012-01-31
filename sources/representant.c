@@ -1,4 +1,4 @@
-/**
+/*
  * ESIL (Ecole Superieure d'Ingenieurs de Luminy, Marseille)
  * Case 925 - 163, avenue de Luminy
  * 13288 Marseille CEDEX 9
@@ -9,7 +9,7 @@
  
 #include "representant.h"
 #include "donnees.h"
-#include "Types.h"
+#include "types.h"
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
@@ -62,6 +62,7 @@ Terme obtenir_representant_terme(const Terme u, const Solutions s)
 	
 	return nouveau_terme ;
 }
+
 
 Equation* obtenir_representant_equation(const Equation *e, const Solutions s)
 {

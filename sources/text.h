@@ -1,4 +1,4 @@
-/**
+/*
  * ESIL (Ecole Superieure d'Ingenieurs de Luminy, Marseille)
  * Case 925 - 163, avenue de Luminy
  * 13288 Marseille CEDEX 9
@@ -12,12 +12,14 @@
 
 typedef struct Text* Text;
 
+
 /** @brief Créé un nouveau Text à partir d'une chaîne de caractères
  *
  * @param string Une chaîne C à importer
  * @return Un nouveau Text
  */
 Text text_creer_depuis_texte(const char *string);
+
 
 /** @brief Créé un nouveau Text à partir d'une partie d'une chaîne de caractères
  *
@@ -28,10 +30,12 @@ Text text_creer_depuis_texte(const char *string);
  */
 Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned length);
 
+
 /** @brief Libère la mémoire du Text @a t
  * @param t Le Text à détruire
  */
 void text_destroy(Text t);
+
 
 /** @brief Récupère la chaîne de caractère C du Text @a t
  *
@@ -40,17 +44,20 @@ void text_destroy(Text t);
  */
 const char *text_obtenir_texte(const Text t);
 
+
 /** @brief Donne la taille du Text @a t en nombre de caractères
  *
  * @return Le nombre de caractères de @a t
  */
 unsigned text_obtenir_taille(const Text t);
 
+
 /** @brief Retire tous les espaces du Text @a t
  *
  * @param t Le Text à nettoyer
  */
 void text_retirer_espaces(Text t);
+
 
 /** @brief Génère une liste de Text à partir du Text t, d'après le séparateur @a separator
  * Seuls les éléments de premier niveau sont découpées. Un niveau est défini par
@@ -66,6 +73,7 @@ void text_retirer_espaces(Text t);
  */
 void text_decoupe_premier_niveau(const Text t, char separator, Text **output, unsigned *count);
 
+
 /** @brief Indique si le Text @a t contient le caractère @a chr
  *
  * @param t Le Text dans lequel le caractère @a chr doit être recherché
@@ -75,13 +83,15 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
  */
 int text_contient_char(const Text t, char chr);
 
+
 /** @brief Retire le caractère @a chr au début et à la fin du Text @a t
  *
  * @param t Le Text à élaguer
  * @param chr Le caractère à supprimer du Text @a t
  * @return 1 s'il n'y a pas eu d'erreur, -1 sinon
  */
-int text_trim_char(Text t, char chr);
+void text_trim_char(Text t, char chr);
+
 
 /** @brief Retire le préfix @a chr du Text @a t
  *
@@ -89,7 +99,7 @@ int text_trim_char(Text t, char chr);
  * @param chr Le préfix à supprimer
  * @return 1 si le préfix a bien été retiré, -1 sinon
  */
-int text_retirer_prefix(Text t, char chr);
+void text_retirer_prefix(Text t, char chr);
 
 
 #endif

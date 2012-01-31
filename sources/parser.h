@@ -1,4 +1,4 @@
-/**
+/*
  * ESIL (Ecole Superieure d'Ingenieurs de Luminy, Marseille)
  * Case 925 - 163, avenue de Luminy
  * 13288 Marseille CEDEX 9
@@ -10,7 +10,7 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-#include "Types.h"
+#include "types.h"
 #include "text.h"
 
 /** Créé un système d'équations à partir du texte donné

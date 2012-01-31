@@ -1,4 +1,4 @@
-/**
+/*
  * ESIL (Ecole Superieure d'Ingenieurs de Luminy, Marseille)
  * Case 925 - 163, avenue de Luminy
  * 13288 Marseille CEDEX 9
@@ -10,11 +10,12 @@
 #include "resolution.h"
 #include "donnees.h"
 #include "representant.h"
-#include "Types.h"
+#include "types.h"
 #include "affichage.h"
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
+
 
 Solutions traiter_systeme(Systeme sys)
 {
@@ -68,7 +69,8 @@ Solutions traiter_systeme(Systeme sys)
 	
 	return s;
 }
- 
+
+
 // après l’exécution de la fonction, dansSys contient l’équation qui 
 // doit être rajoutée au système, et dansSolu l’équation qui doit
 // être rajoutée aux solutions. Si l’un ou les deux paramètres
@@ -178,6 +180,7 @@ int traiter_equation(const Solutions s, const Equation *e, Equation **dansSys, E
 	return flag;
 }
 
+
 int contient_terme(Terme conteneur, Terme t)
 {
 	assert(conteneur != NULL);
@@ -213,6 +216,7 @@ int contient_terme(Terme conteneur, Terme t)
 	
 	return found;
 }
+
 
 Equation *decapsuler_fonctions(Terme fgauche, Terme fdroit)
 {
