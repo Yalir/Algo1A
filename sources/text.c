@@ -60,12 +60,14 @@ Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned len
 		n = strlen(string);
 		if(pos >=n)
 		{
-			fprintf(stderr, "La position que vous avez choisi est supérieurà la longueure de la chaine .\n");
+			fprintf(stderr, "La position que vous avez choisie est supérieure à la longueure de la chaine (length=%d, pos=%d).\n",
+				n, pos);
 			abort();
 		}
 		if(pos+length >=n)
 		{
-			fprintf(stderr, "La longueur de la chaine que vous aimeriez avoir depasse la chaine \n");
+			fprintf(stderr, "La longueur de la chaine que vous aimeriez avoir depasse la chaine (pos+lenght= %d , n = %d)\n",
+				pos+length,n);
 			abort();
 		}
 		else
