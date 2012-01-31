@@ -30,10 +30,10 @@ all: $(EXEC) $(TEST_EXEC)
 main.o : main.c affichage.h construction.h resolution.h
 	$(CC) main.c $(CFLAGS)
 
-donnees.o : donnees.h Types.h donnees.c
+donnees.o : donnees.h types.h donnees.c
 	$(CC) donnees.c $(CFLAGS)
 
-affichage.o : affichage.c affichage.h donnees.h Types.h
+affichage.o : affichage.c affichage.h donnees.h types.h
 	$(CC) affichage.c $(CFLAGS)
 
 construction.o : construction.h construction.c
@@ -45,10 +45,10 @@ resolution.o : resolution.h resolution.c
 text.o : text.h text.c
 	$(CC) text.c $(CFLAGS)
 
-parser.o : parser.h parser.c text.h donnees.h Types.h
+parser.o : parser.h parser.c text.h donnees.h types.h
 	$(CC) parser.c $(CFLAGS)
 
-representant.o : representant.h representant.c Types.h donnees.h
+representant.o : representant.h representant.c types.h donnees.h
 	$(CC) representant.c $(CFLAGS)
 
 test.o: test.c
