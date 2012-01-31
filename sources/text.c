@@ -179,7 +179,7 @@ int text_contient_char(const Text t, char chr)
 {
 	assert(t!=NULL);
 	assert(t->data!=NULL);
-	int i,n =text_obtenir_taille(t);
+	int i=0,n =text_obtenir_taille(t);
 	
 	while(t->data[i]!=chr && i<n)
 	{
