@@ -141,3 +141,77 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 	*output = textArray;
 	*count = textCount;
 }
+
+int text_contient_char(const Text t, char chr)
+{
+	assert(t!=NULL);
+	assert(t->data!=NULL);
+	int i,n =text_obtenir_taille(t);
+	
+	while(t->data[i]!=chr && i<n)
+	{
+		i++;
+	}
+	//si l'element n'a pas été trouvé
+	if(i==n)
+	{
+		return -1;
+	}
+	// else
+	return 1;
+}
+
+int text_trim_char(Text t, char chr)
+{
+	assert(t!=NULL);
+	assert(t->data!=NULL);
+	
+	int i,j,n,k;
+	i=0;
+	n=text_obtenir_taille(t);
+	k=n;
+	
+	while(t->data[i]==chr && i<n)
+	{
+		for(j=i;j<n-1;j++)
+		{
+			t->data[j]=t->data[j+1];
+		}
+		i++;
+	}
+	while((t->data[k]==chr) && (k>=i))
+	{
+		for(j=k;j>=i;j--)
+		{
+			t->data[j]='\0';
+		}
+		k--;
+	}
+	return 1;
+	// je pense que ça sera mieux de changer le type de valeur de retour de la fonction et mettre void
+}
+
+int text_retirer_prefix(Text t, char chr)
+{
+	assert(t!=NULL);
+	assert(t->data!=NULL);
+	int i,j,n;
+	
+	n=text_obtenir_taille(t);
+	if(text_contient_char(t,chr)==1)
+	{
+		for(i=0;i<n;i++)
+		{
+			if(t->data[i]==chr)
+			{
+				for(j=i;j<n-1;j++)
+				{
+					t->data[j]=t->data[j+1];
+				}
+			}
+		}
+	}
+	return 1;
+	
+	// je pense que ça sera mieux de changer le type de valeur de retour de la fonction et mettre void
+}
