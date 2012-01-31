@@ -72,12 +72,14 @@ Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned len
 		}
 		else
 		{
-			texte->data = (char*)malloc(sizeof(char)*length);
+			texte->data = (char*)malloc(sizeof(char)*length+1);
 			for(i=0;i<length;i++)
 			{
 				texte->data[i]=string[i+pos];
 			}
-			texte->length = length;
+			texte->data[length]='\0';
+			
+			texte->length = length+1;
 			return texte;
 		}
 	}
@@ -176,8 +178,31 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 			}
 			//Sinon on fait rien
 		}
+		
 	}
-	
+
+	if(compteur_caractere > 0)
+	{
+		// Inserer le texte dans le tableau des textes..
+		textCount++;
+		void *tmp = realloc(textArray, textCount * sizeof(*textArray));
+		
+		if (tmp)
+		{
+			textArray = tmp;
+			textArray[textCount-1] = text_creer_depuis_sous_texte(text_obtenir_texte(t),
+														i - compteur_caractere+1,
+														compteur_caractere);
+		}
+		else
+		{
+			fprintf(stderr, "*** error: texte_decoupe_premier_niveau() - no more memory available.\n");
+			abort();
+		}
+	}			
+
+		
+		
 	*output = textArray;
 	*count = textCount;
 }
