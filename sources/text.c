@@ -193,6 +193,7 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 	if(position_apres_derniere_virgule > 0)
 	{
 
+
 		// Inserer le texte dans le tableau des textes..
 		textCount++;
 		void *tmp = realloc(textArray, textCount * sizeof(*textArray));
@@ -204,7 +205,7 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 			/*
 			printf("textCount-1 =%d\n",textCount-1);
 			printf("i =%d\n",i);
-			printf("position_derniere_virgule =%d\n",position_derniere_virgule);
+			printf("position_apres_derniere_virgule =%d\n",position_apres_derniere_virgule);
 			printf("i - compteur_caractere+1 =%d\n",i - compteur_caractere+1);
 			printf("compteur_caractere =%d\n",compteur_caractere);
 			*/
@@ -236,8 +237,9 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 		{
 
 			textArray = tmp;	
-			textArray[0] = t;
-		
+			textArray[0] =  text_creer_depuis_sous_texte(text_obtenir_texte(t),
+														position_apres_derniere_virgule,
+														t->length);
 		}
 		else
 		{
@@ -246,8 +248,6 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 		}
 		
 	}	
-
-		
 		
 	*output = textArray;
 	*count = textCount;
