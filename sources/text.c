@@ -58,16 +58,18 @@ Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned len
 	else
 	{
 		n = strlen(string);
-		if(pos >=n)
+		if(pos >n)
 		{
 			fprintf(stderr, "*** error: text_creer_depuis_sous_texte() - La position que vous avez choisie est supérieure à la longueure de la chaine (length=%u, pos=%u).\n",
 				n, pos);
 			abort();
 		}
-		if(pos+length >=n)
+		if(length >n)
 		{
-			fprintf(stderr, "*** error: text_creer_depuis_sous_texte() - La longueur de la chaine que vous aimeriez avoir depasse la chaine (pos+lenght= %u , n = %u)\n",
-				pos+length,n);
+			fprintf(stderr, "lenght= %u , n = %u)\n",
+				length,n);
+			fprintf(stderr, "*** error: text_creer_depuis_sous_texte() - La longueur de la chaine que vous aimeriez avoir depasse la chaine (pos(%u) + lenght(%u) = , n = %u)\n",
+				pos,length,n);
 			abort();
 		}
 		else
@@ -121,6 +123,7 @@ void text_retirer_espaces(Text t)
 			}
 		}
 	}
+	t->length=strlen(t->data);
 }
 
 
@@ -132,6 +135,10 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 	assert(count != NULL);
 	
 	Text *textArray = NULL;
+	
+	unsigned position_derniere_virgule = 0;
+	unsigned taille_derniere_chaine = 0;
+	
 	unsigned textCount = 0;
 	const char *cursor = t->data;
 	
@@ -154,7 +161,7 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 			compteur_parenthese--;
 		}
 		else if(cursor[i] == separator)
-		{
+		{				
 			if(compteur_parenthese == 0)
 			{
 				// Inserer le texte dans le tableau des textes..
@@ -163,6 +170,7 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 				
 				if (tmp)
 				{
+					position_derniere_virgule = i+1;
 					textArray = tmp;
 					textArray[textCount-1] = text_creer_depuis_sous_texte(text_obtenir_texte(t),
 																i - compteur_caractere+1,
@@ -180,25 +188,41 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 		}
 		
 	}
-
-	if(compteur_caractere > 0)
+			
+	if(position_derniere_virgule > 0)
 	{
+
 		// Inserer le texte dans le tableau des textes..
 		textCount++;
 		void *tmp = realloc(textArray, textCount * sizeof(*textArray));
 		
 		if (tmp)
 		{
+
 			textArray = tmp;
+			/*
+			printf("textCount-1 =%d\n",textCount-1);
+			printf("i =%d\n",i);
+			printf("position_derniere_virgule =%d\n",position_derniere_virgule);
+			printf("i - compteur_caractere+1 =%d\n",i - compteur_caractere+1);
+			printf("compteur_caractere =%d\n",compteur_caractere);
+			*/
+			// on calcule la taille de la derniere chaine
+			taille_derniere_chaine = text_obtenir_taille(t)-position_derniere_virgule-1;
+			//printf("taille_derniere_chaine =%d\n",taille_derniere_chaine);
+			
+			
 			textArray[textCount-1] = text_creer_depuis_sous_texte(text_obtenir_texte(t),
-														i - compteur_caractere+1,
-														compteur_caractere);
+														position_derniere_virgule+1,
+														taille_derniere_chaine);
+		
 		}
 		else
 		{
 			fprintf(stderr, "*** error: texte_decoupe_premier_niveau() - no more memory available.\n");
 			abort();
 		}
+		
 	}			
 
 		
@@ -254,6 +278,7 @@ void text_trim_char(Text t, char chr)
 		}
 		k--;
 	}
+	t->length=strlen(t->data);
 }
 
 
@@ -277,4 +302,5 @@ void text_retirer_prefix(Text t, char chr)
 			}
 		}
 	}
+	t->length=strlen(t->data);
 }
