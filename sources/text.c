@@ -236,7 +236,7 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 		{
 
 			textArray = tmp;	
-			textArray[textCount-1] = t;
+			textArray[0] = t;
 		
 		}
 		else
