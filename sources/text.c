@@ -16,14 +16,14 @@
 
 struct Text {
 	char *data;
-	unsigned length;
+	size_t length;
 };
 
 
 unsigned text_obtenir_taille(const Text t)
 {
 	assert(t != NULL);
-	return t->length;
+	return (unsigned)t->length;
 }
 
 
@@ -49,7 +49,8 @@ Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned len
 {
 	assert(string!=NULL);
 	Text texte = (Text)malloc(sizeof(*texte));
-	int n,i;
+	size_t n, i;
+	
 	if (texte == NULL)
 	{
 		fprintf(stderr, "malloc error\n");
@@ -60,16 +61,16 @@ Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned len
 		n = strlen(string);
 		if(pos >n)
 		{
-			fprintf(stderr, "*** error: text_creer_depuis_sous_texte() - La position que vous avez choisie est supérieure à la longueure de la chaine (length=%u, pos=%u).\n",
+			fprintf(stderr, "*** error: text_creer_depuis_sous_texte() - La position que vous avez choisie est supérieure à la longueure de la chaine (length=%lu, pos=%u).\n",
 				n, pos);
 			abort();
 		}
-		if(length >n)
+		if(pos+length >n)
 		{
-			fprintf(stderr, "lenght= %u , n = %u)\n",
+			fprintf(stderr, "lenght= %u , n = %lu)\n",
 				length,n);
-			fprintf(stderr, "*** error: text_creer_depuis_sous_texte() - La longueur de la chaine que vous aimeriez avoir depasse la chaine (pos(%u) + lenght(%u) = , n = %u)\n",
-				pos,length,n);
+			fprintf(stderr, "*** error: text_creer_depuis_sous_texte() - La longueur de la chaine que vous aimeriez avoir depasse la chaine (pos(%u) + lenght(%u) = %u, n = %lu)\n",
+				pos,length, pos+length, n);
 			abort();
 		}
 		else
@@ -81,10 +82,10 @@ Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned len
 			}
 			texte->data[length]='\0';
 			
-			texte->length = length+1;
-			return texte;
+			texte->length = length;
 		}
 	}
+	return texte;
 }
 
 
@@ -111,7 +112,7 @@ void text_retirer_espaces(Text t)
 	
 	int j,i,n;
 	
-	n=strlen(t->data);
+	n= text_obtenir_taille(t);
 
 	for(i=0;i<n;i++)
 	{
@@ -236,19 +237,11 @@ int text_contient_char(const Text t, char chr)
 {
 	assert(t!=NULL);
 	assert(t->data!=NULL);
-	int i=0,n =text_obtenir_taille(t);
 	
-	while(t->data[i]!=chr && i<n)
-	{
-		i++;
-	}
-	//si l'element n'a pas été trouvé
-	if(i==n)
-	{
+	if (strchr(t->data, chr) != NULL)
+		return 1;
+	else
 		return -1;
-	}
-	// else
-	return 1;
 }
 
 
