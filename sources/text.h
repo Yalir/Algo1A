@@ -16,24 +16,26 @@ typedef struct Text* Text;
 /** @brief Créé un nouveau Text à partir d'une chaîne de caractères
  *
  * @param string Une chaîne C à importer qui ne peut pas être nulle
- * @return Un nouveau Text
+ * @return Un nouveau Text ou NULL si string est nul
  */
 Text text_creer_depuis_texte(const char *string);
 
 
 /** @brief Créé un nouveau Text à partir d'une partie d'une chaîne de caractères
  *
- * @param string La chaîne de caractères à importer
+ * @param string La chaîne de caractères à importer 
  * @param pos L'indice du premier caractère à importer
  * @param length Le nombre de caractères à importer
- * @return Le nouveau Text
+ * @return Le nouveau Text ou NULL si la chaine string est nulle ou si 
+ * 		   la position est supérieure à la longueur de la chaine string
+ * 		   ou si pos+length supérieure à la longueur de la chaine string.
  */
 Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned length);
 
 
 /** @brief Libère la mémoire du Text @a t
  * @param t Le Text à détruire
- * @return : 1 s'il n'y a pas eu d'erreur, -1 sinon
+ * @return : 1 s'il n'y a pas eu d'erreur, -1 sinon (le text est nul)
  */
 int text_destroy(Text t);
 
@@ -41,15 +43,14 @@ int text_destroy(Text t);
 /** @brief Récupère la chaîne de caractère C du Text @a t
  *
  * @param t Le Text depuis lequel est récupérée la chaîne de caractères
- * @return La chaîne de caractère C du Text
+ * @return La chaîne de caractère C du Text ou NULL si t est nul
  */
 const char *text_obtenir_texte(const Text t);
 
 
 /** @brief Donne la taille du Text @a t en nombre de caractères
  *
- * @return Le nombre de caractères de @a t
- * 		  0 si erreur
+ * @return Le nombre de caractères de @a t ou 0 si t est nul
  */
 unsigned text_obtenir_taille(const Text t);
 
@@ -57,7 +58,7 @@ unsigned text_obtenir_taille(const Text t);
 /** @brief Retire tous les espaces du Text @a t
  *
  * @param t Le Text à nettoyer
- * @return : 1 s'il n'y a pas eu d'erreur, -1 sinon
+ * @return : 1 s'il n'y a pas eu d'erreur, -1 sinon(si t est nul)
  */
 int text_retirer_espaces(Text t);
 
@@ -73,7 +74,8 @@ int text_retirer_espaces(Text t);
  * la liste des Text extraits de @a t
  * @param count Une référence sur un entier qui contiendra le nombre d'éléments
  * extraits du Text @a t
- * @return : 1 s'il n'y a pas eu d'erreur, -1 sinon
+ * @return : 1 s'il n'y a pas eu d'erreur, -1 sinon (si t est nul, 
+ * 			 si output est nul, ou si count est nul)
  */
 int text_decoupe_premier_niveau(const Text t, char separator, Text **output, unsigned *count);
 
@@ -92,8 +94,8 @@ int text_contient_char(const Text t, char chr);
  *
  * @param t Le Text à élaguer
  * @param chr Le caractère à supprimer du Text @a t
- * @return 1 s'il n'y a pas eu d'erreur, -1 sinon
- */
+ * @return 1 s'il n'y a pas eu d'erreur, -1 sinon (t est nul)
+ */ 
 int text_trim_char(Text t, char chr);
 
 
@@ -101,7 +103,7 @@ int text_trim_char(Text t, char chr);
  *
  * @param t Le Text dans lequel on veut retirer le préfix
  * @param chr Le préfix à supprimer
- * @return 1 si le préfix a bien été retiré, -1 sinon
+ * @return 1 si le préfix a bien été retiré, -1 sinon (si t est nul)
  */
 int text_retirer_prefix(Text t, char chr);
 
