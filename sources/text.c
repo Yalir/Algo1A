@@ -137,7 +137,7 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 	
 	Text *textArray = NULL;
 	
-	unsigned position_derniere_virgule = 0;
+	unsigned position_apres_derniere_virgule = 0;
 	unsigned taille_derniere_chaine = 0;
 	
 	unsigned textCount = 0;
@@ -161,9 +161,9 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 		{
 			compteur_parenthese--;
 		}
-		else if(cursor[i] == separator)
-		{				
-			if(compteur_parenthese == 0)
+		else if(compteur_parenthese == 0)
+		{
+			if(cursor[i] == separator)
 			{
 				// Inserer le texte dans le tableau des textes..
 				textCount++;
@@ -171,7 +171,7 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 				
 				if (tmp)
 				{
-					position_derniere_virgule = i+1;
+					position_apres_derniere_virgule = i+1;
 					textArray = tmp;
 					textArray[textCount-1] = text_creer_depuis_sous_texte(text_obtenir_texte(t),
 																i - compteur_caractere+1,
@@ -190,8 +190,9 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 		
 	}
 			
-	if(position_derniere_virgule > 0)
+	if(position_apres_derniere_virgule > 0)
 	{
+
 
 		// Inserer le texte dans le tableau des textes..
 		textCount++;
@@ -204,17 +205,17 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 			/*
 			printf("textCount-1 =%d\n",textCount-1);
 			printf("i =%d\n",i);
-			printf("position_derniere_virgule =%d\n",position_derniere_virgule);
+			printf("position_apres_derniere_virgule =%d\n",position_apres_derniere_virgule);
 			printf("i - compteur_caractere+1 =%d\n",i - compteur_caractere+1);
 			printf("compteur_caractere =%d\n",compteur_caractere);
 			*/
 			// on calcule la taille de la derniere chaine
-			taille_derniere_chaine = text_obtenir_taille(t)-position_derniere_virgule-1;
+			taille_derniere_chaine = text_obtenir_taille(t)-position_apres_derniere_virgule-1;
 			//printf("taille_derniere_chaine =%d\n",taille_derniere_chaine);
 			
 			
 			textArray[textCount-1] = text_creer_depuis_sous_texte(text_obtenir_texte(t),
-														position_derniere_virgule+1,
+														position_apres_derniere_virgule,
 														taille_derniere_chaine);
 		
 		}
@@ -224,9 +225,29 @@ void text_decoupe_premier_niveau(const Text t, char separator, Text **output, un
 			abort();
 		}
 		
-	}			
-
+	}
+	else
+	{
+		// c'est le cas où on a pas un separateur à l'exterieur des parenthèses.
+		// Inserer le texte dans le tableau des textes..
+		textCount++;
+		void *tmp = realloc(textArray, textCount * sizeof(*textArray));
 		
+		if (tmp)
+		{
+
+			textArray = tmp;	
+			textArray[0] =  text_creer_depuis_sous_texte(text_obtenir_texte(t),
+														position_apres_derniere_virgule,
+														t->length);
+		}
+		else
+		{
+			fprintf(stderr, "*** error: texte_decoupe_premier_niveau() - no more memory available.\n");
+			abort();
+		}
+		
+	}	
 		
 	*output = textArray;
 	*count = textCount;
