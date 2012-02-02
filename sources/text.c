@@ -22,299 +22,441 @@ struct Text {
 
 unsigned text_obtenir_taille(const Text t)
 {
-	assert(t != NULL);
-	return (unsigned)t->length;
+	if(t == NULL)
+	{
+		fprintf(stderr,"***Erreur :text_obtenir_taille() - Le paramètre 't' ne devrait jamais être nul.\n");
+		return 0;
+	}
+	else
+	{
+		return (unsigned)t->length;
+	}
 }
 
 
 Text text_creer_depuis_texte(const char *string)
 {
-	assert(string != NULL);
-	Text texte = (Text)malloc(sizeof(*texte));
-	if (texte == NULL)
+	if(string == NULL)
 	{
-		fprintf(stderr, "malloc error\n");
-		abort();
+		fprintf(stderr,"***Erreur :text_creer_depuis_texte() - Le paramètre 'string' ne devrait jamais être nul.\n");
+		return NULL;
 	}
 	else
-	{
-		texte->data = strdup(string);
-		texte->length = strlen(string);
-		return texte;
+	{	
+		Text texte = (Text)malloc(sizeof(*texte));
+		if (texte == NULL)
+		{
+			fprintf(stderr, "malloc error\n");
+			abort();
+		}
+		else
+		{
+			texte->data = strdup(string);
+			texte->length = strlen(string);
+			return texte;
+		}
 	} 
 }
 
 
 Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned length)
 {
-	assert(string!=NULL);
-	Text texte = (Text)malloc(sizeof(*texte));
-	size_t n, i;
-	
-	if (texte == NULL)
+	if(string == NULL)
 	{
-		fprintf(stderr, "malloc error\n");
-		abort();
+		fprintf(stderr,"***Erreur :text_creer_depuis_sous_texte() - Le paramètre 'string' ne devrait jamais être nul.\n");
+		return NULL;
 	}
 	else
-	{
-		n = strlen(string);
-		if(pos >n)
+	{			
+		Text texte = (Text)malloc(sizeof(*texte));
+		size_t n, i;
+		
+		if (texte == NULL)
 		{
-			fprintf(stderr, "*** error: text_creer_depuis_sous_texte() - La position que vous avez choisie est supérieure à la longueure de la chaine (length=%lu, pos=%u).\n",
-				n, pos);
-			abort();
-		}
-		if(pos+length >n)
-		{
-			fprintf(stderr, "lenght= %u , n = %lu)\n",
-				length,n);
-			fprintf(stderr, "*** error: text_creer_depuis_sous_texte() - La longueur de la chaine que vous aimeriez avoir depasse la chaine (pos(%u) + lenght(%u) = %u, n = %lu)\n",
-				pos,length, pos+length, n);
+			fprintf(stderr, "malloc error\n");
 			abort();
 		}
 		else
 		{
-			texte->data = (char*)malloc(sizeof(char)*length+1);
-			for(i=0;i<length;i++)
+			n = strlen(string);
+			if(pos >n)
 			{
-				texte->data[i]=string[i+pos];
+				fprintf(stderr, "*** error: text_creer_depuis_sous_texte() - La position que vous avez choisie est supérieure à la longueure de la chaine (length=%lu, pos=%u).\n",
+					n, pos);
+				return NULL;
 			}
-			texte->data[length]='\0';
-			
-			texte->length = length;
+			if(pos+length >n)
+			{
+				fprintf(stderr, "lenght= %u , n = %lu)\n",
+					length,n);
+				fprintf(stderr, "*** error: text_creer_depuis_sous_texte() - La longueur de la chaine que vous aimeriez avoir depasse la chaine (pos(%u) + lenght(%u) = %u, n = %lu)\n",
+					pos,length, pos+length, n);
+					return NULL;
+			}
+			else
+			{
+				texte->data = (char*)malloc(sizeof(char)*length+1);
+				for(i=0;i<length;i++)
+				{
+					texte->data[i]=string[i+pos];
+				}
+				texte->data[length]='\0';
+				
+				texte->length = length;
+			}
 		}
+		return texte;
 	}
-	return texte;
 }
 
 
-void text_destroy(Text t)
+int text_destroy(Text t)
 {
-	assert(t!=NULL);
-	free (t->data);
-	free (t);
+	if(t == NULL)
+	{
+		fprintf(stderr,"***Erreur :text_destroy() - Le paramètre 't' ne devrait jamais être nul.\n");
+		return -1;
+	}
+	else
+	{	
+		free (t->data);
+		free (t);
+		return 1;
+	}
 }
 
 
 const char *text_obtenir_texte(const Text t)
-{
-	assert(t!=NULL);
-	assert(t->data!=NULL);
-	return t->data;
-}
-
-
-void text_retirer_espaces(Text t)
 {	
-	assert(t!=NULL);
-	assert(t->data!=NULL);
-	
-	int j,i,n;
-	
-	n= text_obtenir_taille(t);
-
-	for(i=0;i<n;i++)
+	if(t == NULL)
 	{
-		if(t->data[i]==' ')
-		{
-			for(j=i;j<n;j++)
-			{
-				t->data[j]=t->data[j+1];
-			}
-		}
-	}
-	t->length=strlen(t->data);
-}
-
-
-void text_decoupe_premier_niveau(const Text t, char separator, Text **output, unsigned *count)
-{
-	assert(t != NULL);
-	assert(t->data != NULL);
-	assert(output != NULL);
-	assert(count != NULL);
-	
-	Text *textArray = NULL;
-	
-	unsigned position_apres_derniere_virgule = 0;
-	unsigned taille_derniere_chaine = 0;
-	
-	unsigned textCount = 0;
-	const char *cursor = t->data;
-	
-	int i, n;
-	int compteur_parenthese = 0;
-	int compteur_caractere = 0;
-	
-	n = text_obtenir_taille(t);
-	
-	for (i = 0;i < n;i++)
-	{
-		compteur_caractere++;
-		
-		if (cursor[i] == '(')
-		{
-			compteur_parenthese++;
-		}
-		else if(cursor[i] == ')')
-		{
-			compteur_parenthese--;
-		}
-		else if(compteur_parenthese == 0)
-		{
-			if(cursor[i] == separator)
-			{
-				// Inserer le texte dans le tableau des textes..
-				textCount++;
-				void *tmp = realloc(textArray, textCount * sizeof(*textArray));
-				
-				if (tmp)
-				{
-					position_apres_derniere_virgule = i+1;
-					textArray = tmp;
-					textArray[textCount-1] = text_creer_depuis_sous_texte(text_obtenir_texte(t),
-																i - compteur_caractere+1,
-																compteur_caractere-1);
-				}
-				else
-				{
-					fprintf(stderr, "*** error: texte_decoupe_premier_niveau() - no more memory available.\n");
-					abort();
-				}
-				
-				compteur_caractere=0;
-			}
-			//Sinon on fait rien
-		}
-		
-	}
-			
-	if(position_apres_derniere_virgule > 0)
-	{
-
-
-		// Inserer le texte dans le tableau des textes..
-		textCount++;
-		void *tmp = realloc(textArray, textCount * sizeof(*textArray));
-		
-		if (tmp)
-		{
-
-			textArray = tmp;
-			/*
-			printf("textCount-1 =%d\n",textCount-1);
-			printf("i =%d\n",i);
-			printf("position_apres_derniere_virgule =%d\n",position_apres_derniere_virgule);
-			printf("i - compteur_caractere+1 =%d\n",i - compteur_caractere+1);
-			printf("compteur_caractere =%d\n",compteur_caractere);
-			*/
-			// on calcule la taille de la derniere chaine
-			taille_derniere_chaine = text_obtenir_taille(t)-position_apres_derniere_virgule-1;
-			//printf("taille_derniere_chaine =%d\n",taille_derniere_chaine);
-			
-			
-			textArray[textCount-1] = text_creer_depuis_sous_texte(text_obtenir_texte(t),
-														position_apres_derniere_virgule,
-														taille_derniere_chaine);
-		
-		}
-		else
-		{
-			fprintf(stderr, "*** error: texte_decoupe_premier_niveau() - no more memory available.\n");
-			abort();
-		}
-		
+		fprintf(stderr,"***Erreur :text_obtenir_texte() - Le paramètre 't' ne devrait jamais être nul.\n");
+		return NULL;
 	}
 	else
 	{
-		// c'est le cas où on a pas un separateur à l'exterieur des parenthèses.
-		// Inserer le texte dans le tableau des textes..
-		textCount++;
-		void *tmp = realloc(textArray, textCount * sizeof(*textArray));
-		
-		if (tmp)
+		if(t->data == NULL)
 		{
-
-			textArray = tmp;	
-			textArray[0] =  text_creer_depuis_sous_texte(text_obtenir_texte(t),
-														position_apres_derniere_virgule,
-														t->length);
+			fprintf(stderr,"***Erreur :text_obtenir_texte() - Il n'y a pas des données dans le texte.\n");
+			return NULL;
 		}
 		else
 		{
-			fprintf(stderr, "*** error: texte_decoupe_premier_niveau() - no more memory available.\n");
-			abort();
+			return t->data;
 		}
+	}
+}
+
+
+int text_retirer_espaces(Text t)
+{
+	if(t == NULL)
+	{
+		fprintf(stderr,"***Erreur :text_trim_char() - Le paramètre 't' ne devrait jamais être nul.\n");
+		return -1;
+	}
+	else
+	{
+		if(t->data == NULL)
+		{
+			fprintf(stderr,"***Erreur :text_trim_char() - Il n'y a pas de données dans le texte.\n");
+			return -1;
+		}
+		else
+		{
+			int j,i,n;			
+			n= text_obtenir_taille(t);
+
+			for(i=0;i<n;i++)
+			{
+				if(t->data[i]==' ')
+				{
+					for(j=i;j<n;j++)
+					{
+						t->data[j]=t->data[j+1];
+					}
+				}
+			}
+			t->length=strlen(t->data);
+			return 1;
+		}
+	}
+}
+
+
+int text_decoupe_premier_niveau(const Text t, char separator, Text **output, unsigned *count)
+{	
+	if(t == NULL)
+	{
+		fprintf(stderr,"***Erreur :text_decoupe_premier_niveau() - Le paramètre 't' ne devrait jamais être nul.\n");
+		return -1;
+	}
+	else if(output == NULL)
+	{
+		fprintf(stderr,"***Erreur :text_decoupe_premier_niveau() - Le paramètre 'output' ne devrait jamais être nul.\n");
+		return -1;
+	}
+	
+	
+	else if(count == NULL)
+	{
+		fprintf(stderr,"***Erreur :text_decoupe_premier_niveau() - Le paramètre 'output' ne devrait jamais être nul.\n");
+		return -1;
+	}
+	
+	else if(t->data == NULL)
+	{
+		fprintf(stderr,"***Erreur :text_decoupe_premier_niveau() - Il n'y a pas des données dans le texte.\n");
+		return -1;
+	}
+	
+	else
+	{
+		Text *textArray = NULL;
 		
-	}	
+		unsigned position_apres_derniere_virgule = 0;
+		unsigned taille_derniere_chaine = 0;
 		
-	*output = textArray;
-	*count = textCount;
+		unsigned textCount = 0;
+		const char *cursor = t->data;
+		
+		int i, n;
+		int compteur_parenthese = 0;
+		int compteur_caractere = 0;
+		
+		n = text_obtenir_taille(t);
+		
+		for (i = 0;i < n;i++)
+		{
+			compteur_caractere++;
+			
+			if (cursor[i] == '(')
+			{
+				compteur_parenthese++;
+			}
+			else if(cursor[i] == ')')
+			{
+				compteur_parenthese--;
+			}
+			else if(compteur_parenthese == 0)
+			{
+				if(cursor[i] == separator)
+				{
+					// Inserer le texte dans le tableau des textes..
+					textCount++;
+					void *tmp = realloc(textArray, textCount * sizeof(*textArray));
+					
+					if (tmp)
+					{
+						position_apres_derniere_virgule = i+1;
+						textArray = tmp;
+						textArray[textCount-1] = text_creer_depuis_sous_texte(text_obtenir_texte(t),
+																	i - compteur_caractere+1,
+																	compteur_caractere-1);
+					}
+					else
+					{
+						fprintf(stderr, "*** error: texte_decoupe_premier_niveau() - no more memory available.\n");
+						return -1;
+					}
+					
+					compteur_caractere=0;
+				}
+				//Sinon on fait rien
+			}
+			
+		}
+				
+		if(position_apres_derniere_virgule > 0)
+		{
+			// Inserer le texte dans le tableau des textes..
+			textCount++;
+			void *tmp = realloc(textArray, textCount * sizeof(*textArray));
+			
+			if (tmp)
+			{
+
+				textArray = tmp;
+				/*
+				printf("textCount-1 =%d\n",textCount-1);
+				printf("i =%d\n",i);
+				printf("position_apres_derniere_virgule =%d\n",position_apres_derniere_virgule);
+				printf("i - compteur_caractere+1 =%d\n",i - compteur_caractere+1);
+				printf("compteur_caractere =%d\n",compteur_caractere);
+				*/
+				// on calcule la taille de la derniere chaine
+				taille_derniere_chaine = text_obtenir_taille(t)-position_apres_derniere_virgule;
+				//printf("taille_derniere_chaine =%d\n",taille_derniere_chaine);
+				
+				
+				textArray[textCount-1] = text_creer_depuis_sous_texte(text_obtenir_texte(t),
+															position_apres_derniere_virgule,
+															taille_derniere_chaine);
+			
+			}
+			else
+			{
+				fprintf(stderr, "*** error: texte_decoupe_premier_niveau() - no more memory available.\n");
+				return -1;
+			}
+			
+		}
+		else
+		{
+			// c'est le cas où on a pas un separateur à l'exterieur des parenthèses.
+			// Inserer le texte dans le tableau des textes..
+			textCount++;
+			void *tmp = realloc(textArray, textCount * sizeof(*textArray));
+			
+			if (tmp)
+			{
+
+				textArray = tmp;	
+				textArray[0] =  text_creer_depuis_sous_texte(text_obtenir_texte(t),
+															position_apres_derniere_virgule,
+															t->length);
+			}
+			else
+			{
+				fprintf(stderr, "*** error: texte_decoupe_premier_niveau() - no more memory available.\n");
+				return -1;
+			}
+			
+		}	
+			
+		*output = textArray;
+		*count = textCount;
+			
+	}
+	return 1;
 }
 
 
 int text_contient_char(const Text t, char chr)
 {
-	assert(t!=NULL);
-	assert(t->data!=NULL);
-	
-	if (strchr(t->data, chr) != NULL)
-		return 1;
-	else
+	if(t == NULL)
+	{
+		fprintf(stderr,"***Erreur :text_retirer_espaces() - Le paramètre 't' ne devrait jamais être nul.\n");
 		return -1;
+	}
+	else
+	{
+		if(t->data == NULL)
+		{
+			fprintf(stderr,"***Erreur :text_retirer_espaces() - Il n'y a pas de données dans le texte.\n");
+			return -1;
+		}
+		else
+		{
+				
+			if (strchr(t->data, chr) != NULL)
+				return 1;
+			else
+				return 0;
+		}
+	}
 }
 
 
-void text_trim_char(Text t, char chr)
+int text_trim_char(Text t, char chr)
 {
-	assert(t!=NULL);
-	assert(t->data!=NULL);
-	
-	int i,j,n,k;
-	i=0;
-	n=text_obtenir_taille(t);
-	k=n;
-	
-	while(t->data[i]==chr && i<n)
+	if(t == NULL)
 	{
-		for(j=i;j<n-1;j++)
-		{
-			t->data[j]=t->data[j+1];
-		}
-		i++;
+		fprintf(stderr,"***Erreur :text_retirer_espaces() - Le paramètre 't' ne devrait jamais être nul.\n");
+		return -1;
 	}
-	while((t->data[k]==chr) && (k>=i))
+	else
 	{
-		for(j=k;j>=i;j--)
+		if(t->data == NULL)
 		{
-			t->data[j]='\0';
+			fprintf(stderr,"***Erreur :text_retirer_espaces() - Il n'y a pas de données dans le texte.\n");
+			return -1;
 		}
-		k--;
-	}
-	t->length=strlen(t->data);
-}
-
-
-void text_retirer_prefix(Text t, char chr)
-{
-	assert(t!=NULL);
-	assert(t->data!=NULL);
-	int i,j,n;
-	
-	n=text_obtenir_taille(t);
-	if(text_contient_char(t,chr)==1)
-	{
-		for(i=0;i<n;i++)
-		{
-			if(t->data[i]==chr)
+		else
+		{		
+			int j,n;
+			n=text_obtenir_taille(t);
+			
+			//Boucle pour tester si le premier caractère et le supprimer si c'est le cas
+			//on teste le premier caractère de la chaine
+			while(t->data[0]==chr)
 			{
-				for(j=i;j<n-1;j++)
+				if(n==0 || n==1)
 				{
-					t->data[j]=t->data[j+1];
+					t->data=""; // on retourne une chaine vide;
+				}
+				else
+				{
+					for(j=0;j<n-1;j++)
+					{
+						t->data[j]=t->data[j+1];
+					}
+					t->data[j]='\0';
+					n=n-1; // pour regler la longueure de la chaine
 				}
 			}
+			
+			//Boucle pour tester si le dernier caractère et le supprimer si c'est le cas
+			//on teste le dernier caractère de la chaine
+			while(t->data[n-1]==chr)
+			{	
+				if(n==0 || n==1)
+				{
+					t->data=""; // on retourne une chaine vide;
+				}
+				else
+				{			
+					t->data[n-1]='\0';
+					n=n-1;
+				}
+			}
+			
+			t->length=n ;// pour regler la longueure de la chaine;
+			return 1;
 		}
 	}
-	t->length=strlen(t->data);
+}
+
+
+int text_retirer_prefix(Text t, char chr)
+{	
+	if(t == NULL)
+	{
+		fprintf(stderr,"***Erreur :text_retirer_prefix() - Le paramètre 't' ne devrait jamais être nul.\n");
+		return -1;
+	}
+	else
+	{
+		if(t->data == NULL)
+		{
+			fprintf(stderr,"***Erreur :text_retirer_prefix() - Il n'y a pas de données dans le texte.\n");
+			return -1;
+		}
+		else
+		{
+			int i,j,n;
+			
+			n=text_obtenir_taille(t);
+			// On teste si le texte contient bien le caractère chr ,pour ne pas parcourir les boucles pour rien.
+			if(text_contient_char(t,chr)==1)
+			{
+				for(i=0;i<n;i++)
+				{
+					while(t->data[i]==chr)
+					{
+						// La boucle qui décale tous les caractères qui sont apres l'indice i vers la gauche
+						for(j=i;j<n-1;j++)
+						{
+							t->data[j]=t->data[j+1];
+						}
+						t->data[j]='\0';
+						n=n-1;
+					}
+					
+				}
+			}
+			t->length=n;
+			return 1;
+		}
+	}
 }

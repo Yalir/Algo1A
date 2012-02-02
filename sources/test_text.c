@@ -11,12 +11,63 @@
 #include "test_text.h"
 #include "text.h"
 #include <assert.h>
+#include <string.h>
 
 void test_text(void)
 {
 	assert(text_creer_depuis_texte(NULL) == NULL);
 	assert(text_creer_depuis_texte("a") != NULL);
-	assert(text_obtenir_taille(text_creer_depuis_texte("abc")) == 3);
+	assert(text_creer_depuis_texte("") != NULL);
+	assert(text_obtenir_taille(text_creer_depuis_texte("abcdef")) == 6);
+	assert(text_creer_depuis_texte("abcdef") != NULL);
+	assert(strcmp(text_obtenir_texte(text_creer_depuis_texte("abc")), "abc") == 0);
+	assert(text_creer_depuis_sous_texte("abcdef",4,4) == NULL);
+	assert(text_creer_depuis_sous_texte("abcdef",2,4) != NULL);
+	assert(text_obtenir_taille(text_creer_depuis_sous_texte("abcdef",2,4))==4);
 	
+	assert(text_retirer_espaces(NULL) == -1);
+	assert(text_retirer_espaces(text_creer_depuis_texte("abcdef")) == 1);
 	
+	Text *output1;
+	unsigned count1;
+	assert(text_decoupe_premier_niveau(text_creer_depuis_texte("ab,cd,ef"),',',&output1,&count1) == 1);
+	assert(count1 == 3);
+	assert(strcmp(text_obtenir_texte(output1[0]), "ab") == 0);
+	assert(strcmp(text_obtenir_texte(output1[1]), "cd") == 0);
+	assert(strcmp(text_obtenir_texte(output1[2]), "ef") == 0);
+	
+	Text *output2;
+	unsigned count2;
+	assert(text_decoupe_premier_niveau(text_creer_depuis_texte("f1(x1,x2)=f1(f2(f3(x3))),f4(x4,x5)=f4(f5(x5)),x3=x4"),',',&output2,&count2) == 1);
+	assert(count2 == 3);
+	assert(strcmp(text_obtenir_texte(output2[0]), "f1(x1,x2)=f1(f2(f3(x3)))") == 0);
+	assert(strcmp(text_obtenir_texte(output2[1]), "f4(x4,x5)=f4(f5(x5))") == 0);
+	assert(strcmp(text_obtenir_texte(output2[2]), "x3=x4") == 0);
+
+	Text *output3;
+	unsigned count3;
+	assert(text_decoupe_premier_niveau(text_creer_depuis_texte("f1=f2"),',',&output3,&count3) == 1);
+	assert(count3 == 1);
+	assert(strcmp(text_obtenir_texte(output3[0]), "f1=f2") == 0);
+	
+	assert(text_contient_char(NULL,' ')==-1);
+	assert(text_contient_char(text_creer_depuis_texte("ab,cd,ef"),' ')==0);
+	assert(text_contient_char(text_creer_depuis_texte("ab ,cd,ef"),' ')==1);
+	
+	assert(text_trim_char(NULL,' ')==-1);
+	Text t1 ; 
+	t1 = text_creer_depuis_texte("       ab ,cd,ef     ");
+	assert(text_trim_char(t1,' ')==1);
+	//printf("'%s'\n",text_obtenir_texte(t1));
+	assert(strcmp(text_obtenir_texte(t1), "ab ,cd,ef")== 0);
+
+	
+	assert(text_retirer_prefix(NULL,' ')==-1);
+	Text t2 ; 
+	t2 = text_creer_depuis_texte("        ab                , cd , ef");
+	assert(text_retirer_prefix(t2,' ')==1);
+	//printf("'%s'\n",text_obtenir_texte(t2));
+	assert(strcmp(text_obtenir_texte(t2), "ab,cd,ef")== 0);
+	
+
 }

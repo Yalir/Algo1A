@@ -15,7 +15,7 @@ typedef struct Text* Text;
 
 /** @brief Créé un nouveau Text à partir d'une chaîne de caractères
  *
- * @param string Une chaîne C à importer
+ * @param string Une chaîne C à importer qui ne peut pas être nulle
  * @return Un nouveau Text
  */
 Text text_creer_depuis_texte(const char *string);
@@ -33,8 +33,9 @@ Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned len
 
 /** @brief Libère la mémoire du Text @a t
  * @param t Le Text à détruire
+ * @return : 1 s'il n'y a pas eu d'erreur, -1 sinon
  */
-void text_destroy(Text t);
+int text_destroy(Text t);
 
 
 /** @brief Récupère la chaîne de caractère C du Text @a t
@@ -48,6 +49,7 @@ const char *text_obtenir_texte(const Text t);
 /** @brief Donne la taille du Text @a t en nombre de caractères
  *
  * @return Le nombre de caractères de @a t
+ * 		  0 si erreur
  */
 unsigned text_obtenir_taille(const Text t);
 
@@ -55,8 +57,9 @@ unsigned text_obtenir_taille(const Text t);
 /** @brief Retire tous les espaces du Text @a t
  *
  * @param t Le Text à nettoyer
+ * @return : 1 s'il n'y a pas eu d'erreur, -1 sinon
  */
-void text_retirer_espaces(Text t);
+int text_retirer_espaces(Text t);
 
 
 /** @brief Génère une liste de Text à partir du Text t, d'après le séparateur @a separator
@@ -70,8 +73,9 @@ void text_retirer_espaces(Text t);
  * la liste des Text extraits de @a t
  * @param count Une référence sur un entier qui contiendra le nombre d'éléments
  * extraits du Text @a t
+ * @return : 1 s'il n'y a pas eu d'erreur, -1 sinon
  */
-void text_decoupe_premier_niveau(const Text t, char separator, Text **output, unsigned *count);
+int text_decoupe_premier_niveau(const Text t, char separator, Text **output, unsigned *count);
 
 
 /** @brief Indique si le Text @a t contient le caractère @a chr
@@ -90,7 +94,7 @@ int text_contient_char(const Text t, char chr);
  * @param chr Le caractère à supprimer du Text @a t
  * @return 1 s'il n'y a pas eu d'erreur, -1 sinon
  */
-void text_trim_char(Text t, char chr);
+int text_trim_char(Text t, char chr);
 
 
 /** @brief Retire le préfix @a chr du Text @a t
@@ -99,7 +103,7 @@ void text_trim_char(Text t, char chr);
  * @param chr Le préfix à supprimer
  * @return 1 si le préfix a bien été retiré, -1 sinon
  */
-void text_retirer_prefix(Text t, char chr);
+int text_retirer_prefix(Text t, char chr);
 
 
 #endif
