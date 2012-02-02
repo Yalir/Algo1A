@@ -149,35 +149,43 @@ const char *text_obtenir_texte(const Text t)
 
 
 int text_retirer_espaces(Text t)
-{
+{	
 	if(t == NULL)
 	{
-		fprintf(stderr,"***Erreur :text_trim_char() - Le paramètre 't' ne devrait jamais être nul.\n");
+		fprintf(stderr,"***Erreur :text_retirer_prefix() - Le paramètre 't' ne devrait jamais être nul.\n");
 		return -1;
 	}
 	else
 	{
 		if(t->data == NULL)
 		{
-			fprintf(stderr,"***Erreur :text_trim_char() - Il n'y a pas de données dans le texte.\n");
+			fprintf(stderr,"***Erreur :text_retirer_prefix() - Il n'y a pas de données dans le texte.\n");
 			return -1;
 		}
 		else
 		{
-			int j,i,n;			
-			n= text_obtenir_taille(t);
-
-			for(i=0;i<n;i++)
+			int i,j,n;
+			
+			n=text_obtenir_taille(t);
+			// On teste si le texte contient bien le caractère chr ,pour ne pas parcourir les boucles pour rien.
+			if(text_contient_char(t,' ')==1)
 			{
-				if(t->data[i]==' ')
+				for(i=0;i<n;i++)
 				{
-					for(j=i;j<n;j++)
+					while(t->data[i]==' ')
 					{
-						t->data[j]=t->data[j+1];
+						// La boucle qui décale tous les caractères qui sont apres l'indice i vers la gauche
+						for(j=i;j<n-1;j++)
+						{
+							t->data[j]=t->data[j+1];
+						}
+						t->data[j]='\0';
+						n=n-1;
 					}
+					
 				}
 			}
-			t->length=strlen(t->data);
+			t->length=n;
 			return 1;
 		}
 	}
@@ -200,7 +208,7 @@ int text_decoupe_premier_niveau(const Text t, char separator, Text **output, uns
 	
 	else if(count == NULL)
 	{
-		fprintf(stderr,"***Erreur :text_decoupe_premier_niveau() - Le paramètre 'output' ne devrait jamais être nul.\n");
+		fprintf(stderr,"***Erreur :text_decoupe_premier_niveau() - Le paramètre 'count' ne devrait jamais être nul.\n");
 		return -1;
 	}
 	
@@ -419,44 +427,47 @@ int text_trim_char(Text t, char chr)
 
 
 int text_retirer_prefix(Text t, char chr)
-{	
+{
 	if(t == NULL)
 	{
-		fprintf(stderr,"***Erreur :text_retirer_prefix() - Le paramètre 't' ne devrait jamais être nul.\n");
+		fprintf(stderr,"***Erreur :text_retirer_espaces() - Le paramètre 't' ne devrait jamais être nul.\n");
 		return -1;
 	}
 	else
 	{
 		if(t->data == NULL)
 		{
-			fprintf(stderr,"***Erreur :text_retirer_prefix() - Il n'y a pas de données dans le texte.\n");
+			fprintf(stderr,"***Erreur :text_retirer_espaces() - Il n'y a pas de données dans le texte.\n");
 			return -1;
 		}
 		else
 		{
-			int i,j,n;
+			int j,n;
 			
-			n=text_obtenir_taille(t);
-			// On teste si le texte contient bien le caractère chr ,pour ne pas parcourir les boucles pour rien.
-			if(text_contient_char(t,chr)==1)
-			{
-				for(i=0;i<n;i++)
+			//Boucle pour tester si le premier caractère et le supprimer si c'est le cas
+			//on teste le premier caractère de la chaine
+			if(t->data[0]==chr)
+			{	
+				n=text_obtenir_taille(t);
+				if(n==0 || n==1)
 				{
-					while(t->data[i]==chr)
-					{
-						// La boucle qui décale tous les caractères qui sont apres l'indice i vers la gauche
-						for(j=i;j<n-1;j++)
-						{
-							t->data[j]=t->data[j+1];
-						}
-						t->data[j]='\0';
-						n=n-1;
-					}
-					
+					t->data=""; // on retourne une chaine vide;
 				}
+				else
+				{
+					for(j=0;j<n-1;j++)
+					{
+						printf("aaaaaa\n");
+
+						t->data[j]=t->data[j+1];
+					}
+					t->data[j]='\0';
+					n=n-1; // pour regler la longueure de la chaine
+				}
+			t->length=n ;// pour regler la longueure de la chaine;
 			}
-			t->length=n;
-			return 1;
+			return 1;	
+
 		}
 	}
 }
