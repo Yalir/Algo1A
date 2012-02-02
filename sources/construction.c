@@ -9,8 +9,7 @@
 
 #include <stdlib.h>
 #include <assert.h>
-#include <stdio.h> 
-#include "types.h"
+#include <stdio.h>
 #include "construction.h"
 #include "donnees.h"
 

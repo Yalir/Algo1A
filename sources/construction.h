@@ -29,6 +29,8 @@
 #ifndef CONSTRUCTION_H
 #define CONSTRUCTION_H
 
+#include "types.h"
+
 
 /** @brief cette fonction construit manuellement un système d'équations à résoudre 
  *
