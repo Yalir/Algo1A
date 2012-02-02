@@ -25,7 +25,7 @@ LDFLAGS =$(LIBRARIES_DIR) $(LIBRARIES) $(LINKER_OPTIONS)
 all: $(EXEC) $(TEST_EXEC)
 
 # ============================================================================ #
-# Règles par fichier
+# Règles par fichier (algo)
 # ============================================================================ #
 main.o : main.c affichage.h construction.h resolution.h
 	$(CC) main.c $(CFLAGS)
@@ -51,17 +51,26 @@ parser.o : parser.h parser.c text.h donnees.h types.h
 representant.o : representant.h representant.c types.h donnees.h
 	$(CC) representant.c $(CFLAGS)
 
+# ============================================================================ #
+# Règles par fichier (test)
+# ============================================================================ #
 test.o: test.c
 	$(CC) test.c $(CFLAGS)
 
+test_text.o: test_text.c test_text.h
+	$(CC) test_text.c $(CFLAGS)
+
 # ============================================================================ #
-# Liaison de l'exécutable
+# Liaison de l'exécutable algo
 # ============================================================================ #
 $(EXEC): main.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o
 	$(LD) -o $(EXEC) main.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o $(LDFLAGS)
 
-$(TEST_EXEC): test.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o
-	$(LD) -o $(TEST_EXEC) test.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o $(LDFLAGS)
+# ============================================================================ #
+# Liaison de l'exécutable de test
+# ============================================================================ #
+$(TEST_EXEC): test.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o test_text.o
+	$(LD) -o $(TEST_EXEC) test.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o test_text.o $(LDFLAGS)
 
 # ============================================================================ #
 # Nettoyage

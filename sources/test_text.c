@@ -1,4 +1,3 @@
-
 /*
  * ESIL (Ecole Superieure d'Ingenieurs de Luminy, Marseille)
  * Case 925 - 163, avenue de Luminy
@@ -10,19 +9,14 @@
 
 #include <stdio.h>
 #include "test_text.h"
+#include "text.h"
+#include <assert.h>
 
-int main (int argc, const char * argv[])
+void test_text(void)
 {
-	//Systeme s = creer_systeme_depuis_texte("X2 = 2, F1(X1, X2) = F1(F2(1, X2), X3)");
-	//afficher_systeme(s);
+	assert(text_creer_depuis_texte(NULL) == NULL);
+	assert(text_creer_depuis_texte("a") != NULL);
+	assert(text_obtenir_taille(text_creer_depuis_texte("abc")) == 3);
 	
-	test_text();
-	// test_types();
 	
-#if WINDOWS
-	system("PAUSE");
-#endif
-    return 0;
 }
-
-
