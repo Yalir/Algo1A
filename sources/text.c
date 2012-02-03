@@ -391,7 +391,7 @@ int text_trim_char(Text t, char chr)
 			{
 				if(n==0 || n==1)
 				{
-					t->data=""; // on retourne une chaine vide;
+					t->data=strdup(""); // on retourne une chaine vide;
 				}
 				else
 				{
@@ -410,7 +410,7 @@ int text_trim_char(Text t, char chr)
 			{	
 				if(n==0 || n==1)
 				{
-					t->data=""; // on retourne une chaine vide;
+					t->data=strdup(""); // on retourne une chaine vide;
 				}
 				else
 				{			
@@ -451,14 +451,12 @@ int text_retirer_prefix(Text t, char chr)
 				n=text_obtenir_taille(t);
 				if(n==0 || n==1)
 				{
-					t->data=""; // on retourne une chaine vide;
+					t->data=strdup(""); // on retourne une chaine vide;
 				}
 				else
 				{
 					for(j=0;j<n-1;j++)
 					{
-						printf("aaaaaa\n");
-
 						t->data[j]=t->data[j+1];
 					}
 					t->data[j]='\0';
