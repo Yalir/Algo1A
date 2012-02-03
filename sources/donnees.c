@@ -98,140 +98,232 @@ Solutions creer_solutions(void)
 }
 
 
-void initialiser_solutions(Solutions s, unsigned n)
+int initialiser_solutions(Solutions s, unsigned n)
 {
-	assert(s != NULL);
-	
-	if (s->array)
-		free(s->array);
-	s->size = n;
-	s->array = (Terme *)malloc(n * sizeof(Terme));
-	
-	unsigned i;
-	for (i = 0; i < n;i++)
-		s->array[i] = NULL;
+	if(s == NULL)
+	{
+		fprintf(stderr,"***Erreur :initialiser_solutions() - Le paramètre 's' ne devrait jamais être nul.\n");
+		return -1;
+	}
+	else
+	{
+		if (s->array)
+			free(s->array);
+		s->size = n;
+		s->array = (Terme *)malloc(n * sizeof(Terme));
+		
+		unsigned i;
+		for (i = 0; i < n;i++)
+			s->array[i] = NULL;
+			return 1;
+	}
 }
 
 
 Equation *copie_equation(const Equation *e)
 {
-	assert(e != NULL);
-	
-	Equation *nouv = creer_equation();
-	
-	if (e->terme_gauche)
-		nouv->terme_gauche = copie_terme(e->terme_gauche);
-	
-	if (e->terme_droit)
-		nouv->terme_droit = copie_terme(e->terme_droit);
-	
-	if (e->suivant)
-		nouv->suivant = copie_equation(e->suivant);
-	
-	return nouv;
+	if(e == NULL)
+	{
+		fprintf(stderr,"***Erreur :copie_equation() - Le paramètre 'e' ne devrait jamais être nul.\n");
+		return NULL;
+	}
+	else
+	{
+		Equation *nouv = creer_equation();
+		
+		if (e->terme_gauche)
+			nouv->terme_gauche = copie_terme(e->terme_gauche);
+		
+		if (e->terme_droit)
+			nouv->terme_droit = copie_terme(e->terme_droit);
+		
+		if (e->suivant)
+			nouv->suivant = copie_equation(e->suivant);
+		
+		return nouv;
+	}
 }
 
 
 Terme copie_terme(const Terme t)
 {
-	assert(t != NULL);
-	
-	Terme nouv = creer_terme();
-	nouv->type_terme = t->type_terme;
-	
-	if (nouv->type_terme >= Fonction)
+	if(t == NULL)
 	{
-		if (t->contenu_terme.arguments)
-			nouv->contenu_terme.arguments = copie_argument(t->contenu_terme.arguments);
+		fprintf(stderr,"***Erreur :copie_terme() - Le paramètre 't' ne devrait jamais être nul.\n");
+		return NULL;
 	}
 	else
-	{
-		nouv->contenu_terme.val = t->contenu_terme.val;
+	{	
+		Terme nouv = creer_terme();
+		nouv->type_terme = t->type_terme;
+		
+		if (nouv->type_terme >= Fonction)
+		{
+			if (t->contenu_terme.arguments)
+				nouv->contenu_terme.arguments = copie_argument(t->contenu_terme.arguments);
+		}
+		else
+		{
+			nouv->contenu_terme.val = t->contenu_terme.val;
+		}
+		
+		return nouv;
 	}
-	
-	return nouv;
 }
 
 
 Argument copie_argument(const Argument arg)
 {
-	assert(arg != NULL);
-	
-	Argument nouv = creer_argument();
-	
-	if (arg->terme_argument)
-		nouv->terme_argument = copie_terme(arg->terme_argument);
-	
-	if (arg->suivant)
-		nouv->suivant = copie_argument(arg->suivant);
-	
-	return nouv;
-}
-
-
-void destroy_systeme(Systeme sys)
-{
-	assert(sys != NULL);
-	if (sys->terme_gauche)
-		destroy_terme(sys->terme_gauche);
-	
-	if (sys->terme_droit)
-		destroy_terme(sys->terme_droit);
-	
-	if (sys->suivant)
-		destroy_systeme(sys->suivant);
-	
-	free(sys);
-}
-
-
-void destroy_equation(Equation *e)
-{
-	destroy_systeme(e);
-}
-
-
-void destroy_terme(Terme terme)
-{
-	assert(terme != NULL);
-	
-	if (terme->type_terme >= 30 &&
-		terme->type_terme <= 33 &&
-		terme->contenu_terme.arguments != NULL)
-		destroy_argument(terme->contenu_terme.arguments);
-	
-	free(terme);
-}
-
-
-void destroy_argument(Argument arg)
-{
-	assert(arg != NULL);
-	
-	if (arg->terme_argument)
-		destroy_terme(arg->terme_argument);
-	
-	if (arg->suivant)
-		destroy_argument(arg->suivant);
-	
-	free (arg);
-}
-
-
-void destroy_solutions(Solutions sol)
-{
-	assert(sol != NULL);
-	
-	unsigned size = sol->size;
-	unsigned i;
-	
-	for (i = 0;i < size; i++)
+	if(arg == NULL)
 	{
-		if (sol->array[i])
-			destroy_terme(sol->array[i]);
+		fprintf(stderr,"***Erreur :copie_argument() - Le paramètre 'arg' ne devrait jamais être nul.\n");
+		return NULL;
 	}
-	
-	
-	free(sol);
+	else
+	{	
+		Argument nouv = creer_argument();
+		
+		if (arg->terme_argument)
+			nouv->terme_argument = copie_terme(arg->terme_argument);
+		
+		if (arg->suivant)
+			nouv->suivant = copie_argument(arg->suivant);	
+		return nouv;
+	}
 }
 
+
+int destroy_systeme(Systeme sys)
+{
+	if(sys == NULL)
+	{
+		fprintf(stderr,"***Erreur :destroy_systeme() - Le paramètre 'sys' ne devrait jamais être nul.\n");
+		return -1;
+	}
+	else
+	{
+		if (sys->terme_gauche)
+		{
+			if(destroy_terme(sys->terme_gauche)==-1)
+			{
+				return -1;
+			}
+		}
+		
+		if (sys->terme_droit)
+		{
+			if(destroy_terme(sys->terme_droit)==-1)
+			{
+				return -1;
+			}
+		}
+		if (sys->suivant)
+		{
+			if(destroy_systeme(sys->suivant)==-1)
+			{
+				return -1;
+			}
+		}
+		free(sys);
+		return 1;
+	}
+}
+
+
+int destroy_equation(Equation *e)
+{
+	if(e == NULL)
+	{
+		fprintf(stderr,"***Erreur :destroy_equation() - Le paramètre 'e' ne devrait jamais être nul.\n");
+		return -1;
+	}
+	else
+	{
+		if(destroy_systeme(e)==-1)
+		{
+			return -1;
+		}
+		return 1;
+	}
+}
+
+
+int destroy_terme(Terme terme)
+{
+	if(terme == NULL)
+	{
+		fprintf(stderr,"***Erreur :destroy_terme() - Le paramètre 'terme' ne devrait jamais être nul.\n");
+		return -1;
+	}
+	else
+	{
+		if (terme->type_terme >= 30 &&
+			terme->type_terme <= 33 &&
+			terme->contenu_terme.arguments != NULL)
+			if(destroy_argument(terme->contenu_terme.arguments)==-1)
+			{
+				return -1;
+			} 
+		
+		free(terme);
+		return 1;
+	}
+}
+
+
+int destroy_argument(Argument arg)
+{
+	if(arg == NULL)
+	{
+		fprintf(stderr,"***Erreur :destroy_argument() - Le paramètre 'arg' ne devrait jamais être nul.\n");
+		return -1;
+	}
+	else
+	{
+		
+		if (arg->terme_argument)
+		{
+			if(destroy_terme(arg->terme_argument)==-1)
+			{
+				return -1;
+			}
+		}
+		if (arg->suivant)
+		{
+			if(destroy_argument(arg->suivant)==-1)
+			{
+				return -1;
+			}
+		}
+		free (arg);
+		return 1;
+	}
+}
+
+
+int destroy_solutions(Solutions sol)
+{
+	if(sol == NULL)
+	{
+		fprintf(stderr,"***Erreur :destroy_solutions() - Le paramètre 'sol' ne devrait jamais être nul.\n");
+		return -1;
+	}
+	else
+	{	
+		unsigned size = sol->size;
+		unsigned i;
+		
+		for (i = 0;i < size; i++)
+		{
+			if (sol->array[i])
+			{
+				if(destroy_terme(sol->array[i])==-1)
+				{
+					return -1;
+				}
+			}
+		}	
+		free(sol);
+		return 1;
+	}
+}

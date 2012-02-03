@@ -74,9 +74,10 @@ Solutions creer_solutions(void);
  * @a s doit être un système valide (non nul) sous peine d'arrêt du programme
  *
  * @param s Le système de solutions à initialiser
- * @param n Le nombre de solutions que doit pouvoir contenir @a s
+ * @param n Le nombre de solutions que doit pouvoir contenir @a s ou NULL si s est nul
+ * @return  1 si l'initialisation s'est bien passé ou -1 sinon (si s est nul)
  */
-void initialiser_solutions(Solutions s, unsigned n);
+int initialiser_solutions(Solutions s, unsigned n);
 
 
 /** @brief Créé une copie de l'équation donnée
@@ -84,7 +85,7 @@ void initialiser_solutions(Solutions s, unsigned n);
  * du programme
  *
  * @param e Une équation valide à recopier
- * @return Une copie de l'équation d'origine
+ * @return Une copie de l'équation d'origine ou NULL si e est nul
  */
 Equation *copie_equation(const Equation *e);
 
@@ -94,7 +95,7 @@ Equation *copie_equation(const Equation *e);
  * du programme
  *
  * @param e Un terme valide à recopier
- * @return Une copie du terme d'origine
+ * @return Une copie du terme d'origine ou NULL s t est nul
  */
 Terme copie_terme(const Terme t);
 
@@ -104,7 +105,7 @@ Terme copie_terme(const Terme t);
  * du programme
  *
  * @param e Un argument valide à recopier
- * @return Une copie de l'argument d'origine
+ * @return Une copie de l'argument d'origine ou NULL si arg arg est nul
  */
 Argument copie_argument(const Argument arg);
 
@@ -113,39 +114,44 @@ Argument copie_argument(const Argument arg);
  * @a sys doit être un système valide (non nul)
  *
  * @param sys le système à détruire
+ * @return 1 si la destriction s'est bien passé ou -1 sinon
  */
-void destroy_systeme(Systeme sys);
+int destroy_systeme(Systeme sys);
 
 
 /** @brief Détruit récursivement une équation en libérant la mémoire allourée
  * @a e doit être une équation valide (non nul)
  *
  * @param e l'équation à détruire
+ * @return 1 si la destriction s'est bien passé ou -1 sinon
  */
-void destroy_equation(Equation *e);
+int destroy_equation(Equation *e);
 
 
 /** @brief Détruit récursivement un terme en libérant la mémoire allourée
  * @a terme doit être un terme valide (non nul)
  *
  * @param terme le terme à détruire
+ * @return 1 si la destriction s'est bien passé ou -1 sinon
  */
-void destroy_terme(Terme terme);
+int destroy_terme(Terme terme);
 
 
 /** @brief Détruit récursivement un argument en libérant la mémoire allourée
  * @a arg doit être un argument valide (non nul)
  *
  * @param arg l'argument à détruire
+ * @return 1 si la destriction s'est bien passé ou -1 sinon
  */
-void destroy_argument(Argument arg);
+int destroy_argument(Argument arg);
 
 
 /** @brief Détruit récursivement une solution en libérant la mémoire allourée
  * @a sol doit être une solution valide (non nul)
  *
  * @param sol la solution à détruire
+ * @return 1 si la destriction s'est bien passé ou -1 sinon 
  */
-void destroy_solutions(Solutions sol);
+int destroy_solutions(Solutions sol);
 
 #endif
