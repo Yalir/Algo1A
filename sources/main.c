@@ -13,6 +13,8 @@
 #include "resolution.h"
 #include "donnees.h"
 #include "config.h"
+#include "parser.h"
+#include <string.h>
 
 /** @brief Breve description de la fonction.
  *
@@ -27,6 +29,53 @@ int main (int argc, const char * argv[])
 {
 	Solutions s;
 	Systeme t;
+	
+	char buffer[4096];
+	int run = 1;
+	
+	while (run)
+	{
+		printf("Saisissez un système d'équations à résoudre:\n");
+		
+		if (fgets(buffer, 4096, stdin))
+		{
+			char *pos = strchr(buffer, '\n');
+			
+			if (pos)
+				*pos = '\0';
+			
+			t = creer_systeme_depuis_texte(buffer);
+			
+			if (t)
+			{
+				printf("Système: ");
+				afficher_systeme(t);
+				
+				s = traiter_systeme(t);
+				
+				if (s)
+				{
+					afficher_solutions(s);
+					destroy_solutions(s);
+				}
+				else
+				{
+					puts("Système insoluble ou mal écrit");
+				}
+				
+				destroy_systeme(t);
+			}
+			else
+			{
+				puts("Erreur lors de la création du système");
+			}
+		}
+		else
+		{
+			run = 0;
+		}
+	}
+	
 	
 	t = construire_systeme();
 	afficher_systeme(t);
