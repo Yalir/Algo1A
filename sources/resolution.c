@@ -40,8 +40,8 @@ Solutions traiter_systeme(Systeme sys)
 		
 		insoluble = traiter_equation(s, representee, &dansSys, &dansSolu);
 		
-		printf("insoluble = %d , dansSys = %p , dansSolu = %p\n",
-			   insoluble, dansSys, dansSolu);
+		//printf("insoluble = %d , dansSys = %p , dansSolu = %p\n",
+		//	   insoluble, dansSys, dansSolu);
 		
 		// s'il y a des équations à ajouter au système d'équations
 		if (dansSys)
@@ -309,7 +309,7 @@ void ranger_solutions(Solutions s, const Equation *e)
 				destroy_terme(s->array[i-1]);
 			}
 			
-			printf("storing solution at index %d\n", i-1);
+			//printf("storing solution at index %d\n", i-1);
 			s->array[i-1] = copie_terme(e->terme_droit);
 		}
 		// sinon on ne peut pas enregistrer cette solution
