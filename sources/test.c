@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include "test_text.h"
+#include "test_donnees.h"
 
 int main (int argc, const char * argv[])
 {
@@ -17,6 +18,8 @@ int main (int argc, const char * argv[])
 	//afficher_systeme(s);
 	
 	test_text();
+	test_donnees();
+	
 	// test_types();
 	
 #if WINDOWS
