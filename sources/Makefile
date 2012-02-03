@@ -60,6 +60,9 @@ test.o: test.c
 test_text.o: test_text.c test_text.h
 	$(CC) test_text.c $(CFLAGS)
 
+test_donnees.o: test_donnees.c test_donnees.h
+	$(CC) test_donnees.c $(CFLAGS)
+
 # ============================================================================ #
 # Liaison de l'exécutable algo
 # ============================================================================ #
@@ -69,8 +72,8 @@ $(EXEC): main.o donnees.o affichage.o construction.o resolution.o representant.o
 # ============================================================================ #
 # Liaison de l'exécutable de test
 # ============================================================================ #
-$(TEST_EXEC): test.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o test_text.o
-	$(LD) -o $(TEST_EXEC) test.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o test_text.o $(LDFLAGS)
+$(TEST_EXEC): test.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o test_text.o test_donnees.o
+	$(LD) -o $(TEST_EXEC) test.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o test_text.o test_donnees.o $(LDFLAGS)
 
 # ============================================================================ #
 # Nettoyage
