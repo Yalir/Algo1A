@@ -35,7 +35,7 @@ void test_text(void)
 	assert(text_retirer_espaces(text_creer_depuis_texte("abcdef")) == 1);
 	Text t0 = text_creer_depuis_texte("    er ff d   grg ");
 	text_retirer_espaces(t0);
-	//assert(strcmp(text_obtenir_texte(t0), "erffdgrg") == 0);
+	assert(strcmp(text_obtenir_texte(t0), "erffdgrg") == 0);
 	
 	assert(text_obtenir_texte(NULL) == NULL);
 	assert(text_obtenir_texte(text_creer_depuis_texte("")) != NULL);

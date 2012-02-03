@@ -7,8 +7,8 @@
  * reproduit, utilise ou modifie sans l'avis express de ses auteurs.
  */ 
 
-#ifndef TEST_TEXT_H
-#define TEST_TEXT_H
+#ifndef TEST_DONNEES_H
+#define TEST_DONNEES_H
 
 void test_donnees(void);
 
