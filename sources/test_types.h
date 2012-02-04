@@ -7,10 +7,10 @@
  * reproduit, utilise ou modifie sans l'avis express de ses auteurs.
  */ 
 
-#include "test_types.h"
 
-void test_types(void)
-{
-	
-}
+#ifndef TEST_TYPES_H
+#define TEST_TYPES_H
 
+void test_types(void);
+
+#endif
