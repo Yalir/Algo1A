@@ -44,30 +44,38 @@ int main (int argc, const char * argv[])
 			if (pos)
 				*pos = '\0';
 			
-			t = creer_systeme_depuis_texte(buffer);
-			
-			if (t)
+			if (strlen(buffer) > 0)
 			{
-				printf("Système: ");
-				afficher_systeme(t);
+				t = creer_systeme_depuis_texte(buffer);
 				
-				s = traiter_systeme(t);
-				
-				if (s)
+				if (t)
 				{
-					afficher_solutions(s);
-					destroy_solutions(s);
+					printf("Système: ");
+					afficher_systeme(t);
+					
+					s = traiter_systeme(t);
+					
+					if (s)
+					{
+						afficher_solutions(s);
+						destroy_solutions(s);
+					}
+					else
+					{
+						puts("Système insoluble ou mal écrit");
+					}
+					
+					destroy_systeme(t);
 				}
 				else
 				{
-					puts("Système insoluble ou mal écrit");
+					puts("Erreur à la création du système");
 				}
-				
-				destroy_systeme(t);
 			}
 			else
 			{
-				puts("Erreur lors de la création du système");
+				run = 0;
+				puts("Fin du programme.");
 			}
 		}
 		else
@@ -75,12 +83,6 @@ int main (int argc, const char * argv[])
 			run = 0;
 		}
 	}
-	
-	
-	t = construire_systeme();
-	afficher_systeme(t);
-	s = traiter_systeme(t);
-	afficher_solutions(s);
 	
 #if WINDOWS
 	system("PAUSE");
