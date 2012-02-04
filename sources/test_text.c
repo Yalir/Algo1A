@@ -84,8 +84,8 @@ void test_text(void)
 	Text t2 ; 
 	t2 = text_creer_depuis_texte("        ab, cd , ef");
 	assert(text_retirer_prefix(t2,' ')==1);
-	printf("'%s'\n",text_obtenir_texte(t2));
-//	assert(strcmp(text_obtenir_texte(t2), "ab,cd,ef")== 0);
+	//printf("'%s'\n",text_obtenir_texte(t2));
+	assert(strcmp(text_obtenir_texte(t2), "       ab, cd , ef")== 0);
 	
 	
 }
