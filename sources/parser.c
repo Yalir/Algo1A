@@ -22,6 +22,9 @@ Systeme creer_systeme_depuis_texte(const char *input)
 {
 	assert(input != NULL);
 	
+	if (strlen(input) == 0)
+		return NULL;
+	
 	Systeme sys = NULL;	
 	Equation *e = NULL, *prev = NULL;
 	Text t = text_creer_depuis_texte(input);
