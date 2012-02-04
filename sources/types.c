@@ -11,5 +11,8 @@
 
 int est_fonction(TypeTerme t)
 {
-	return (t >= Fonction && t < Fonction + 5);
+	if (t >= Fonction && t <= Fonction + 3)
+		return 1;
+	else
+		return 0;
 }

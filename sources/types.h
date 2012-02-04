@@ -56,6 +56,13 @@ typedef enum {
 	Fonction = 30
 } TypeTerme;
 
+/** @brief Indique si le type donné est une fonction
+ * Nb: @a t est considéré comme étant une fonction
+ * s'il est dans l'intervalle [Fonction, Fonction+3]
+ *
+ * @param t Le type à tester
+ * @return 1 si @a t est une fonction, 0 sinon
+ */
 int est_fonction(TypeTerme t);
 
 struct terme_s {
