@@ -51,6 +51,9 @@ parser.o : parser.h parser.c text.h donnees.h types.h
 representant.o : representant.h representant.c types.h donnees.h
 	$(CC) representant.c $(CFLAGS)
 
+types.o : types.h types.c
+	$(CC) types.c $(CFLAGS)
+
 # ============================================================================ #
 # Règles par fichier (test)
 # ============================================================================ #
@@ -84,14 +87,16 @@ test_representant.o: test_representant.c test_representant.h representant.h
 # ============================================================================ #
 # Liaison de l'exécutable algo
 # ============================================================================ #
-$(EXEC): main.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o
-	$(LD) -o $(EXEC) main.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o $(LDFLAGS)
+$(EXEC): main.o types.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o
+	$(LD) -o $(EXEC) main.o types.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o $(LDFLAGS)
+	@echo "Built main executable.\n"
 
 # ============================================================================ #
 # Liaison de l'exécutable de test
 # ============================================================================ #
-$(TEST_EXEC): test.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o test_text.o test_donnees.o test_types.o test_construction.o test_parser.o test_affichage.o test_representant.o
-	$(LD) -o $(TEST_EXEC) test.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o test_text.o test_donnees.o test_types.o test_construction.o test_parser.o test_affichage.o test_representant.o $(LDFLAGS)
+$(TEST_EXEC): test.o types.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o test_text.o test_donnees.o test_types.o test_construction.o test_parser.o test_affichage.o test_representant.o
+	$(LD) -o $(TEST_EXEC) test.o types.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o test_text.o test_donnees.o test_types.o test_construction.o test_parser.o test_affichage.o test_representant.o $(LDFLAGS)
+	@echo "Built test executable.\n"
 
 # ============================================================================ #
 # Nettoyage
