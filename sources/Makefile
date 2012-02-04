@@ -54,14 +54,32 @@ representant.o : representant.h representant.c types.h donnees.h
 # ============================================================================ #
 # Règles par fichier (test)
 # ============================================================================ #
-test.o: test.c
+test.o: test.c test_text.h test_donnees.h test_types.h
 	$(CC) test.c $(CFLAGS)
 
-test_text.o: test_text.c test_text.h
+test_text.o: test_text.c test_text.h text.h
 	$(CC) test_text.c $(CFLAGS)
 
-test_donnees.o: test_donnees.c test_donnees.h
+test_donnees.o: test_donnees.c test_donnees.h donnees.h
 	$(CC) test_donnees.c $(CFLAGS)
+
+test_types.o: test_types.c test_types.h types.h
+	$(CC) test_types.c $(CFLAGS)
+
+test_construction.o: test_construction.c test_construction.h construction.h
+	$(CC) test_construction.c $(CFLAGS)
+
+test_parser.o: test_parser.c test_parser.h parser.h
+	$(CC) test_parser.c $(CFLAGS)
+
+test_affichage.o: test_affichage.c test_affichage.h affichage.h
+	$(CC) test_affichage.c $(CFLAGS)
+
+test_representant.o: test_representant.c test_representant.h representant.h
+	$(CC) test_representant.c $(CFLAGS)
+
+# test_.o: test_.c test_.h .h
+#	$(CC) test_.c $(CFLAGS)
 
 # ============================================================================ #
 # Liaison de l'exécutable algo
@@ -72,8 +90,8 @@ $(EXEC): main.o donnees.o affichage.o construction.o resolution.o representant.o
 # ============================================================================ #
 # Liaison de l'exécutable de test
 # ============================================================================ #
-$(TEST_EXEC): test.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o test_text.o test_donnees.o
-	$(LD) -o $(TEST_EXEC) test.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o test_text.o test_donnees.o $(LDFLAGS)
+$(TEST_EXEC): test.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o test_text.o test_donnees.o test_types.o test_construction.o test_parser.o test_affichage.o test_representant.o
+	$(LD) -o $(TEST_EXEC) test.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o test_text.o test_donnees.o test_types.o test_construction.o test_parser.o test_affichage.o test_representant.o $(LDFLAGS)
 
 # ============================================================================ #
 # Nettoyage
