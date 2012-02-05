@@ -8,11 +8,17 @@
  */ 
 
 #include "types.h"
+#include <stdio.h>
 
 int est_fonction(TypeTerme t)
 {
 	if (t >= Fonction && t <= Fonction + 3)
 		return 1;
 	else
+	{
+		if (t > Fonction + 3 && t <= Fonction + 10)
+			fprintf(stderr, "*** avertissement: est_fonction() - fonction d'indice %d invalide.\n", t - Fonction);
+		
 		return 0;
+	}
 }
