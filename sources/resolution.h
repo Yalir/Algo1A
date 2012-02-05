@@ -30,14 +30,21 @@
 
 #include "types.h"
 
+typedef enum {
+	ResolutionErrNone = 0,
+	ResolutionErrImpossible = -1
+} ResolutionErr;
+
 /** @brief Créé un système de solution à partir du système d'équations donné
  * @a sys doit être un système valide (non nul)
  * @a sys peut être étendu au cours du traitement
  *
  * @param sys Le système d'équations à traiter (et étendre si besoin)
+ * @param err Une référence sur un entier contenant le code d'erreur ayant arrêté
+ * le traitement (cf. ResolutionErr)
  * @return Le système de solutions trouvé ou NULL si le @a sys est insoluble
  */
-Solutions traiter_systeme(Systeme sys);
+Solutions traiter_systeme(Systeme sys, ResolutionErr *err);
 
 
 /** @brief Résout une équation et met à jour l'ensemble des solutions

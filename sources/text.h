@@ -107,5 +107,11 @@ int text_trim_char(Text t, char chr);
  */
 int text_retirer_prefix(Text t, char chr);
 
+/** @brief Met tous les caractères du Text @a t en majuscule
+ *
+ * @param t Le Text à mettre en majuscule
+ * @return 1 si le Text a bien été mis en majuscule, -1 sinon (si t est nul)
+ */
+int text_en_maj(Text t);
 
 #endif

@@ -157,7 +157,7 @@ Terme copie_terme(const Terme t)
 		Terme nouv = creer_terme();
 		nouv->type_terme = t->type_terme;
 		
-		if (nouv->type_terme >= Fonction)
+		if (est_fonction(nouv->type_terme))
 		{
 			if (t->contenu_terme.arguments)
 				nouv->contenu_terme.arguments = copie_argument(t->contenu_terme.arguments);

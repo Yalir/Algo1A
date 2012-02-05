@@ -12,6 +12,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 
 struct Text {
@@ -469,3 +470,25 @@ int text_retirer_prefix(Text t, char chr)
 		}
 	}
 }
+
+
+int text_en_maj(Text t)
+{
+	int res = -1;
+	
+	if (t)
+	{
+		size_t taille = text_obtenir_taille(t);
+		if (taille > 0)
+		{
+			size_t i;
+			for (i = 0; i < taille;i++)
+				t->data[i] = toupper(t->data[i]);
+			
+			res = 1;
+		}
+	}
+	
+	return res;
+}
+

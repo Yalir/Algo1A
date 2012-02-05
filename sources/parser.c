@@ -31,6 +31,7 @@ Systeme creer_systeme_depuis_texte(const char *input)
 		Equation *e = NULL, *prev = NULL;
 		Text t = text_creer_depuis_texte(input);
 		text_retirer_espaces(t);
+		text_en_maj(t);
 		
 		Text *items = NULL;
 		unsigned count = 0;
@@ -233,8 +234,8 @@ Terme parse_terme(Text item)
 		else
 		{
 			fprintf(stderr,
-					"*** erreur: parse_terme() - type de terme inconnu rencontré (commence par '%c'=0x%X).\n",
-					cStr[0], cStr[0]);
+					"*** erreur: parse_terme() - type de terme inconnu rencontré (commence par '%c'=0x%X dans \"%s\").\n",
+					cStr[0], cStr[0], cStr);
 		}
 		
 		return t;
