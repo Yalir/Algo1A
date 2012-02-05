@@ -81,6 +81,9 @@ test_affichage.o: test_affichage.c test_affichage.h affichage.h
 test_representant.o: test_representant.c test_representant.h representant.h
 	$(CC) test_representant.c $(CFLAGS)
 
+test_resolution.o: test_resolution.c test_resolution.h resolution.h
+	$(CC) test_resolution.c $(CFLAGS)
+
 # test_.o: test_.c test_.h .h
 #	$(CC) test_.c $(CFLAGS)
 
@@ -94,8 +97,8 @@ $(EXEC): main.o types.o donnees.o affichage.o construction.o resolution.o repres
 # ============================================================================ #
 # Liaison de l'exécutable de test
 # ============================================================================ #
-$(TEST_EXEC): test.o types.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o test_text.o test_donnees.o test_types.o test_construction.o test_parser.o test_affichage.o test_representant.o
-	$(LD) -o $(TEST_EXEC) test.o types.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o test_text.o test_donnees.o test_types.o test_construction.o test_parser.o test_affichage.o test_representant.o $(LDFLAGS)
+$(TEST_EXEC): test.o types.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o test_text.o test_donnees.o test_types.o test_construction.o test_parser.o test_affichage.o test_representant.o test_resolution.o
+	$(LD) -o $(TEST_EXEC) test.o types.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o test_text.o test_donnees.o test_types.o test_construction.o test_parser.o test_affichage.o test_representant.o test_resolution.o $(LDFLAGS)
 	@echo "Built test executable.\n"
 
 # ============================================================================ #
