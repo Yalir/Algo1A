@@ -25,7 +25,7 @@ unsigned text_obtenir_taille(const Text t)
 {
 	if(t == NULL)
 	{
-		fprintf(stderr,"*** erreur :text_obtenir_taille() - Le paramètre 't' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : text_obtenir_taille() - Le paramètre 't' ne devrait jamais être nul.\n");
 		return 0;
 	}
 	else
@@ -39,7 +39,7 @@ Text text_creer_depuis_texte(const char *string)
 {
 	if(string == NULL)
 	{
-		fprintf(stderr,"*** erreur :text_creer_depuis_texte() - Le paramètre 'string' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : text_creer_depuis_texte() - Le paramètre 'string' ne devrait jamais être nul.\n");
 		return NULL;
 	}
 	else
@@ -64,7 +64,7 @@ Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned len
 {
 	if(string == NULL)
 	{
-		fprintf(stderr,"*** erreur :text_creer_depuis_sous_texte() - Le paramètre 'string' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : text_creer_depuis_sous_texte() - Le paramètre 'string' ne devrait jamais être nul.\n");
 		return NULL;
 	}
 	else
@@ -82,7 +82,7 @@ Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned len
 			n = strlen(string);
 			if(pos >n)
 			{
-				fprintf(stderr, "*** erreur: text_creer_depuis_sous_texte() - La position que vous avez choisie est supérieure à la longueure de la chaine (length=%lu, pos=%u).\n",
+				fprintf(stderr, "*** erreur : text_creer_depuis_sous_texte() - La position que vous avez choisie est supérieure à la longueure de la chaine (length=%lu, pos=%u).\n",
 					n, pos);
 				return NULL;
 			}
@@ -90,7 +90,7 @@ Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned len
 			{
 				fprintf(stderr, "lenght= %u , n = %lu)\n",
 					length,n);
-				fprintf(stderr, "*** erreur: text_creer_depuis_sous_texte() - La longueur de la chaine que vous aimeriez avoir depasse la chaine (pos(%u) + lenght(%u) = %u, n = %lu)\n",
+				fprintf(stderr, "*** erreur : text_creer_depuis_sous_texte() - La longueur de la chaine que vous aimeriez avoir depasse la chaine (pos(%u) + lenght(%u) = %u, n = %lu)\n",
 					pos,length, pos+length, n);
 					return NULL;
 			}
@@ -115,7 +115,7 @@ int text_destroy(Text t)
 {
 	if(t == NULL)
 	{
-		fprintf(stderr,"*** erreur :text_destroy() - Le paramètre 't' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : text_destroy() - Le paramètre 't' ne devrait jamais être nul.\n");
 		return -1;
 	}
 	else
@@ -131,14 +131,14 @@ const char *text_obtenir_texte(const Text t)
 {	
 	if(t == NULL)
 	{
-		fprintf(stderr,"*** erreur :text_obtenir_texte() - Le paramètre 't' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : text_obtenir_texte() - Le paramètre 't' ne devrait jamais être nul.\n");
 		return NULL;
 	}
 	else
 	{
 		if(t->data == NULL)
 		{
-			fprintf(stderr,"*** erreur :text_obtenir_texte() - Il n'y a pas des données dans le texte.\n");
+			fprintf(stderr,"*** erreur : text_obtenir_texte() - Il n'y a pas des données dans le texte.\n");
 			return NULL;
 		}
 		else
@@ -153,14 +153,14 @@ int text_retirer_espaces(Text t)
 {	
 	if(t == NULL)
 	{
-		fprintf(stderr,"*** erreur :text_retirer_prefix() - Le paramètre 't' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : text_retirer_prefix() - Le paramètre 't' ne devrait jamais être nul.\n");
 		return -1;
 	}
 	else
 	{
 		if(t->data == NULL)
 		{
-			fprintf(stderr,"*** erreur :text_retirer_prefix() - Il n'y a pas de données dans le texte.\n");
+			fprintf(stderr,"*** erreur : text_retirer_prefix() - Il n'y a pas de données dans le texte.\n");
 			return -1;
 		}
 		else
@@ -197,25 +197,25 @@ int text_decoupe_premier_niveau(const Text t, char separator, Text **output, uns
 {	
 	if(t == NULL)
 	{
-		fprintf(stderr,"*** erreur :text_decoupe_premier_niveau() - Le paramètre 't' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : text_decoupe_premier_niveau() - Le paramètre 't' ne devrait jamais être nul.\n");
 		return -1;
 	}
 	else if(output == NULL)
 	{
-		fprintf(stderr,"*** erreur :text_decoupe_premier_niveau() - Le paramètre 'output' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : text_decoupe_premier_niveau() - Le paramètre 'output' ne devrait jamais être nul.\n");
 		return -1;
 	}
 	
 	
 	else if(count == NULL)
 	{
-		fprintf(stderr,"*** erreur :text_decoupe_premier_niveau() - Le paramètre 'count' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : text_decoupe_premier_niveau() - Le paramètre 'count' ne devrait jamais être nul.\n");
 		return -1;
 	}
 	
 	else if(t->data == NULL)
 	{
-		fprintf(stderr,"*** erreur :text_decoupe_premier_niveau() - Il n'y a pas des données dans le texte.\n");
+		fprintf(stderr,"*** erreur : text_decoupe_premier_niveau() - Il n'y a pas des données dans le texte.\n");
 		return -1;
 	}
 	
@@ -345,14 +345,14 @@ int text_contient_char(const Text t, char chr)
 {
 	if(t == NULL)
 	{
-		fprintf(stderr,"*** erreur :text_retirer_espaces() - Le paramètre 't' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : text_retirer_espaces() - Le paramètre 't' ne devrait jamais être nul.\n");
 		return -1;
 	}
 	else
 	{
 		if(t->data == NULL)
 		{
-			fprintf(stderr,"*** erreur :text_retirer_espaces() - Il n'y a pas de données dans le texte.\n");
+			fprintf(stderr,"*** erreur : text_retirer_espaces() - Il n'y a pas de données dans le texte.\n");
 			return -1;
 		}
 		else
@@ -371,14 +371,14 @@ int text_trim_char(Text t, char chr)
 {
 	if(t == NULL)
 	{
-		fprintf(stderr,"*** erreur :text_retirer_espaces() - Le paramètre 't' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : text_retirer_espaces() - Le paramètre 't' ne devrait jamais être nul.\n");
 		return -1;
 	}
 	else
 	{
 		if(t->data == NULL)
 		{
-			fprintf(stderr,"*** erreur :text_retirer_espaces() - Il n'y a pas de données dans le texte.\n");
+			fprintf(stderr,"*** erreur : text_retirer_espaces() - Il n'y a pas de données dans le texte.\n");
 			return -1;
 		}
 		else
@@ -431,14 +431,14 @@ int text_retirer_prefix(Text t, char chr)
 {
 	if(t == NULL)
 	{
-		fprintf(stderr,"*** erreur :text_retirer_espaces() - Le paramètre 't' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : text_retirer_espaces() - Le paramètre 't' ne devrait jamais être nul.\n");
 		return -1;
 	}
 	else
 	{
 		if(t->data == NULL)
 		{
-			fprintf(stderr,"*** erreur :text_retirer_espaces() - Il n'y a pas de données dans le texte.\n");
+			fprintf(stderr,"*** erreur : text_retirer_espaces() - Il n'y a pas de données dans le texte.\n");
 			return -1;
 		}
 		else
@@ -481,12 +481,12 @@ int text_retirer_suffix(Text t, char chr)
 {
 	if(t == NULL)
 	{
-		fprintf(stderr,"*** erreur :text_retirer_espaces() - Le paramètre 't' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : text_retirer_espaces() - Le paramètre 't' ne devrait jamais être nul.\n");
 		return -1;
 	}
 	else if(t->data == NULL)
 	{
-		fprintf(stderr,"*** erreur :text_retirer_espaces() - Il n'y a pas de données dans le texte.\n");
+		fprintf(stderr,"*** erreur : text_retirer_espaces() - Il n'y a pas de données dans le texte.\n");
 		return -1;
 	}
 	else
