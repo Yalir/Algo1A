@@ -8,8 +8,11 @@
  */ 
 
 #include "test_construction.h"
+#include "construction.h"
+#include <assert.h>
+#include <stdlib.h>
 
 void test_construction(void)
 {
-	
+	assert(construire_systeme() != NULL);
 }
