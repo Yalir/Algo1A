@@ -175,7 +175,7 @@ int traiter_equation(const Solutions s, const Equation *e, Equation **dansSys, E
 			// décapsuler les fonctions et faire les correspondances
 			*dansSys = decapsuler_fonctions(t_gauche, t_droit); 
 			
-			if (*dansSys == NULL) // nombre différent de paramètres
+			if (*dansSys == NULL) // nombre différent de paramètres ou fonctions différentes
 			{
 				flag = -1; // insoluble
 			}
