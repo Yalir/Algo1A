@@ -66,6 +66,11 @@ Systeme creer_systeme_depuis_texte(const char *input)
 				destroy_systeme(sys), sys = NULL;
 		}
 		
+		for (i = 0; i < count;i++)
+			text_destroy(items[i]);
+		free(items);
+		text_destroy(t);
+		
 		return sys;
 	}
 }
@@ -75,12 +80,12 @@ Equation *parse_equation(Text item)
 {
 	if (item == NULL)
 	{
-		fprintf(stderr, "*** erreur: parse_equation() - argument 'item' nul invalide.\n");
+		fprintf(stderr, "*** erreur : parse_equation() - argument 'item' nul invalide.\n");
 		return NULL;
 	}
 	else if (text_contient_char(item, ' '))
 	{
-		fprintf(stderr, "*** erreur: parse_equation() - argument 'item' ne doit pas contenir d'espaces.\n");
+		fprintf(stderr, "*** erreur : parse_equation() - argument 'item' ne doit pas contenir d'espaces.\n");
 		return NULL;
 	}
 	else
@@ -105,12 +110,13 @@ Equation *parse_equation(Text item)
 		else
 		{
 			fprintf(stderr,
-					"*** erreur: parse_equation() - nombre incorrect de parties dans l'équation (%d ≠ 2).\n",
+					"*** erreur : parse_equation() - nombre incorrect de parties dans l'équation (%d ≠ 2).\n",
 					count);
 		}
 		
 		for (i = 0; i < count;i++)
 			text_destroy(items[i]);
+		free(items);
 		
 		return e;
 	}
@@ -121,12 +127,12 @@ Argument parse_arguments(Text item)
 {
 	if (item == NULL)
 	{
-		fprintf(stderr, "*** erreur: parse_arguments() - argument 'item' nul invalide.\n");
+		fprintf(stderr, "*** erreur : parse_arguments() - argument 'item' nul invalide.\n");
 		return NULL;
 	}
 	else if (text_contient_char(item, ' '))
 	{
-		fprintf(stderr, "*** erreur: parse_arguments() - argument 'item' ne doit pas contenir d'espaces.\n");
+		fprintf(stderr, "*** erreur : parse_arguments() - argument 'item' ne doit pas contenir d'espaces.\n");
 		return NULL;
 	}
 	else
@@ -163,6 +169,7 @@ Argument parse_arguments(Text item)
 		
 		for (i = 0; i < count;i++)
 			text_destroy(items[i]);
+		free(items);
 		
 		if (a && should_abort)
 			destroy_argument(a), a = NULL;
@@ -176,12 +183,12 @@ Terme parse_terme(Text item)
 {
 	if (item == NULL)
 	{
-		fprintf(stderr, "*** erreur: parse_terme() - argument 'item' nul invalide.\n");
+		fprintf(stderr, "*** erreur : parse_terme() - argument 'item' nul invalide.\n");
 		return NULL;
 	}
 	else if (text_contient_char(item, ' '))
 	{
-		fprintf(stderr, "*** erreur: parse_terme() - argument 'item' ne doit pas contenir d'espaces.\n");
+		fprintf(stderr, "*** erreur : parse_terme() - argument 'item' ne doit pas contenir d'espaces.\n");
 		return NULL;
 	}
 	else
@@ -195,7 +202,7 @@ Terme parse_terme(Text item)
 		{
 			if (strlen(cStr) > 2)
 			{
-				fprintf(stderr, "*** erreur: parse_terme() - terme de type Variable formé de plus de 2 caractères.\n");
+				fprintf(stderr, "*** erreur : parse_terme() - terme de type Variable formé de plus de 2 caractères.\n");
 			}
 			else
 			{
@@ -220,11 +227,11 @@ Terme parse_terme(Text item)
 		else if (isdigit(cStr[0]))
 		{
 			char *endptr;
-			int val = strtol(cStr, &endptr, 10);
+			int val = (int)strtol(cStr, &endptr, 10);
 			
 			if (endptr && *endptr != '\0')
 			{
-				fprintf(stderr, "*** erreur: parse_terme() - terme de type Constante suivi de caractères inutiles.\n");
+				fprintf(stderr, "*** erreur : parse_terme() - terme de type Constante suivi de caractères inutiles.\n");
 			}
 			else
 			{
@@ -237,7 +244,7 @@ Terme parse_terme(Text item)
 		else
 		{
 			fprintf(stderr,
-					"*** erreur: parse_terme() - type de terme inconnu rencontré (commence par '%c'=0x%X dans \"%s\").\n",
+					"*** erreur : parse_terme() - type de terme inconnu rencontré (commence par '%c'=0x%X dans \"%s\").\n",
 					cStr[0], cStr[0], cStr);
 		}
 		
@@ -250,12 +257,12 @@ Terme parse_fonction(Text item)
 {
 	if (item == NULL)
 	{
-		fprintf(stderr, "*** erreur: parse_fonction() - argument 'item' nul invalide.\n");
+		fprintf(stderr, "*** erreur : parse_fonction() - argument 'item' nul invalide.\n");
 		return NULL;
 	}
 	else if (text_contient_char(item, ' '))
 	{
-		fprintf(stderr, "*** erreur: parse_fonction() - argument 'item' ne doit pas contenir d'espaces.\n");
+		fprintf(stderr, "*** erreur : parse_fonction() - argument 'item' ne doit pas contenir d'espaces.\n");
 		return NULL;
 	}
 	else
