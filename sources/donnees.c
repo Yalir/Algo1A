@@ -102,7 +102,7 @@ int initialiser_solutions(Solutions s, unsigned n)
 {
 	if(s == NULL)
 	{
-		fprintf(stderr,"*** erreur :initialiser_solutions() - Le paramètre 's' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : initialiser_solutions() - Le paramètre 's' ne devrait jamais être nul.\n");
 		return -1;
 	}
 	else
@@ -124,7 +124,7 @@ Equation *copie_equation(const Equation *e)
 {
 	if(e == NULL)
 	{
-		fprintf(stderr,"*** erreur :copie_equation() - Le paramètre 'e' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : copie_equation() - Le paramètre 'e' ne devrait jamais être nul.\n");
 		return NULL;
 	}
 	else
@@ -149,7 +149,7 @@ Terme copie_terme(const Terme t)
 {
 	if(t == NULL)
 	{
-		fprintf(stderr,"*** erreur :copie_terme() - Le paramètre 't' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : copie_terme() - Le paramètre 't' ne devrait jamais être nul.\n");
 		return NULL;
 	}
 	else
@@ -176,7 +176,7 @@ Argument copie_argument(const Argument arg)
 {
 	if(arg == NULL)
 	{
-		fprintf(stderr,"*** erreur :copie_argument() - Le paramètre 'arg' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : copie_argument() - Le paramètre 'arg' ne devrait jamais être nul.\n");
 		return NULL;
 	}
 	else
@@ -197,7 +197,7 @@ int destroy_systeme(Systeme sys)
 {
 	if(sys == NULL)
 	{
-		fprintf(stderr,"*** erreur :destroy_systeme() - Le paramètre 'sys' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : destroy_systeme() - Le paramètre 'sys' ne devrait jamais être nul.\n");
 		return -1;
 	}
 	else
@@ -234,7 +234,7 @@ int destroy_equation(Equation *e)
 {
 	if(e == NULL)
 	{
-		fprintf(stderr,"*** erreur :destroy_equation() - Le paramètre 'e' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : destroy_equation() - Le paramètre 'e' ne devrait jamais être nul.\n");
 		return -1;
 	}
 	else
@@ -252,7 +252,7 @@ int destroy_terme(Terme terme)
 {
 	if(terme == NULL)
 	{
-		fprintf(stderr,"*** erreur :destroy_terme() - Le paramètre 'terme' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : destroy_terme() - Le paramètre 'terme' ne devrait jamais être nul.\n");
 		return -1;
 	}
 	else
@@ -275,7 +275,7 @@ int destroy_argument(Argument arg)
 {
 	if(arg == NULL)
 	{
-		fprintf(stderr,"*** erreur :destroy_argument() - Le paramètre 'arg' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : destroy_argument() - Le paramètre 'arg' ne devrait jamais être nul.\n");
 		return -1;
 	}
 	else
@@ -305,7 +305,7 @@ int destroy_solutions(Solutions sol)
 {
 	if(sol == NULL)
 	{
-		fprintf(stderr,"*** erreur :destroy_solutions() - Le paramètre 'sol' ne devrait jamais être nul.\n");
+		fprintf(stderr,"*** erreur : destroy_solutions() - Le paramètre 'sol' ne devrait jamais être nul.\n");
 		return -1;
 	}
 	else
@@ -322,7 +322,8 @@ int destroy_solutions(Solutions sol)
 					return -1;
 				}
 			}
-		}	
+		}
+		free(sol->array);
 		free(sol);
 		return 1;
 	}
