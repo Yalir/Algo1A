@@ -34,7 +34,7 @@
 /** @brief fonction qui retourne le reprensentant d'un terme
  *
  * @param Un terme valide et le systeme de solution
- * @return Le reprensentant d'un terme
+ * @return Le reprensentant d'un terme s'il n'y a pas eu d'erreurs et NULL sinon (si u ou s sont nul)
  */
 Terme obtenir_representant_terme(const Terme u,const Solutions s);
 
@@ -42,7 +42,7 @@ Terme obtenir_representant_terme(const Terme u,const Solutions s);
 /** @brief fonction qui retourne la nouvelle equation en remplaçant les termes (gauche et droit) par leurs representants
  *
  * @param Une equation et le systeme de solution
- * @return La nouvelle equation d'un terme
+ * @return La nouvelle equation d'un terme s'il n'y a pas eu d'erreurs et NULL sinon (si e ou s sont nul)
  */
  
 Equation* obtenir_representant_equation(const Equation *e,const Solutions s);
