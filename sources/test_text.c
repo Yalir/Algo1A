@@ -68,6 +68,18 @@ void test_text(void)
 	assert(count3 == 1);
 	assert(strcmp(text_obtenir_texte(output3[0]), "f1=f2") == 0);
 	
+	Text *output4;
+	unsigned count4;
+	text_decoupe_premier_niveau(text_creer_depuis_texte("99,11,22"), ',', &output4, &count4);
+	assert(count4 == 3);
+	assert(output4[0] != NULL);
+	assert(output4[1] != NULL);
+	assert(output4[2] != NULL);
+	
+	assert(strcmp(text_obtenir_texte(output4[0]), "99") == 0);
+	assert(strcmp(text_obtenir_texte(output4[1]), "11") == 0);
+	assert(strcmp(text_obtenir_texte(output4[2]), "22") == 0);
+	
 	assert(text_contient_char(NULL,' ')==-1);
 	assert(text_contient_char(text_creer_depuis_texte("ab,cd,ef"),' ')==0);
 	assert(text_contient_char(text_creer_depuis_texte("ab ,cd,ef"),' ')==1);
@@ -87,5 +99,11 @@ void test_text(void)
 	//printf("'%s'\n",text_obtenir_texte(t2));
 	assert(strcmp(text_obtenir_texte(t2), "       ab, cd , ef")== 0);
 	
+	assert(text_retirer_suffix(text_creer_depuis_texte("ab"), 'b') == 1);
+	assert(text_retirer_suffix(text_creer_depuis_texte("ab"), 'a') == -1);
+	
+	Text t3 = text_creer_depuis_texte("abc");
+	text_retirer_suffix(t3, 'c');
+	assert(strcmp("ab", text_obtenir_texte(t3)) == 0);
 	
 }
