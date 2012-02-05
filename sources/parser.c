@@ -110,8 +110,8 @@ Equation *parse_equation(Text item)
 		else
 		{
 			fprintf(stderr,
-					"*** erreur : parse_equation() - nombre incorrect de parties dans l'équation (%d ≠ 2).\n",
-					count);
+					"*** erreur : parse_equation() - nombre incorrect de parties dans l'équation (%d ≠ 2) : \"%s\".\n",
+					count, text_obtenir_texte(item));
 		}
 		
 		for (i = 0; i < count;i++)
