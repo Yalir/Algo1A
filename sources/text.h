@@ -107,6 +107,16 @@ int text_trim_char(Text t, char chr);
  */
 int text_retirer_prefix(Text t, char chr);
 
+
+/** @brief Retire le suffix @a chr du Text @a t
+ *
+ * @param t Le Text dans lequel on veut retirer le suffix
+ * @param chr Le suffix à supprimer
+ * @return 1 si le suffix a bien été retiré, -1 sinon (si t est nul)
+ */
+int text_retirer_suffix(Text t, char chr);
+
+
 /** @brief Met tous les caractères du Text @a t en majuscule
  *
  * @param t Le Text à mettre en majuscule

@@ -471,6 +471,38 @@ int text_retirer_prefix(Text t, char chr)
 	}
 }
 
+/** @brief Retire le suffix @a chr du Text @a t
+ *
+ * @param t Le Text dans lequel on veut retirer le suffix
+ * @param chr Le suffix à supprimer
+ * @return 1 si le suffix a bien été retiré, -1 sinon (si t est nul)
+ */
+int text_retirer_suffix(Text t, char chr)
+{
+	if(t == NULL)
+	{
+		fprintf(stderr,"*** erreur :text_retirer_espaces() - Le paramètre 't' ne devrait jamais être nul.\n");
+		return -1;
+	}
+	else if(t->data == NULL)
+	{
+		fprintf(stderr,"*** erreur :text_retirer_espaces() - Il n'y a pas de données dans le texte.\n");
+		return -1;
+	}
+	else
+	{
+		if (t->data[t->length - 1] == chr)
+		{
+			t->data[t->length - 1] = '\0';
+			return 1;
+		}
+		else
+		{
+			return -1;
+		}
+	}
+}
+
 
 int text_en_maj(Text t)
 {
