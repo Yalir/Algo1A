@@ -31,6 +31,7 @@ Systeme creer_systeme_depuis_texte(const char *input)
 		Equation *e = NULL, *prev = NULL;
 		Text t = text_creer_depuis_texte(input);
 		text_retirer_espaces(t);
+		text_en_maj(t);
 		
 		Text *items = NULL;
 		unsigned count = 0;
