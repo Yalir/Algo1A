@@ -58,7 +58,7 @@ Solutions traiter_systeme(Systeme sys, ResolutionErr *err);
  * @param dansSolu Une référence sur une référence d'équation non allouée
  *
  * @return 0 si l'équation a pu être traitée, -1 si l'équation rend le système
- * insoluble
+ * insoluble, -2 si l'un des arguments est nul
  */
 int traiter_equation(const Solutions s, const Equation *e, Equation **dansSys, Equation **dansSolu);
 
@@ -93,7 +93,8 @@ Equation *decapsuler_fonctions(const Terme fgauche, const Terme fdroit);
  * du programme
  *
  * @param t La fonction dont on veut compter le nombre de paramètres
- * @return Le nombre d'arguments de la fonction @a t
+ * @return Le nombre d'arguments de la fonction @a t, ou -1 si @a t n'est pas
+ * une fonction ou t nul
  */
 int compter_arguments(const Terme t);
 
@@ -103,7 +104,7 @@ int compter_arguments(const Terme t);
  * @param t Le terme représentant une fonction
  * @return -1 si le @a t est nul ou pas une fonction, l'id de la fonction sinon
  */
-int id_fonction(Terme t);
+int id_fonction(const Terme t);
 
 
 /** @brief Insère l'équation e dans le système des solutions @a s

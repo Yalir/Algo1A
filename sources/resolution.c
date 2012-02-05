@@ -66,14 +66,14 @@ Solutions traiter_systeme(Systeme sys, ResolutionErr *err)
 		e = e->suivant;
 	}
 	
-	if (insoluble != 0)
+	if (insoluble == -1)
 	{
 		destroy_solutions(s), s = NULL;
 	}
 	
 	if (err)
 	{
-		if (insoluble != 0)
+		if (insoluble == -1)
 			*err = ResolutionErrImpossible;
 		else
 			*err = ResolutionErrNone;
@@ -89,10 +89,26 @@ Solutions traiter_systeme(Systeme sys, ResolutionErr *err)
 // contiennent ‘rien’, il n’y a pas à les considérer
 int traiter_equation(const Solutions s, const Equation *e, Equation **dansSys, Equation **dansSolu)
 {
-	assert(s != NULL);
-	assert(e != NULL);
-	assert(dansSys != NULL);
-	assert(dansSolu != NULL);
+	if (s == NULL)
+	{
+		fprintf(stderr, "*** erreur : traiter_equation() - le paramètre 's' ne devrait jamais être nul.\n");
+		return -2;
+	}
+	else if (e == NULL)
+	{
+		fprintf(stderr, "*** erreur : traiter_equation() - le paramètre 'e' ne devrait jamais être nul.\n");
+		return -2;
+	}
+	else if (dansSys == NULL)
+	{
+		fprintf(stderr, "*** erreur : traiter_equation() - le paramètre 'dansSys' ne devrait jamais être nul.\n");
+		return -2;
+	}
+	else if (dansSolu == NULL)
+	{
+		fprintf(stderr, "*** erreur : traiter_equation() - le paramètre 'dansSolu' ne devrait jamais être nul.\n");
+		return -2;
+	}
 	
 	*dansSys = NULL;
 	*dansSolu = NULL;
@@ -195,9 +211,21 @@ int traiter_equation(const Solutions s, const Equation *e, Equation **dansSys, E
 
 int contient_terme(Terme conteneur, Terme t)
 {
-	assert(conteneur != NULL);
-	assert(t != NULL);
-	assert(t->type_terme == Variable);
+	if (conteneur == NULL)
+	{
+		fprintf(stderr, "*** erreur : contient_terme() - le paramètre 'conteneur' ne devrait jamais être nul.\n");
+		return 0;
+	}
+	else if (t == NULL)
+	{
+		fprintf(stderr, "*** erreur : contient_terme() - le paramètre 't' ne devrait jamais être nul.\n");
+		return 0;
+	}
+	else if (t->type_terme != Variable)
+	{
+		fprintf(stderr, "*** erreur : contient_terme() - le terme 't' devrait être de type Variable.\n");
+		return 0;
+	}
 	
 	int found = 0;
 	
@@ -232,10 +260,26 @@ int contient_terme(Terme conteneur, Terme t)
 
 Equation *decapsuler_fonctions(Terme fgauche, Terme fdroit)
 {
-	assert(fgauche != NULL);
-	assert(fdroit != NULL);
-	assert(est_fonction(fgauche->type_terme));
-	assert(est_fonction(fdroit->type_terme));
+	if (fgauche == NULL)
+	{
+		fprintf(stderr, "*** erreur : decapsuler_fonctions() - le paramètre 'fgauche' ne devrait jamais être nul.\n");
+		return NULL;
+	}
+	else if (fdroit == NULL)
+	{
+		fprintf(stderr, "*** erreur : decapsuler_fonctions() - le paramètre 'fdroit' ne devrait jamais être nul.\n");
+		return NULL;
+	}
+	else if (!est_fonction(fgauche->type_terme))
+	{
+		fprintf(stderr, "*** erreur : decapsuler_fonctions() - le terme 'fgauche' devrait être de type Fonction.\n");
+		return NULL;
+	}
+	else if (!est_fonction(fdroit->type_terme))
+	{
+		fprintf(stderr, "*** erreur : decapsuler_fonctions() - le terme 'fdroit' devrait être de type Fonction.\n");
+		return NULL;
+	}
 	
 	Equation *chaine_eq = NULL;
 	Equation *prev_eq = NULL;
@@ -286,8 +330,16 @@ Equation *decapsuler_fonctions(Terme fgauche, Terme fdroit)
 
 int compter_arguments(Terme t)
 {
-	assert(t != NULL);
-	assert(est_fonction(t->type_terme));
+	if (t == NULL)
+	{
+		fprintf(stderr, "*** erreur : compter_arguments() - le paramètre 't' ne devrait jamais être nul.\n");
+		return -1;
+	}
+	else if (!est_fonction(t->type_terme))
+	{
+		fprintf(stderr, "*** erreur : compter_arguments() - le terme 't' devrait être de type Fonction.\n");
+		return -1;
+	}
 	
 	int compteur = 0;
 	Argument args = t->contenu_terme.arguments;
@@ -301,7 +353,7 @@ int compter_arguments(Terme t)
 	return compteur;
 }
 
-int id_fonction(Terme t)
+int id_fonction(const Terme t)
 {
 	int id = -1;
 	
@@ -315,8 +367,16 @@ int id_fonction(Terme t)
 
 void ranger_solutions(Solutions s, const Equation *e)
 {
-	assert(s != NULL);
-	assert(e != NULL);
+	if (s == NULL)
+	{
+		fprintf(stderr, "*** erreur : ranger_solutions() - le paramètre 's' ne devrait jamais être nul.\n");
+		return;
+	}
+	else if (e == NULL)
+	{
+		fprintf(stderr, "*** erreur : ranger_solutions() - le paramètre 'e' ne devrait jamais être nul.\n");
+		return;
+	}
 	
 	// parcourir la liste indiquée par e
 	while (e)
@@ -347,8 +407,6 @@ void ranger_solutions(Solutions s, const Equation *e)
 		
 		e = e->suivant;
 	}
-	
-	//afficher_solutions(s);
 }
 
 
