@@ -494,6 +494,7 @@ int text_retirer_suffix(Text t, char chr)
 		if (t->data[t->length - 1] == chr)
 		{
 			t->data[t->length - 1] = '\0';
+			t->length--;
 			return 1;
 		}
 		else
