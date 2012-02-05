@@ -316,7 +316,7 @@ void ranger_solutions(Solutions s, const Equation *e)
 		// sinon on ne peut pas enregistrer cette solution
 		else
 		{
-			fprintf(stderr, "*** error: trying to store equation with non variable type as left component\n");
+			fprintf(stderr, "*** erreur: en train d'essayer de ranger une équation avec un terme gauche de type différent de Variable. Comportement inconsistent. Arrêt.\n");
 			abort();
 		}
 		

@@ -233,7 +233,7 @@ Terme parse_terme(Text item)
 		else
 		{
 			fprintf(stderr,
-					"*** error: parse_terme() - unknown term type found (begins with char '%c'=0x%X).\n",
+					"*** erreur: parse_terme() - type de terme inconnu rencontré (commence par '%c'=0x%X).\n",
 					cStr[0], cStr[0]);
 		}
 		

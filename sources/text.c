@@ -81,7 +81,7 @@ Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned len
 			n = strlen(string);
 			if(pos >n)
 			{
-				fprintf(stderr, "*** error: text_creer_depuis_sous_texte() - La position que vous avez choisie est supérieure à la longueure de la chaine (length=%lu, pos=%u).\n",
+				fprintf(stderr, "*** erreur: text_creer_depuis_sous_texte() - La position que vous avez choisie est supérieure à la longueure de la chaine (length=%lu, pos=%u).\n",
 					n, pos);
 				return NULL;
 			}
@@ -89,7 +89,7 @@ Text text_creer_depuis_sous_texte(const char *string, unsigned pos, unsigned len
 			{
 				fprintf(stderr, "lenght= %u , n = %lu)\n",
 					length,n);
-				fprintf(stderr, "*** error: text_creer_depuis_sous_texte() - La longueur de la chaine que vous aimeriez avoir depasse la chaine (pos(%u) + lenght(%u) = %u, n = %lu)\n",
+				fprintf(stderr, "*** erreur: text_creer_depuis_sous_texte() - La longueur de la chaine que vous aimeriez avoir depasse la chaine (pos(%u) + lenght(%u) = %u, n = %lu)\n",
 					pos,length, pos+length, n);
 					return NULL;
 			}
