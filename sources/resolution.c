@@ -124,8 +124,8 @@ int traiter_equation(const Solutions s, const Equation *e, Equation **dansSys, E
 				// on réinsère l’éq inversée dans le système
 				// intervertir s et t
 				*dansSys = creer_equation();
-				(*dansSys)->terme_gauche = t_droit;
-				(*dansSys)->terme_droit = t_gauche;
+				(*dansSys)->terme_gauche = copie_terme(t_droit);
+				(*dansSys)->terme_droit = copie_terme(t_gauche);
 			}
 		}
 	}
