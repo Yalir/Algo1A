@@ -7,10 +7,19 @@
  * reproduit, utilise ou modifie sans l'avis express de ses auteurs.
  */ 
 
+#include <stdio.h>
+#include <assert.h>
+#include <string.h>
 #include "test_representant.h"
+#include "representant.h"
+#include "donnees.h"
+#include "types.h"
+
 
 void test_representant(void)
 {
-	
+									/*Fonction : obtenir_representant_terme() */
+									/*Fonction :obtenir_representant_equation() */
+
 }
 
