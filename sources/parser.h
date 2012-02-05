@@ -17,7 +17,7 @@
  * 
  * @param input Le texte à évaluer
  * @return Le système généré à partir du texte, ou NULL si une erreur
- * est survenue
+ * est survenue (allocation, input nul ou vide, ou système mal écrit)
  */
 Systeme creer_systeme_depuis_texte(const char *input);
 
@@ -27,7 +27,8 @@ Systeme creer_systeme_depuis_texte(const char *input);
  *
  * @param item Le Text d'où doit être extrait l'équation
  * @return L'équation générée à partir du Text @a item,
- * ou NULL si une erreur est survenue
+ * ou NULL si une erreur est survenue (allocation, item nul ou vide,
+ * ou item contenant des espaces ou item non formé de 2 termes)
  */
 Equation *parse_equation(Text item);
 
@@ -38,7 +39,8 @@ Equation *parse_equation(Text item);
  *
  * @param item Le Text d'où doit être extrait la liste d'arguments
  * @return La liste d'arguments générée à partir du Text @a item,
- * ou NULL si une erreur est survenue
+ * ou NULL si une erreur est survenue (allocation, item nul ou vide,
+ * ou item contenant des espaces ou mal formé)
  */
 Argument parse_arguments(Text item);
 
@@ -48,7 +50,8 @@ Argument parse_arguments(Text item);
  *
  * @param item Le Text d'où doit être extrait le terme
  * @return Le terme généré à partir du Text @a item,
- * ou NULL si une erreur est survenue
+ * ou NULL si une erreur est survenue (allocation, item nul ou vide,
+ * ou item contenant des espaces ou mal formé)
  */
 Terme parse_terme(Text item);
 
@@ -58,7 +61,8 @@ Terme parse_terme(Text item);
  *
  * @param item Le Text d'où doit être extraite la fonction
  * @return La fonction générée à partir du Text @a item,
- * ou NULL si une erreur est survenue
+ * ou NULL si une erreur est survenue (allocation, item nul ou vide,
+ * ou item contenant des espaces ou mal formé)
  */
 Terme parse_fonction(Text item);
 
