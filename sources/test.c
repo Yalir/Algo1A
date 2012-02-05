@@ -9,18 +9,23 @@
  */ 
 
 #include <stdio.h>
+#include "test_types.h"
 #include "test_text.h"
 #include "test_donnees.h"
+#include "test_parser.h"
+#include "test_affichage.h"
+#include "test_construction.h"
+#include "test_representant.h"
 
 int main (int argc, const char * argv[])
 {
-	//Systeme s = creer_systeme_depuis_texte("X2 = 2, F1(X1, X2) = F1(F2(1, X2), X3)");
-	//afficher_systeme(s);
-	
+	test_types();
 	test_text();
 	test_donnees();
-	
-	// test_types();
+	test_parser();
+	test_affichage();
+	test_construction();
+	test_representant();
 	
 #if WINDOWS
 	system("PAUSE");
