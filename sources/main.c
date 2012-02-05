@@ -35,7 +35,7 @@ int main (int argc, const char * argv[])
 	
 	while (run)
 	{
-		printf("Saisissez un système d'équations à résoudre:\n");
+		printf("Saisissez un système d'équations à résoudre (laisser vide pour quitter) :\n");
 		
 		if (fgets(buffer, 4096, stdin))
 		{
