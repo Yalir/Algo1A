@@ -16,6 +16,7 @@
 #include "test_affichage.h"
 #include "test_construction.h"
 #include "test_representant.h"
+#include "test_resolution.h"
 
 int main (int argc, const char * argv[])
 {
@@ -26,6 +27,7 @@ int main (int argc, const char * argv[])
 	test_affichage();
 	test_construction();
 	test_representant();
+	test_resolution();
 	
 #if WINDOWS
 	system("PAUSE");
