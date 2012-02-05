@@ -61,7 +61,8 @@ Systeme creer_systeme_depuis_texte(const char *input)
 		
 		if (should_abort)
 		{
-			destroy_systeme(sys), sys = NULL;
+			if (sys)
+				destroy_systeme(sys), sys = NULL;
 		}
 		
 		return sys;
@@ -103,7 +104,7 @@ Equation *parse_equation(Text item)
 		else
 		{
 			fprintf(stderr,
-					"*** error: parse_equation() - invalid number of sides (%d).\n",
+					"*** erreur: parse_equation() - nombre incorrect de parties dans l'équation (%d ≠ 2).\n",
 					count);
 		}
 		

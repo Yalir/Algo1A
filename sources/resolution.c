@@ -63,7 +63,8 @@ Solutions traiter_systeme(Systeme sys)
 			ranger_solutions(s, dansSolu);
 		}
 		
-		destroy_equation(representee);
+		if (representee)
+			destroy_equation(representee);
 		e = e->suivant;
 	}
 	
