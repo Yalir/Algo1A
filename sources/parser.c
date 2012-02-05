@@ -233,8 +233,8 @@ Terme parse_terme(Text item)
 		else
 		{
 			fprintf(stderr,
-					"*** erreur: parse_terme() - type de terme inconnu rencontré (commence par '%c'=0x%X).\n",
-					cStr[0], cStr[0]);
+					"*** erreur: parse_terme() - type de terme inconnu rencontré (commence par '%c'=0x%X dans \"%s\").\n",
+					cStr[0], cStr[0], cStr);
 		}
 		
 		return t;
