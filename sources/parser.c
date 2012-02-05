@@ -201,10 +201,13 @@ Terme parse_terme(Text item)
 			{
 				int varNum = cStr[1] - '0';
 				
-				// Créer le terme
-				t = creer_terme();
-				t->type_terme = Variable;
-				t->contenu_terme.val = varNum;
+				if (varNum <= 5)
+				{
+					// Créer le terme
+					t = creer_terme();
+					t->type_terme = Variable;
+					t->contenu_terme.val = varNum;
+				}
 			}
 		}
 		// Fonction
@@ -268,8 +271,10 @@ Terme parse_fonction(Text item)
 			// Ne garder que "inner" dans "Fx(inner)"
 			text_retirer_prefix(item, 'F');
 			text_retirer_prefix(item, '0' + fNum);
-			text_trim_char(item, '(');
-			text_trim_char(item, ')');
+			text_retirer_prefix(item, '(');
+			text_retirer_suffix(item, ')');
+			//text_trim_char(item, '(');
+			//text_trim_char(item, ')');
 			
 			if (est_fonction(Fonction+fNum))
 			{
