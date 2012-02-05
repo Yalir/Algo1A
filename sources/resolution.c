@@ -68,6 +68,11 @@ Solutions traiter_systeme(Systeme sys)
 		e = e->suivant;
 	}
 	
+	if (insoluble != 0)
+	{
+		destroy_solutions(s), s = NULL;
+	}
+	
 	return s;
 }
 
