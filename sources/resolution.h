@@ -98,6 +98,14 @@ Equation *decapsuler_fonctions(const Terme fgauche, const Terme fdroit);
 int compter_arguments(const Terme t);
 
 
+/** @brief Donne le numéro de la fonction @a t
+ *
+ * @param t Le terme représentant une fonction
+ * @return -1 si le @a t est nul ou pas une fonction, l'id de la fonction sinon
+ */
+int id_fonction(Terme t);
+
+
 /** @brief Insère l'équation e dans le système des solutions @a s
  * @a s et @a e doivent être des objets valides (non nuls) sous peine
  * d'arrêt du programme

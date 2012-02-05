@@ -244,9 +244,12 @@ Equation *decapsuler_fonctions(Terme fgauche, Terme fdroit)
 	
 	int fgauche_compte = compter_arguments(fgauche);
 	int fdroit_compte = compter_arguments(fdroit);
+	int fgauche_id = id_fonction(fgauche);
+	int fdroit_id = id_fonction(fdroit);
 	
 	// on vérifie que le nombre d'arguments correspond
-	if (fgauche_compte == fdroit_compte && fgauche_compte > 0)
+	if (fgauche_compte == fdroit_compte && fgauche_compte > 0 &&
+		fgauche_id == fdroit_id)
 	{
 		Argument arg_gauche = fgauche->contenu_terme.arguments;
 		Argument arg_droit = fdroit->contenu_terme.arguments;
@@ -300,6 +303,17 @@ int compter_arguments(Terme t)
 	return compteur;
 }
 
+int id_fonction(Terme t)
+{
+	int id = -1;
+	
+	if (t && est_fonction(t->type_terme))
+	{
+		id = t->type_terme - Fonction;
+	}
+	
+	return id;
+}
 
 void ranger_solutions(Solutions s, const Equation *e)
 {
