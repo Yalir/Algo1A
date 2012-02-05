@@ -16,6 +16,7 @@
 
 @synthesize window = _window;
 static NSFileHandle *pipeReadHandle;
+static NSFileHandle *pipeReadHandle2;
 
 - (void)dealloc
 {
@@ -34,6 +35,13 @@ static NSFileHandle *pipeReadHandle;
 	
 	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleStdout:) name: NSFileHandleReadCompletionNotification object: pipeReadHandle] ;
 	[pipeReadHandle readInBackgroundAndNotify] ;
+	
+	NSPipe *pipe2 = [NSPipe pipe] ;
+	pipeReadHandle2 = [pipe2 fileHandleForReading] ;
+	dup2([[pipe2 fileHandleForWriting] fileDescriptor], fileno(stderr)) ;
+	
+	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleStderr:) name: NSFileHandleReadCompletionNotification object: pipeReadHandle2] ;
+	[pipeReadHandle2 readInBackgroundAndNotify] ;
 }
 
 -(BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)app
@@ -86,9 +94,18 @@ static NSFileHandle *pipeReadHandle;
 {
 	[pipeReadHandle readInBackgroundAndNotify] ;
 	NSString *str = [[NSString alloc] initWithData: [[notification userInfo] objectForKey: NSFileHandleNotificationDataItem] encoding: NSUTF8StringEncoding] ;
-	// Do whatever you want with str 
-	//[[resView textStorage] setAttributedString:[[NSAttributedString alloc] initWithString:str]]; 
+	
 	[[[resView textStorage] mutableString] appendString: str];
+	[resView setTextColor:[NSColor blackColor]];
+}
+
+- (void)handleStderr:(NSNotification *)notification
+{
+	[pipeReadHandle2 readInBackgroundAndNotify] ;
+	NSString *str = [[NSString alloc] initWithData: [[notification userInfo] objectForKey: NSFileHandleNotificationDataItem] encoding: NSUTF8StringEncoding] ;
+	
+	[[[resView textStorage] mutableString] appendString: str];
+	[resView setTextColor:[NSColor redColor]];
 }
 
 @end
