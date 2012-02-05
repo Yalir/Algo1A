@@ -29,13 +29,14 @@ int main (int argc, const char * argv[])
 {
 	Solutions s;
 	Systeme t;
+	ResolutionErr err;
 	
 	char buffer[4096];
 	int run = 1;
 	
 	while (run)
 	{
-		printf("Saisissez un système d'équations à résoudre (laisser vide pour quitter) :\n");
+		printf("\nSaisissez un système d'équations à résoudre (laisser vide pour quitter) :\n");
 		
 		if (fgets(buffer, 4096, stdin))
 		{
@@ -53,7 +54,7 @@ int main (int argc, const char * argv[])
 					printf("Système: ");
 					afficher_systeme(t);
 					
-					s = traiter_systeme(t);
+					s = traiter_systeme(t, &err);
 					
 					if (s)
 					{
@@ -62,7 +63,10 @@ int main (int argc, const char * argv[])
 					}
 					else
 					{
-						puts("Système insoluble ou mal écrit");
+						if (err == ResolutionErrImpossible)
+							puts("Système insoluble.");
+						else
+							puts("Système invalide.");
 					}
 					
 					destroy_systeme(t);

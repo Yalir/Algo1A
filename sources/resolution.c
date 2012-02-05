@@ -17,7 +17,7 @@
 #include <stdio.h>
 
 
-Solutions traiter_systeme(Systeme sys)
+Solutions traiter_systeme(Systeme sys, ResolutionErr *err)
 {
 	assert(sys != NULL);
 	
@@ -71,6 +71,14 @@ Solutions traiter_systeme(Systeme sys)
 	if (insoluble != 0)
 	{
 		destroy_solutions(s), s = NULL;
+	}
+	
+	if (err)
+	{
+		if (insoluble != 0)
+			*err = ResolutionErrImpossible;
+		else
+			*err = ResolutionErrNone;
 	}
 	
 	return s;
@@ -128,7 +136,7 @@ int traiter_equation(const Solutions s, const Equation *e, Equation **dansSys, E
 		*dansSolu = copie_equation(e);
 		//**dansSolu = *e;
 	}
-	else if (t_gauche->type_terme == Variable && t_droit->type_terme >= Fonction)
+	else if (t_gauche->type_terme == Variable && est_fonction(t_droit->type_terme))
 	{
 		// si t est une fonction dépendant de s -> insoluble
 		if (contient_terme(t_droit, t_gauche))
@@ -162,7 +170,7 @@ int traiter_equation(const Solutions s, const Equation *e, Equation **dansSys, E
 				flag = -1;
 			}
 		}
-		else if (t_gauche->type_terme >= Fonction && t_droit->type_terme >= Fonction)
+		else if (est_fonction(t_gauche->type_terme) && est_fonction(t_droit->type_terme))
 		{
 			// décapsuler les fonctions et faire les correspondances
 			*dansSys = decapsuler_fonctions(t_gauche, t_droit); 
@@ -209,7 +217,7 @@ int contient_terme(Terme conteneur, Terme t)
 		// rien à faire
 	}
 	// si le terme est une fonction, on doit chercher plus en profondeur
-	else if (conteneur->type_terme >= Fonction)
+	else if (est_fonction(conteneur->type_terme))
 	{
 		Argument args = conteneur->contenu_terme.arguments;
 		
@@ -228,8 +236,8 @@ Equation *decapsuler_fonctions(Terme fgauche, Terme fdroit)
 {
 	assert(fgauche != NULL);
 	assert(fdroit != NULL);
-	assert(fgauche->type_terme >= Fonction);
-	assert(fdroit->type_terme >= Fonction);
+	assert(est_fonction(fgauche->type_terme));
+	assert(est_fonction(fdroit->type_terme));
 	
 	Equation *chaine_eq = NULL;
 	Equation *prev_eq = NULL;
@@ -278,7 +286,7 @@ Equation *decapsuler_fonctions(Terme fgauche, Terme fdroit)
 int compter_arguments(Terme t)
 {
 	assert(t != NULL);
-	assert(t->type_terme >= Fonction);
+	assert(est_fonction(t->type_terme));
 	
 	int compteur = 0;
 	Argument args = t->contenu_terme.arguments;
