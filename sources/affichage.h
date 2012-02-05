@@ -33,7 +33,7 @@
 
 
 /** @brief Affiche l'ensemble du système d'équations
- * Le système donné doit être valide sous peine d'arrêt du programme.
+ * Le système donné doit être valide sous peine d'affichage d'erreur.
  *
  * @param sys le système d'équation à afficher
  */
@@ -41,7 +41,7 @@ void afficher_systeme(const Systeme sys);
 
 
 /** @brief Affiche un terme
- * Le terme donné doit être valide sous peine d'arrêt du programme.
+ * Le terme donné doit être valide sous peine d'affichage d'erreur.
  *
  * @param terme Le terme à afficher
  */
@@ -49,7 +49,7 @@ void afficher_terme(const Terme terme);
 
 
 /** @brief Affiche un argument
- * L'argument donné doit être valide sous peine d'arrêt du programme
+ * L'argument donné doit être valide sous peine d'affichage d'erreur.
  *
  * @param arg L'argument à afficher
  */
