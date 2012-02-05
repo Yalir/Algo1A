@@ -19,7 +19,11 @@
 
 Solutions traiter_systeme(Systeme sys, ResolutionErr *err)
 {
-	assert(sys != NULL);
+	if (sys == NULL)
+	{
+		fprintf(stderr, "*** erreur : traiter_systeme() - le paramètre 'sys' ne devrait jamais être nul.\n");
+		return NULL;
+	}
 	
 	Solutions s = creer_solutions();
 	initialiser_solutions(s, 5);
@@ -29,19 +33,12 @@ Solutions traiter_systeme(Systeme sys, ResolutionErr *err)
 	
 	while (s != NULL && insoluble == 0 && e)
 	{
-		//puts("check point 1");
-		//afficher_systeme((const Systeme)e);
-		Equation *representee = obtenir_representant_equation(e, s);
-		//afficher_systeme((const Systeme)representee);
-		//puts("check point 2");
-		
 		Equation *dansSys = NULL;
 		Equation *dansSolu = NULL;
+		Equation *representee = NULL;
 		
+		representee = obtenir_representant_equation(e, s);
 		insoluble = traiter_equation(s, representee, &dansSys, &dansSolu);
-		
-		//printf("insoluble = %d , dansSys = %p , dansSolu = %p\n",
-		//	   insoluble, dansSys, dansSolu);
 		
 		// s'il y a des équations à ajouter au système d'équations
 		if (dansSys)
@@ -61,6 +58,7 @@ Solutions traiter_systeme(Systeme sys, ResolutionErr *err)
 		{
 			// rajouter la liste des termes droit au système
 			ranger_solutions(s, dansSolu);
+			destroy_equation(dansSolu);
 		}
 		
 		if (representee)
@@ -343,7 +341,7 @@ void ranger_solutions(Solutions s, const Equation *e)
 		// sinon on ne peut pas enregistrer cette solution
 		else
 		{
-			fprintf(stderr, "*** erreur: en train d'essayer de ranger une équation avec un terme gauche de type différent de Variable. Comportement inconsistent. Arrêt.\n");
+			fprintf(stderr, "*** erreur : en train d'essayer de ranger une équation avec un terme gauche de type différent de Variable. Comportement inconsistent. Arrêt.\n");
 			abort();
 		}
 		

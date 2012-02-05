@@ -24,11 +24,11 @@ Terme obtenir_representant_terme(const Terme u, const Solutions s)
 	{
 		if(u == NULL )
 		{
-			fprintf(stderr,"*** erreur :obtenir_representant_terme() - Le paramètre 'u' ne devrait jamais être nul.\n");
+			fprintf(stderr,"*** erreur : obtenir_representant_terme() - Le paramètre 'u' ne devrait jamais être nul.\n");
 		}	
 		if(s == NULL )
 		{
-			fprintf(stderr,"*** erreur :obtenir_representant_terme() - Le paramètre 's' ne devrait jamais être nul.\n");
+			fprintf(stderr,"*** erreur : obtenir_representant_terme() - Le paramètre 's' ne devrait jamais être nul.\n");
 		}
 		return NULL;
 	}
@@ -40,10 +40,10 @@ Terme obtenir_representant_terme(const Terme u, const Solutions s)
 			if(s->array[u->contenu_terme.val-1] != NULL)
 			{
 			// on affecte v à u
-			nouveau_terme = copie_terme(s->array[u->contenu_terme.val-1]);
+			//nouveau_terme = copie_terme(s->array[u->contenu_terme.val-1]);
 
 			// on affecte le representant de v au nouveau_terme
-			nouveau_terme = obtenir_representant_terme(nouveau_terme,s);
+			nouveau_terme = obtenir_representant_terme(s->array[u->contenu_terme.val-1],s);
 			}
 			else
 			{
@@ -83,21 +83,17 @@ Equation* obtenir_representant_equation(const Equation *e, const Solutions s)
 	{	
 		if(e == NULL )
 		{
-			fprintf(stderr,"*** erreur :obtenir_representant_equation() - Le paramètre 'e' ne devrait jamais être nul.\n");
+			fprintf(stderr,"*** erreur : obtenir_representant_equation() - Le paramètre 'e' ne devrait jamais être nul.\n");
 		}
 		if(s == NULL )
 		{
-			fprintf(stderr,"*** erreur :obtenir_representant_equation() - Le paramètre 's' ne devrait jamais être nul.\n");
+			fprintf(stderr,"*** erreur : obtenir_representant_equation() - Le paramètre 's' ne devrait jamais être nul.\n");
 		}
 		return NULL;
 	}
 	else
 	{
 		Equation *sys = creer_systeme();
-
-		sys->terme_gauche = creer_terme();
-		sys->terme_droit = creer_terme();
-
 		
 		sys->terme_gauche = obtenir_representant_terme(e->terme_gauche, s);
 		
