@@ -18,8 +18,13 @@
 
 void test_representant(void)
 {
-									/*Fonction : obtenir_representant_terme() */
-									/*Fonction :obtenir_representant_equation() */
+									/*Fonction : obtenir_representant_terme(const Terme u,const Solutions s) */
+									
+assert(obtenir_representant_terme(NULL,NULL)==NULL);
+									/*Fonction :obtenir_representant_equation(const Equation *e,const Solutions s */
+assert(obtenir_representant_equation(NULL,NULL)==NULL);
 
+
+	
 }
 
