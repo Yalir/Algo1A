@@ -7,6 +7,18 @@
  * reproduit, utilise ou modifie sans l'avis express de ses auteurs.
  */ 
 
+
+/**
+ * @author NAJEM Ali <ali.najem@etumel.esil.univmed.fr>
+ * @author SOLTIC Lucas <lucas.soltic@etumel.esil.univmed.fr>
+ */
+
+
+/**
+ * @file text.h
+ * @brief Contient les fonctions permettant de manipuler des chaînes de caractères
+ */
+
 #ifndef TEXT_H
 #define TEXT_H
 

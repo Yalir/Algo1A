@@ -10,19 +10,13 @@
 /**
  * @author NAJEM Ali <ali.najem@etumel.esil.univmed.fr>
  * @author SOLTIC Lucas <lucas.soltic@etumel.esil.univmed.fr>
- *
- * @version 0.0.1 / 13-12-2011
- * @todo
- * @bug
  */
 
 
 /**
- * @file reprensentant.h
+ * @file representant.h
  * @brief Contient les fonctions permettant d'obtenir les representants d'une equation
  *
- * Description des objectifs du programme, le sujet a traiter.
- * Une trace d'execution.
  */
 
 #ifndef REPRESENTANT_H

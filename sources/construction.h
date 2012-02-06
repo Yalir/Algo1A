@@ -10,10 +10,6 @@
 /**
  * @author NAJEM Ali <ali.najem@etumel.esil.univmed.fr>
  * @author SOLTIC Lucas <lucas.soltic@etumel.esil.univmed.fr>
- *
- * @version 0.0.1 / 13-12-2011
- * @todo
- * @bug
  */
 
 
@@ -21,9 +17,6 @@
  * @file construction.h
  * @brief Contient les fonctions permettant de construire la structure du
  * système à résoudre
- *
- * Description des objectifs du programme, le sujet a traiter.
- * Une trace d'execution.
  */
 
 #ifndef CONSTRUCTION_H

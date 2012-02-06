@@ -10,10 +10,13 @@
 /**
  * @author NAJEM Ali <ali.najem@etumel.esil.univmed.fr>
  * @author SOLTIC Lucas <lucas.soltic@etumel.esil.univmed.fr>
- *
- * @version 0.0.1 / 10-12-2011
- * @todo
- * @bug
+ */
+
+
+/**
+ * @file config.h
+ * @brief Contient les macros permettant d'exécuter des instructions
+ * uniquement sur Windows
  */
  
  #ifndef CONFIG_H

@@ -10,10 +10,6 @@
 /**
  * @author NAJEM Ali <ali.najem@etumel.esil.univmed.fr>
  * @author SOLTIC Lucas <lucas.soltic@etumel.esil.univmed.fr>
- *
- * @version 0.0.1 / 10-12-2011
- * @todo
- * @bug
  */
 
 
@@ -21,9 +17,6 @@
  * @file affichage.h
  * @brief Contient les fonctions permettant l'affichage du systeme et des
  * solutions
- *
- * Description des objectifs du programme, le sujet a traiter.
- * Une trace d'execution.
  */
 
 #ifndef AFFICHAGE_H

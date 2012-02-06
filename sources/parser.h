@@ -7,6 +7,18 @@
  * reproduit, utilise ou modifie sans l'avis express de ses auteurs.
  */ 
 
+/**
+ * @author NAJEM Ali <ali.najem@etumel.esil.univmed.fr>
+ * @author SOLTIC Lucas <lucas.soltic@etumel.esil.univmed.fr>
+ */
+
+
+/**
+ * @file parser.h
+ * @brief Contient les fonctions permettant de traduire du texte en structure
+ * de données interprétable par les algorithmes de résolution
+ */
+
 #ifndef PARSER_H
 #define PARSER_H
 
