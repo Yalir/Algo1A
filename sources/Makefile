@@ -18,11 +18,19 @@ COMPILER_OPTIONS = -g -Wall
 LINKER_OPTIONS =
 EXEC=algo
 TEST_EXEC=test_algo
+GUI_APP=AlgoUI
 
 CFLAGS =$(INCLUDES) $(COMPILER_OPTIONS)
 LDFLAGS =$(LIBRARIES_DIR) $(LIBRARIES) $(LINKER_OPTIONS)
 
+UNAME := $(shell uname)
+
+ifeq ($(UNAME), Darwin)
+all: $(EXEC) $(TEST_EXEC) $(GUI_APP)
+else
 all: $(EXEC) $(TEST_EXEC)
+endif
+
 
 # ============================================================================ #
 # Règles par fichier (algo)
@@ -101,11 +109,22 @@ $(TEST_EXEC): test.o types.o donnees.o affichage.o construction.o resolution.o r
 	$(LD) -o $(TEST_EXEC) test.o types.o donnees.o affichage.o construction.o resolution.o representant.o text.o parser.o test_text.o test_donnees.o test_types.o test_construction.o test_parser.o test_affichage.o test_representant.o test_resolution.o $(LDFLAGS)
 	@echo "Built test executable.\n"
 
+$(GUI_APP):
+	cd .. && xcodebuild -project Algo1A.xcodeproj -target AlgoUI
+
 # ============================================================================ #
 # Nettoyage
 # ============================================================================ #
+
+ifeq ($(UNAME), Darwin)
 clean:
 	rm -fv *.o
+	cd .. && xcodebuild -project Algo1A.xcodeproj -target AlgoUI clean
+else
+clean:
+	rm -fv *.o
+endif
+
 
 # ============================================================================ #
 # Exécution
